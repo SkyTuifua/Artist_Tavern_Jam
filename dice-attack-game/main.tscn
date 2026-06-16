@@ -1,0 +1,104 @@
+[gd_scene format=3 uid="uid://bopq1ot88w08c"]
+
+[ext_resource type="PackedScene" uid="uid://b420blbgvd808" path="res://Dice Scenes/dice.tscn" id="1_ig7tw"]
+[ext_resource type="Script" uid="uid://dwh07yfpekvse" path="res://turn_manager.gd" id="2_0xm2m"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_7dm0k"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_ig7tw"]
+
+[node name="Main" type="Node3D" unique_id=758350102]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="." unique_id=103566737]
+transform = Transform3D(9.992861, 0, 0, 0, 0.38862318, 0, 0, 0, 10.147858, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" unique_id=962270577]
+shape = SubResource("BoxShape3D_7dm0k")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D" unique_id=1174746302]
+mesh = SubResource("BoxMesh_ig7tw")
+
+[node name="StaticBody3D7" type="StaticBody3D" parent="." unique_id=104180218]
+transform = Transform3D(9.992861, 0, 0, 0, 0.38862318, 0, 0, 0, 10.147858, 0, 5.3256855, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D7" unique_id=893927756]
+shape = SubResource("BoxShape3D_7dm0k")
+
+[node name="StaticBody3D2" type="StaticBody3D" parent="." unique_id=206781897]
+transform = Transform3D(-4.3680183e-07, 0.38862318, 0, -9.99286, -1.6987258e-08, 0, 0, 0, 10.147858, -4.92479, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D2" unique_id=1986751666]
+shape = SubResource("BoxShape3D_7dm0k")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D2" unique_id=1021736621]
+mesh = SubResource("BoxMesh_ig7tw")
+
+[node name="StaticBody3D3" type="StaticBody3D" parent="." unique_id=1082630347]
+transform = Transform3D(-4.3680183e-07, 0.38862318, 0, -9.99286, -1.6987258e-08, 0, 0, 0, 10.147858, 4.899657, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D3" unique_id=2014356680]
+shape = SubResource("BoxShape3D_7dm0k")
+
+[node name="StaticBody3D4" type="StaticBody3D" parent="." unique_id=496318438]
+transform = Transform3D(-4.3680183e-07, 0.38862318, 0, -9.99286, -1.6987258e-08, 0, 0, 0, 10.147858, 4.899657, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D4" unique_id=1204609552]
+shape = SubResource("BoxShape3D_7dm0k")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D4" unique_id=78142033]
+mesh = SubResource("BoxMesh_ig7tw")
+
+[node name="StaticBody3D5" type="StaticBody3D" parent="." unique_id=774684239]
+transform = Transform3D(5.4594987e-14, -1.698726e-08, -10.147859, -9.99286, -1.6987258e-08, 0, -4.3680188e-07, 0.38862324, -4.43577e-07, -0.11252928, 0, -5.2014937)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D5" unique_id=115909559]
+shape = SubResource("BoxShape3D_7dm0k")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D5" unique_id=1840658154]
+mesh = SubResource("BoxMesh_ig7tw")
+
+[node name="StaticBody3D6" type="StaticBody3D" parent="." unique_id=349093844]
+transform = Transform3D(5.4594987e-14, -1.698726e-08, -10.147859, -9.99286, -1.6987258e-08, 0, -4.3680188e-07, 0.38862324, -4.43577e-07, -0.08998966, 0, 5.232292)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D6" unique_id=22387838]
+shape = SubResource("BoxShape3D_7dm0k")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D6" unique_id=1908967398]
+mesh = SubResource("BoxMesh_ig7tw")
+
+[node name="Dice" parent="." unique_id=384043266 instance=ExtResource("1_ig7tw")]
+transform = Transform3D(-0.99401283, -0.105050296, 0.030048797, -0.10718778, 0.9908794, -0.08166525, -0.021195618, -0.08439701, -0.99620706, -0.8349266, 2.4850783, -0.7536304)
+
+[node name="Dice2" parent="." unique_id=2061659784 instance=ExtResource("1_ig7tw")]
+transform = Transform3D(-0.99401283, -0.105050296, 0.030048797, -0.10718778, 0.9908794, -0.08166525, -0.021195618, -0.08439701, -0.99620706, 0.85901153, 2.4850783, -0.7536304)
+
+[node name="Dice3" parent="." unique_id=958780658 instance=ExtResource("1_ig7tw")]
+transform = Transform3D(-0.99401283, -0.105050296, 0.030048797, -0.10718778, 0.9908794, -0.08166525, -0.021195618, -0.08439701, -0.99620706, 2.529601, 2.4850783, -0.7536304)
+
+[node name="Dice4" parent="." unique_id=1658247874 instance=ExtResource("1_ig7tw")]
+transform = Transform3D(-0.99401283, -0.105050296, 0.030048797, -0.10718778, 0.9908794, -0.08166525, -0.021195618, -0.08439701, -0.99620706, 2.529601, 2.4850783, 0.8103063)
+
+[node name="Dice5" parent="." unique_id=403577703 instance=ExtResource("1_ig7tw")]
+transform = Transform3D(-0.99401283, -0.105050296, 0.030048797, -0.10718778, 0.9908794, -0.08166525, -0.021195618, -0.08439701, -0.99620706, 0.7631352, 2.4850783, 0.8103063)
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=840999897]
+transform = Transform3D(1, 0, 0, 0, 0.38061854, 0.92473215, 0, -0.92473215, 0.38061854, 0, 6.7872515, 4.520104)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=606966081]
+transform = Transform3D(0.6475615, 0.6786203, -0.34661022, 0, 0.45486116, 0.89056236, 0.7620132, -0.5766939, 0.29455057, -4.3456926, 6.0710034, 1.9551625)
+
+[node name="Button" type="Button" parent="." unique_id=1195503770]
+offset_right = 183.0
+offset_bottom = 56.0
+
+[node name="TextEdit" type="Label" parent="Button" unique_id=889558423]
+layout_mode = 0
+offset_right = 127.0
+offset_bottom = 36.0
+text = "ROLL"
+
+[node name="Turn_Manager" type="Node" parent="." unique_id=1198981518 node_paths=PackedStringArray("dice_array")]
+script = ExtResource("2_0xm2m")
+dice_array = [NodePath("../Dice"), NodePath("../Dice2"), NodePath("../Dice3"), NodePath("../Dice4"), NodePath("../Dice5")]
+
+[connection signal="pressed" from="Button" to="Turn_Manager" method="roll_dice"]

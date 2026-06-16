@@ -1,0 +1,52 @@
+[gd_scene format=3 uid="uid://b420blbgvd808"]
+
+[ext_resource type="Texture2D" uid="uid://f5d0ojti3tej" path="res://Dice Scenes/Dice_Symbols/Blue.tres" id="1_6x8wd"]
+[ext_resource type="Script" uid="uid://be2x18h6uyrut" path="res://Dice Scenes/dice.gd" id="1_ee15q"]
+[ext_resource type="Texture2D" uid="uid://c2eod2bf18ltb" path="res://Dice Scenes/Dice_Symbols/Green.tres" id="2_7n0s1"]
+[ext_resource type="Texture2D" uid="uid://b8sj284u3fu5r" path="res://Dice Scenes/Dice_Symbols/Red.tres" id="2_31vcw"]
+[ext_resource type="Script" uid="uid://cr5dvokmcjew7" path="res://Dice Scenes/side.gd" id="3_x4vdn"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ifeiu"]
+
+[node name="Dice" type="RigidBody3D" unique_id=384043266 node_paths=PackedStringArray("sides")]
+mass = 0.2
+script = ExtResource("1_ee15q")
+sides = [NodePath("Side_1"), NodePath("Side_2"), NodePath("Side_3"), NodePath("Side_4"), NodePath("Side_5"), NodePath("Side_6")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=767436783]
+shape = SubResource("BoxShape3D_ifeiu")
+
+[node name="Side_1" type="Sprite3D" parent="." unique_id=1056264900]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.5)
+texture = ExtResource("1_6x8wd")
+script = ExtResource("3_x4vdn")
+
+[node name="Side_2" type="Sprite3D" parent="." unique_id=1754336700]
+transform = Transform3D(1, 0, 0, 0, -4.371138e-08, -0.9999998, 0, 0.9999998, -4.371138e-08, 0, -0.5, 0)
+texture = ExtResource("1_6x8wd")
+script = ExtResource("3_x4vdn")
+
+[node name="Side_3" type="Sprite3D" parent="." unique_id=1516150228]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0.5, 0, 0)
+texture = ExtResource("1_6x8wd")
+script = ExtResource("3_x4vdn")
+
+[node name="Side_4" type="Sprite3D" parent="." unique_id=1236432666]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -0.5, 0, 0)
+texture = ExtResource("2_7n0s1")
+script = ExtResource("3_x4vdn")
+color = 1
+
+[node name="Side_5" type="Sprite3D" parent="." unique_id=1120155099]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0.5, 0)
+texture = ExtResource("2_7n0s1")
+script = ExtResource("3_x4vdn")
+color = 1
+
+[node name="Side_6" type="Sprite3D" parent="." unique_id=172631489]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, -0.5)
+texture = ExtResource("2_31vcw")
+script = ExtResource("3_x4vdn")
+color = 2
+
+[connection signal="sleeping_state_changed" from="." to="." method="_on_sleeping_state_changed"]
