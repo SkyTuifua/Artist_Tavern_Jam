@@ -67,22 +67,24 @@ shape = SubResource("BoxShape3D_7dm0k")
 mesh = SubResource("BoxMesh_ig7tw")
 
 [node name="Dice" parent="." unique_id=384043266 instance=ExtResource("1_ig7tw")]
+transform = Transform3D(-0.99401283, -0.105050296, 0.030048797, -0.10718778, 0.9908794, -0.08166525, -0.021195618, -0.08439701, -0.99620706, -0.8349266, 2.4850783, 1.2234824)
+
+[node name="Dice2" parent="." unique_id=1794140019 instance=ExtResource("1_ig7tw")]
+transform = Transform3D(-0.99401283, -0.105050296, 0.030048797, -0.10718778, 0.9908794, -0.08166525, -0.021195618, -0.08439701, -0.99620706, -0.8349266, 2.4850783, -2.6137342)
+
+[node name="Dice3" parent="." unique_id=783705218 instance=ExtResource("1_ig7tw")]
+transform = Transform3D(-0.99401283, -0.105050296, 0.030048797, -0.10718778, 0.9908794, -0.08166525, -0.021195618, -0.08439701, -0.99620706, 0.5797763, 2.4850783, -0.7536304)
+
+[node name="Dice4" parent="." unique_id=189956864 instance=ExtResource("1_ig7tw")]
+transform = Transform3D(-0.99401283, -0.105050296, 0.030048793, -0.107187785, 0.9908794, -0.08166524, -0.021195617, -0.084397, -0.99620706, -2.3044746, 2.4850783, -0.7536304)
+
+[node name="Dice5" parent="." unique_id=258340121 instance=ExtResource("1_ig7tw")]
 transform = Transform3D(-0.99401283, -0.105050296, 0.030048797, -0.10718778, 0.9908794, -0.08166525, -0.021195618, -0.08439701, -0.99620706, -0.8349266, 2.4850783, -0.7536304)
 
-[node name="Dice2" parent="." unique_id=2061659784 instance=ExtResource("1_ig7tw")]
-transform = Transform3D(-0.99401283, -0.105050296, 0.030048797, -0.10718778, 0.9908794, -0.08166525, -0.021195618, -0.08439701, -0.99620706, 0.85901153, 2.4850783, -0.7536304)
-
-[node name="Dice3" parent="." unique_id=958780658 instance=ExtResource("1_ig7tw")]
-transform = Transform3D(-0.99401283, -0.105050296, 0.030048797, -0.10718778, 0.9908794, -0.08166525, -0.021195618, -0.08439701, -0.99620706, 2.529601, 2.4850783, -0.7536304)
-
-[node name="Dice4" parent="." unique_id=1658247874 instance=ExtResource("1_ig7tw")]
-transform = Transform3D(-0.99401283, -0.105050296, 0.030048797, -0.10718778, 0.9908794, -0.08166525, -0.021195618, -0.08439701, -0.99620706, 2.529601, 2.4850783, 0.8103063)
-
-[node name="Dice5" parent="." unique_id=403577703 instance=ExtResource("1_ig7tw")]
-transform = Transform3D(-0.99401283, -0.105050296, 0.030048797, -0.10718778, 0.9908794, -0.08166525, -0.021195618, -0.08439701, -0.99620706, 0.7631352, 2.4850783, 0.8103063)
-
 [node name="Camera3D" type="Camera3D" parent="." unique_id=840999897]
-transform = Transform3D(1, 0, 0, 0, 0.38061854, 0.92473215, 0, -0.92473215, 0.38061854, 0, 6.7872515, 4.520104)
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 9.40819, 0.12898612)
+fov = 91.01124
+size = 10.512434
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=606966081]
 transform = Transform3D(0.6475615, 0.6786203, -0.34661022, 0, 0.45486116, 0.89056236, 0.7620132, -0.5766939, 0.29455057, -4.3456926, 6.0710034, 1.9551625)
