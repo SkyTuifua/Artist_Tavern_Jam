@@ -16,9 +16,10 @@ var can_check_if_roll_is_done : bool = true
 var reroll_selection_mode: bool = false
 var selected_die_idx: int = -1
 var game_started: bool = false
+
 func _ready() -> void:
 	reroll_button.visible = false
-
+	$"../CanvasLayer/DiceUI/ChooseDiceText".visible = false
 	for i in dice_array:
 		if !i.ready:
 			await i.ready
@@ -80,6 +81,7 @@ func on_roll_finished():
 	calculate_roll()
 	reroll_button.visible = true
 	$"../CanvasLayer/DiceUI".visible = true
+
 	slots.visible = true
 
 	var count = min(dice_array.size(), slots.get_child_count())
@@ -116,7 +118,7 @@ func move_dice_into_position()->void:
 func enable_slot_highlight(enable: bool):
 	for slot in slots.get_children():
 		if enable:
-			slot.modulate = Color(1, 1, 0.5)
+			slot.modulate = Color(1, 1, 1)
 		else:
 			slot.modulate = Color(1, 1, 1)	
 
@@ -151,12 +153,6 @@ func finish_reroll_selection():
 func _on_reroll_button_pressed():
 	reroll_selection_mode = true
 	selected_die_idx = -1
+	$"../CanvasLayer/DiceUI/ChooseDiceText".visible = true
+
 	enable_slot_highlight(true)
-	
-func _on_panel_mouse_entered(panel: Panel) -> void:
-	print("TESTTTT")
-	panel.scale = Vector2(1.15, 1.15)
-
-
-func _on_panel_mouse_exited(panel: Panel) -> void:
-	panel.scale = Vector2.ONE

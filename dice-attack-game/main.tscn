@@ -183,5 +183,21 @@ layout_mode = 2
 mouse_filter = 0
 stretch_mode = 5
 
+[node name="ChooseDiceText" type="RichTextLabel" parent="CanvasLayer/DiceUI" unique_id=1532251658]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -156.5
+offset_top = -140.0
+offset_right = 156.5
+offset_bottom = -100.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "choose a dice to roll again"
+horizontal_alignment = 1
+
 [connection signal="pressed" from="Button" to="Turn_Manager" method="roll_dice"]
 [connection signal="pressed" from="RerollButton" to="Turn_Manager" method="_on_reroll_button_pressed"]
