@@ -122,6 +122,9 @@ text = "N of N left"
 [node name="Turn_Manager" type="Node" parent="." unique_id=1198981518 node_paths=PackedStringArray("dice_array")]
 script = ExtResource("2_0xm2m")
 dice_array = [NodePath("../Dice"), NodePath("../Dice2"), NodePath("../Dice3"), NodePath("../Dice4"), NodePath("../Dice5")]
+dice_height = null
+random_impulse_strength_min = null
+random_impulse_strength_max = null
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1113976861]
 

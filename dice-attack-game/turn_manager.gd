@@ -16,6 +16,13 @@ var can_check_if_roll_is_done : bool = true
 var reroll_selection_mode: bool = false
 var selected_die_idx: int = -1
 var game_started: bool = false
+enum RollResult {
+	NONE,
+	DAMAGE_25,
+	DAMAGE_50,
+	HEAL_25,
+	VAMPIRE_BITE
+}
 
 func _ready() -> void:
 	reroll_button.visible = false
@@ -112,8 +119,26 @@ func sort_dice(a:Dice, b:Dice)->bool:
 func move_dice_into_position()->void:
 	print("-------NEW TABLE------------")
 	dice_array.sort_custom(sort_dice)	
-	for i in dice_array:
-		print(i.name , " ", i.current_side.color)
+	var damage_count := 0
+	var health_count := 0
+	var damage_plus_count := 0
+
+	for dice in dice_array:
+		match dice.current_side.value:
+			1:
+				damage_count += 1
+			2:
+				health_count += 1
+			3:
+				damage_plus_count += 1
+				
+	var result = DiceCombo.resolve(
+		damage_count,
+		health_count,
+		damage_plus_count
+	)
+
+	print(result.name)
 
 func enable_slot_highlight(enable: bool):
 	for slot in slots.get_children():
