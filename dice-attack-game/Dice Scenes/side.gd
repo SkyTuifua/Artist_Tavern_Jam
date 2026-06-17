@@ -13,7 +13,7 @@ func _ready() -> void:
 func get_side_texture(color : SIDE_COLORS)->Texture2D:
 	match color:
 		SIDE_COLORS.RED:
-			return load("res://Dice Scenes/Dice_Symbols/dice_damage_plus_v2.png")
+			return load("res://Dice Scenes/Dice_Symbols/dice_damage_plus_v3.png")
 		SIDE_COLORS.BLUE:
 			return load("res://Dice Scenes/Dice_Symbols/dice_base_damage.png")
 		SIDE_COLORS.GREEN:

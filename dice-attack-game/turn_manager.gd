@@ -6,7 +6,7 @@ class_name Turn_Manager
 @onready var dice_textures = {
 	1: preload("res://Dice Scenes/Dice_Symbols/dice_base_damage.png"),
 	2: preload("res://Dice Scenes/Dice_Symbols/dice_base_health.png"),
-	3: preload("res://Dice Scenes/Dice_Symbols/dice_damage_plus_v2.png"),
+	3: preload("res://Dice Scenes/Dice_Symbols/dice_damage_plus_v3.png"),
 }
 @export var dice_array : Array[Dice]
 @export var dice_height : float = 4.0 ## The height at which the dice start when they are rolled.
