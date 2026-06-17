@@ -3,19 +3,23 @@ class_name Turn_Manager
 
 @onready var reroll_button = $"../RerollButton"
 @onready var slots = $"../CanvasLayer/DiceUI/DiceSlots"
-@onready var dice_textures = {
-	1: preload("res://Dice Scenes/Dice_Symbols/dice_base_damage.png"),
-	2: preload("res://Dice Scenes/Dice_Symbols/dice_base_health.png"),
-	3: preload("res://Dice Scenes/Dice_Symbols/dice_damage_plus_v3.png"),
-}
+#@onready var dice_textures = {
+	#1: preload("res://Dice Scenes/Dice_Symbols/dice_base_damage.png"),
+	#2: preload("res://Dice Scenes/Dice_Symbols/dice_base_health.png"),
+	#3: preload("res://Dice Scenes/Dice_Symbols/dice_damage_plus_v3.png"),
+#}
 @export var dice_array : Array[Dice]
 @export var dice_height : float = 4.0 ## The height at which the dice start when they are rolled.
 @export var random_impulse_strength_min : float = -1.5
 @export var random_impulse_strength_max : float = 1.5
+var dice_combo : Array[Side.SIDE_COLORS] ##What the player rolled
 var can_check_if_roll_is_done : bool = true
 var reroll_selection_mode: bool = false
 var selected_die_idx: int = -1
 var game_started: bool = false
+@onready var combo_entries_container: VBoxContainer = %"Combo Entries Container"
+
+signal turn_finished()
 enum RollResult {
 	NONE,
 	DAMAGE_25,
@@ -30,11 +34,10 @@ func _ready() -> void:
 	for i in dice_array:
 		if !i.ready:
 			await i.ready
-
 		i.freeze = true
 		i.visible = false
-
 		i.stopped.connect(check_if_roll_is_done)
+		
 	for i in range(slots.get_child_count()):
 		var slot = slots.get_child(i)
 		slot.gui_input.connect(_on_slot_input.bind(i))
@@ -44,8 +47,8 @@ func _ready() -> void:
 	for p in slots.get_children():
 		print(p.name, " global rect: ", p.get_global_rect())
 		
-func get_face_texture(value: int) -> Texture2D:
-	return dice_textures[value]
+#func get_face_texture(value: int) -> Texture2D:
+	#return dice_textures[value]
 	
 func roll_dice(target_dice: Array = dice_array)->void:
 	game_started = true
@@ -57,6 +60,7 @@ func roll_dice(target_dice: Array = dice_array)->void:
 		dice.visible = true
 		new_transform = dice.global_transform
 		new_transform.origin.y = dice_height
+		new_transform = new_transform.rotated(Vector3(randf(),randf(),randf()), randf())
 		PhysicsServer3D.body_set_state(dice,PhysicsServer3D.BODY_STATE_TRANSFORM,new_transform)
 		dice.apply_central_impulse(Vector3(
 			randf_range(random_impulse_strength_min, random_impulse_strength_max), 
@@ -72,9 +76,7 @@ func roll_dice(target_dice: Array = dice_array)->void:
 func check_if_roll_is_done()->void:
 	if not game_started:
 		return
-
 	var roll_done : bool = true
-
 	for i in dice_array:
 		if i.dice_moving:
 			roll_done = false
@@ -103,43 +105,43 @@ func on_roll_finished():
 		if dice.current_side == null:
 			texture_rect.texture = null
 		else:
-			texture_rect.texture = get_face_texture(dice.current_side.value)
+			texture_rect.texture = Side.get_side_texture(dice.current_side.color)
 	
 func calculate_roll()->void:
 	for i in dice_array:
 		i.get_top_facing_side()
 		i.freeze = true
-	move_dice_into_position()
+	dice_combo.clear()
+	for dice in dice_array:
+		dice_combo.push_back(dice.current_side.color)
+	dice_combo.sort()
 	
+	#print(DiceCombo.DICE_COMBOS.size())
+	
+	#remove entries before creating a new list of combo entries.
+	for i in combo_entries_container.get_children():
+		i.queue_free()
+		
+	#create combo entries, and check to see if the current roll has the required combination.
+	for i in range(DiceCombo.DICE_COMBOS.size()):
+		var new_entry : Dice_Combo_Entry = preload("res://UI/dice_combo_entry.tscn").instantiate()
+		new_entry.ready.connect(setup_combo_entry.bind(new_entry, i))
+		combo_entries_container.add_child(new_entry)
+		
+func setup_combo_entry(entry : Dice_Combo_Entry, combo : DiceCombo.DICE_COMBOS)->void:
+	entry.apply_info(combo)
+	entry.set_can_use_ability(DiceCombo.has_combo(dice_combo, combo))
+	
+	#sort abilities that player can use to the top.
+	const TOP : int = 0
+	if entry.can_use_ability:
+		entry.get_parent().move_child(entry,TOP)
+	###################################################################### Connect to Entry's signal to let game_mode know that an entry has been chosen.
 func sort_dice(a:Dice, b:Dice)->bool:
 	if a.current_side.color < b.current_side.color :
 		return true
 	return false
 	
-func move_dice_into_position()->void:
-	print("-------NEW TABLE------------")
-	dice_array.sort_custom(sort_dice)	
-	var damage_count := 0
-	var health_count := 0
-	var damage_plus_count := 0
-
-	for dice in dice_array:
-		match dice.current_side.value:
-			1:
-				damage_count += 1
-			2:
-				health_count += 1
-			3:
-				damage_plus_count += 1
-				
-	var result = DiceCombo.resolve(
-		damage_count,
-		health_count,
-		damage_plus_count
-	)
-
-	print(result.name)
-
 func enable_slot_highlight(enable: bool):
 	for slot in slots.get_children():
 		if enable:

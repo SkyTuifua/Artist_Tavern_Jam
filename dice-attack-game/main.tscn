@@ -7,6 +7,43 @@
 
 [sub_resource type="BoxMesh" id="BoxMesh_ig7tw"]
 
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_0xm2m"]
+
+[sub_resource type="Animation" id="Animation_h2yge"]
+length = 0.001
+tracks/0/type = "position_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Camera3D")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, 0, 9.40819, 0.12898612)
+
+[sub_resource type="Animation" id="Animation_0xm2m"]
+resource_name = "table_to_pov"
+length = 1.2333333
+step = 0.0333333
+tracks/0/type = "position_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Camera3D")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, 0, 9.40819, 0.12898612, 1.2333333, 1, -8.905323, 9.40819, 9.606871)
+tracks/1/type = "rotation_3d"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Camera3D")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = PackedFloat32Array(0, 1, -0.70710677, 0, 0, 0.70710677, 1.2333333, 1, 0, 0, 0, 1)
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_h2yge"]
+_data = {
+&"RESET": SubResource("Animation_h2yge"),
+&"table_to_pov": SubResource("Animation_0xm2m")
+}
+
 [node name="Main" type="Node3D" unique_id=758350102]
 
 [node name="StaticBody3D" type="StaticBody3D" parent="." unique_id=103566737]
@@ -81,11 +118,6 @@ transform = Transform3D(-0.99401283, -0.105050296, 0.030048793, -0.107187785, 0.
 [node name="Dice5" parent="." unique_id=258340121 instance=ExtResource("1_ig7tw")]
 transform = Transform3D(-0.99401283, -0.105050296, 0.030048797, -0.10718778, 0.9908794, -0.08166525, -0.021195618, -0.08439701, -0.99620706, -0.8349266, 2.4850783, -0.7536304)
 
-[node name="Camera3D" type="Camera3D" parent="." unique_id=840999897]
-transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 9.40819, 0.12898612)
-fov = 91.01124
-size = 10.512434
-
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=606966081]
 transform = Transform3D(0.6475615, 0.6786203, -0.34661022, 0, 0.45486116, 0.89056236, 0.7620132, -0.5766939, 0.29455057, -4.3456926, 6.0710034, 1.9551625)
 
@@ -122,9 +154,19 @@ text = "N of N left"
 [node name="Turn_Manager" type="Node" parent="." unique_id=1198981518 node_paths=PackedStringArray("dice_array")]
 script = ExtResource("2_0xm2m")
 dice_array = [NodePath("../Dice"), NodePath("../Dice2"), NodePath("../Dice3"), NodePath("../Dice4"), NodePath("../Dice5")]
-dice_height = null
-random_impulse_strength_min = null
-random_impulse_strength_max = null
+
+[node name="ScrollContainer" type="ScrollContainer" parent="." unique_id=836564199]
+offset_left = 644.0
+offset_top = 2.0
+offset_right = 1152.0
+offset_bottom = 646.0
+
+[node name="Combo Entries Container" type="VBoxContainer" parent="ScrollContainer" unique_id=326587653]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(500, 250)
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 4
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1113976861]
 
@@ -201,6 +243,18 @@ grow_horizontal = 2
 grow_vertical = 0
 text = "choose a dice to roll again"
 horizontal_alignment = 1
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=840999897]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 9.40819, 0.12898612)
+fov = 91.01124
+size = 10.512434
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1676078807]
+transform = Transform3D(44.3541, 0, 0, 0, 44.3541, 0, 0, 0, 44.3541, -9.113188, 0, -56.94761)
+mesh = SubResource("CapsuleMesh_0xm2m")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=167607035]
+libraries/ = SubResource("AnimationLibrary_h2yge")
 
 [connection signal="pressed" from="Button" to="Turn_Manager" method="roll_dice"]
 [connection signal="pressed" from="RerollButton" to="Turn_Manager" method="_on_reroll_button_pressed"]

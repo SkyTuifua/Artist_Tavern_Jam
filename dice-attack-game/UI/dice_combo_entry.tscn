@@ -1,0 +1,67 @@
+[gd_scene format=3 uid="uid://bbde0i2bgowlc"]
+
+[ext_resource type="Script" uid="uid://b8nictkovxvea" path="res://UI/dice_combo_entry.gd" id="1_438t4"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_c6jgi"]
+font_size = 25
+
+[node name="Dice_Combo_Entry" type="MarginContainer" unique_id=808819337]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -101.5
+offset_top = -76.0
+offset_right = 101.5
+offset_bottom = 76.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_438t4")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=163038066]
+layout_mode = 2
+mouse_filter = 2
+color = Color(0.54901963, 0.54901963, 0.54901963, 0.38039216)
+
+[node name="VSplitContainer" type="VBoxContainer" parent="." unique_id=1907724362]
+layout_mode = 2
+
+[node name="HSplitContainer" type="HBoxContainer" parent="VSplitContainer" unique_id=1749559479]
+layout_mode = 2
+
+[node name="Combo_Name" type="Label" parent="VSplitContainer/HSplitContainer" unique_id=1101204731]
+layout_mode = 2
+text = "Damage"
+label_settings = SubResource("LabelSettings_c6jgi")
+
+[node name="Definitions" type="VBoxContainer" parent="VSplitContainer/HSplitContainer" unique_id=2041771864]
+layout_mode = 2
+
+[node name="Combonation_Pictures" type="HBoxContainer" parent="VSplitContainer" unique_id=786812251]
+layout_mode = 2
+
+[node name="Use_Ability_Button" type="Button" parent="VSplitContainer" unique_id=1542079626]
+custom_minimum_size = Vector2(200, 75)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="Use_Ability_text" type="Label" parent="VSplitContainer/Use_Ability_Button" unique_id=172344776]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -41.0
+offset_top = -11.5
+offset_right = 41.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "Use Ability"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[connection signal="pressed" from="VSplitContainer/Use_Ability_Button" to="." method="_on_use_ability_button_pressed"]
