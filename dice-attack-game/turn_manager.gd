@@ -15,24 +15,32 @@ class_name Turn_Manager
 var can_check_if_roll_is_done : bool = true
 var reroll_selection_mode: bool = false
 var selected_die_idx: int = -1
+var game_started: bool = false
 func _ready() -> void:
 	reroll_button.visible = false
+
 	for i in dice_array:
 		if !i.ready:
 			await i.ready
+
 		i.freeze = true
 		i.visible = false
+
 		i.stopped.connect(check_if_roll_is_done)
 	for i in range(slots.get_child_count()):
-		var panel = slots.get_child(i)
-		panel.gui_input.connect(_on_slot_input.bind(i))
-		panel.mouse_entered.connect(_on_panel_mouse_entered.bind(panel))
-		panel.mouse_exited.connect(_on_panel_mouse_exited.bind(panel))
+		var slot = slots.get_child(i)
+		slot.gui_input.connect(_on_slot_input.bind(i))
+		slot.mouse_filter = Control.MOUSE_FILTER_STOP
+	game_started = false
+	
+	for p in slots.get_children():
+		print(p.name, " global rect: ", p.get_global_rect())
 		
 func get_face_texture(value: int) -> Texture2D:
 	return dice_textures[value]
 	
 func roll_dice(target_dice: Array = dice_array)->void:
+	game_started = true
 	can_check_if_roll_is_done = true
 	reroll_button.visible = false
 	for dice in target_dice:
@@ -54,15 +62,18 @@ func roll_dice(target_dice: Array = dice_array)->void:
 			))
 
 func check_if_roll_is_done()->void:
-		var roll_done : bool = true
-		for i in dice_array:
-			if i.dice_moving:
-				roll_done = false
-		
-		if roll_done and can_check_if_roll_is_done:
-			print(roll_done) 
-			can_check_if_roll_is_done = false
-			on_roll_finished()
+	if not game_started:
+		return
+
+	var roll_done : bool = true
+
+	for i in dice_array:
+		if i.dice_moving:
+			roll_done = false
+
+	if roll_done and can_check_if_roll_is_done:
+		can_check_if_roll_is_done = false
+		on_roll_finished()
 			
 		
 func on_roll_finished():
@@ -70,12 +81,20 @@ func on_roll_finished():
 	reroll_button.visible = true
 	$"../CanvasLayer/DiceUI".visible = true
 	slots.visible = true
-	for i in range(dice_array.size()):
-		var dice = dice_array[i]
-		var panel = slots.get_child(i)
-		var texture_rect = panel.get_child(0)
 
-		texture_rect.texture = get_face_texture(dice.current_side.value)
+	var count = min(dice_array.size(), slots.get_child_count())
+
+	for i in range(count):
+		var dice = dice_array[i]
+		var texture_rect = slots.get_child(i) as TextureRect
+
+		if texture_rect == null:
+			continue
+
+		if dice.current_side == null:
+			texture_rect.texture = null
+		else:
+			texture_rect.texture = get_face_texture(dice.current_side.value)
 	
 func calculate_roll()->void:
 	for i in dice_array:
@@ -94,11 +113,6 @@ func move_dice_into_position()->void:
 	for i in dice_array:
 		print(i.name , " ", i.current_side.color)
 
-func _on_reroll_button_pressed():
-	reroll_selection_mode = true
-	selected_die_idx = -1
-	enable_slot_highlight(true)
-
 func enable_slot_highlight(enable: bool):
 	for slot in slots.get_children():
 		if enable:
@@ -106,10 +120,10 @@ func enable_slot_highlight(enable: bool):
 		else:
 			slot.modulate = Color(1, 1, 1)	
 
-func _on_slot_input(event: InputEvent, index: int):
+func _on_slot_input(event: InputEvent, index: int):		
 	if not reroll_selection_mode:
 		return
-	
+
 	if event is InputEventMouseButton and event.pressed:
 		select_die_for_reroll(index)
 		
@@ -118,12 +132,14 @@ func select_die_for_reroll(index: int):
 
 	for i in range(slots.get_child_count()):
 		var slot = slots.get_child(i)
-		slot.modulate = Color(1, 1, 0.5)
-		slot.scale = Vector2(1.1, 1.1)
-	
+		slot.modulate = Color(1, 1, 1)
+		slot.scale = Vector2.ONE
+
 	var selected_slot = slots.get_child(index)
 	selected_slot.modulate = Color(1, 0.6, 0.6)
-	
+	selected_slot.scale = Vector2(1.15, 1.15)
+
+	# reroll ONLY that die
 	var dice = dice_array[index]
 	roll_dice([dice])
 	
@@ -131,12 +147,15 @@ func finish_reroll_selection():
 	reroll_selection_mode = false
 	selected_die_idx = -1
 	enable_slot_highlight(true)
-	
 
+func _on_reroll_button_pressed():
+	reroll_selection_mode = true
+	selected_die_idx = -1
+	enable_slot_highlight(true)
+	
 func _on_panel_mouse_entered(panel: Panel) -> void:
-	print("hovering", panel.name)
-	if reroll_selection_mode:
-		panel.scale = Vector2(1.5, 1.5)
+	print("TESTTTT")
+	panel.scale = Vector2(1.15, 1.15)
 
 
 func _on_panel_mouse_exited(panel: Panel) -> void:

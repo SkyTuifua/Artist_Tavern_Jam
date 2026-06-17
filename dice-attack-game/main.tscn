@@ -153,79 +153,34 @@ grow_vertical = 0
 theme_override_constants/separation = 10
 alignment = 1
 
-[node name="Panel" type="Panel" parent="CanvasLayer/DiceUI/DiceSlots" unique_id=726137609]
+[node name="DiceSlot1" type="TextureRect" parent="CanvasLayer/DiceUI/DiceSlots" unique_id=1798213114]
 custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
-
-[node name="DiceSlot1" type="TextureRect" parent="CanvasLayer/DiceUI/DiceSlots/Panel" unique_id=1798213114]
-custom_minimum_size = Vector2(100, 100)
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
+mouse_filter = 0
 stretch_mode = 5
 
-[node name="Panel2" type="Panel" parent="CanvasLayer/DiceUI/DiceSlots" unique_id=1595983491]
+[node name="DiceSlot2" type="TextureRect" parent="CanvasLayer/DiceUI/DiceSlots" unique_id=2097885554]
 custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
-
-[node name="DiceSlot2" type="TextureRect" parent="CanvasLayer/DiceUI/DiceSlots/Panel2" unique_id=2097885554]
-custom_minimum_size = Vector2(100, 100)
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
+mouse_filter = 0
 stretch_mode = 5
 
-[node name="Panel3" type="Panel" parent="CanvasLayer/DiceUI/DiceSlots" unique_id=538114836]
+[node name="DiceSlot3" type="TextureRect" parent="CanvasLayer/DiceUI/DiceSlots" unique_id=197791340]
 custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
-
-[node name="DiceSlot3" type="TextureRect" parent="CanvasLayer/DiceUI/DiceSlots/Panel3" unique_id=197791340]
-custom_minimum_size = Vector2(100, 100)
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
+mouse_filter = 0
 stretch_mode = 5
 
-[node name="Panel4" type="Panel" parent="CanvasLayer/DiceUI/DiceSlots" unique_id=50026812]
+[node name="DiceSlot4" type="TextureRect" parent="CanvasLayer/DiceUI/DiceSlots" unique_id=1613840777]
 custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
-
-[node name="DiceSlot4" type="TextureRect" parent="CanvasLayer/DiceUI/DiceSlots/Panel4" unique_id=1613840777]
-custom_minimum_size = Vector2(100, 100)
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
+mouse_filter = 0
 stretch_mode = 5
 
-[node name="Panel5" type="Panel" parent="CanvasLayer/DiceUI/DiceSlots" unique_id=1445357083]
+[node name="DiceSlot5" type="TextureRect" parent="CanvasLayer/DiceUI/DiceSlots" unique_id=157249847]
 custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
-
-[node name="DiceSlot5" type="TextureRect" parent="CanvasLayer/DiceUI/DiceSlots/Panel5" unique_id=157249847]
-custom_minimum_size = Vector2(100, 100)
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
+mouse_filter = 0
 stretch_mode = 5
 
 [connection signal="pressed" from="Button" to="Turn_Manager" method="roll_dice"]
