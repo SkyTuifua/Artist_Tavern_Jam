@@ -21,7 +21,7 @@ static func resolve(damage_count, health_count, damage_plus_count):
 
 	if damage_plus_count >= 2:
 		return {
-			"name": "Heavy Strike",
+			"name": "Damage Pluls",
 			"damage": 50,
 			"heal": 0
 		}
@@ -35,7 +35,7 @@ static func resolve(damage_count, health_count, damage_plus_count):
 
 	if damage_count >= 2:
 		return {
-			"name": "Strike",
+			"name": "Damage",
 			"damage": 25,
 			"heal": 0
 		}
