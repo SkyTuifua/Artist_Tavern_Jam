@@ -15,7 +15,7 @@
 albedo_color = Color(1, 0.7019608, 1, 1)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_h2yge"]
-albedo_color = Color(0.75686276, 1, 1, 1)
+albedo_color = Color(0, 0, 0, 1)
 
 [node name="Main" type="Node3D" unique_id=758350102]
 
@@ -219,22 +219,22 @@ shape = SubResource("BoxShape3D_7dm0k")
 mesh = SubResource("BoxMesh_ig7tw")
 
 [node name="Dice" parent="WorldEnvironment/SubViewportContainer/SubViewport" unique_id=384043266 instance=ExtResource("1_ig7tw")]
-transform = Transform3D(-0.99401283, -0.105050296, 0.030048797, -0.10718778, 0.9908794, -0.08166525, -0.021195618, -0.08439701, -0.99620706, -0.8349266, 2.4850783, 1.2234824)
+transform = Transform3D(-0.99401283, -0.10505026, 0.03004863, -0.107187785, 0.9908792, -0.08166509, -0.021195622, -0.084396996, -0.9962067, -0.8349266, 2.4850783, 1.2234824)
 
 [node name="Dice2" parent="WorldEnvironment/SubViewportContainer/SubViewport" unique_id=1794140019 instance=ExtResource("1_ig7tw")]
-transform = Transform3D(-0.99401283, -0.105050296, 0.030048797, -0.10718778, 0.9908794, -0.08166525, -0.021195618, -0.08439701, -0.99620706, -0.8349266, 2.4850783, -2.6137342)
+transform = Transform3D(-0.99401283, -0.10505026, 0.03004863, -0.107187785, 0.9908792, -0.08166509, -0.021195622, -0.084396996, -0.9962067, -0.8349266, 2.4850783, -2.6137342)
 
 [node name="Dice3" parent="WorldEnvironment/SubViewportContainer/SubViewport" unique_id=783705218 instance=ExtResource("1_ig7tw")]
-transform = Transform3D(-0.99401283, -0.105050296, 0.030048797, -0.10718778, 0.9908794, -0.08166525, -0.021195618, -0.08439701, -0.99620706, 0.5797763, 2.4850783, -0.7536304)
+transform = Transform3D(-0.99401283, -0.10505026, 0.03004863, -0.107187785, 0.9908792, -0.08166509, -0.021195622, -0.084396996, -0.9962067, 0.5797763, 2.4850783, -0.7536304)
 
 [node name="Dice4" parent="WorldEnvironment/SubViewportContainer/SubViewport" unique_id=189956864 instance=ExtResource("1_ig7tw")]
-transform = Transform3D(-0.99401283, -0.105050296, 0.030048793, -0.107187785, 0.9908794, -0.08166524, -0.021195617, -0.084397, -0.99620706, -2.3044746, 2.4850783, -0.7536304)
+transform = Transform3D(-0.99401283, -0.105050266, 0.03004863, -0.10718779, 0.9908792, -0.081665084, -0.021195622, -0.08439699, -0.9962067, -2.3044746, 2.4850783, -0.7536304)
 
 [node name="Dice5" parent="WorldEnvironment/SubViewportContainer/SubViewport" unique_id=258340121 instance=ExtResource("1_ig7tw")]
-transform = Transform3D(-0.99401283, -0.105050296, 0.030048797, -0.10718778, 0.9908794, -0.08166525, -0.021195618, -0.08439701, -0.99620706, -0.8349266, 2.4850783, -0.7536304)
+transform = Transform3D(-0.99401283, -0.10505026, 0.03004863, -0.107187785, 0.9908792, -0.08166509, -0.021195622, -0.084396996, -0.9962067, -0.8349266, 2.4850783, -0.7536304)
 
 [node name="Camera3D" type="Camera3D" parent="WorldEnvironment/SubViewportContainer/SubViewport" unique_id=840999897]
-transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 7.741165, 0.12898612)
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 10.084992, -0.0005233288)
 fov = 91.01124
 size = 10.512434
 
