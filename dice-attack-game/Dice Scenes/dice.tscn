@@ -20,33 +20,39 @@ shape = SubResource("BoxShape3D_ifeiu")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.5)
 texture = ExtResource("1_6x8wd")
 script = ExtResource("3_x4vdn")
+value = 1
 
 [node name="Side_2" type="Sprite3D" parent="." unique_id=1754336700]
 transform = Transform3D(1, 0, 0, 0, -4.371138e-08, -0.9999998, 0, 0.9999998, -4.371138e-08, 0, -0.5, 0)
 texture = ExtResource("1_6x8wd")
 script = ExtResource("3_x4vdn")
+value = 1
 
 [node name="Side_3" type="Sprite3D" parent="." unique_id=1516150228]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0.5, 0, 0)
 texture = ExtResource("1_6x8wd")
 script = ExtResource("3_x4vdn")
+value = 1
 
 [node name="Side_4" type="Sprite3D" parent="." unique_id=1236432666]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -0.5, 0, 0)
 texture = ExtResource("2_7n0s1")
 script = ExtResource("3_x4vdn")
 color = 1
+value = 2
 
 [node name="Side_5" type="Sprite3D" parent="." unique_id=1120155099]
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0.5, 0)
 texture = ExtResource("2_7n0s1")
 script = ExtResource("3_x4vdn")
 color = 1
+value = 2
 
 [node name="Side_6" type="Sprite3D" parent="." unique_id=172631489]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, -0.5)
 texture = ExtResource("2_31vcw")
 script = ExtResource("3_x4vdn")
 color = 2
+value = 3
 
 [connection signal="sleeping_state_changed" from="." to="." method="_on_sleeping_state_changed"]

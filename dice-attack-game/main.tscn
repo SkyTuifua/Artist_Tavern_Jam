@@ -97,10 +97,136 @@ offset_bottom = 56.0
 layout_mode = 0
 offset_right = 127.0
 offset_bottom = 36.0
-text = "ROLL"
+text = "ROLL DICE"
+
+[node name="RerollButton" type="Button" parent="." unique_id=1627265798]
+offset_left = 1.0
+offset_top = 75.0
+offset_right = 184.0
+offset_bottom = 131.0
+
+[node name="TextEdit" type="Label" parent="RerollButton" unique_id=433136394]
+layout_mode = 0
+offset_right = 127.0
+offset_bottom = 36.0
+text = "Re-Roll One"
+
+[node name="TextEdit" type="Label" parent="RerollButton/TextEdit" unique_id=130450918]
+layout_mode = 0
+offset_left = 1.0
+offset_top = 32.0
+offset_right = 128.0
+offset_bottom = 68.0
+text = "N of N left"
 
 [node name="Turn_Manager" type="Node" parent="." unique_id=1198981518 node_paths=PackedStringArray("dice_array")]
 script = ExtResource("2_0xm2m")
 dice_array = [NodePath("../Dice"), NodePath("../Dice2"), NodePath("../Dice3"), NodePath("../Dice4"), NodePath("../Dice5")]
 
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1113976861]
+
+[node name="DiceUI" type="Control" parent="CanvasLayer" unique_id=673627030]
+layout_mode = 3
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -20.0
+offset_top = -40.0
+offset_right = 20.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="DiceSlots" type="HBoxContainer" parent="CanvasLayer/DiceUI" unique_id=170380070]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -270.0
+offset_top = -100.0
+offset_right = 270.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="Panel" type="Panel" parent="CanvasLayer/DiceUI/DiceSlots" unique_id=726137609]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+
+[node name="DiceSlot1" type="TextureRect" parent="CanvasLayer/DiceUI/DiceSlots/Panel" unique_id=1798213114]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+stretch_mode = 5
+
+[node name="Panel2" type="Panel" parent="CanvasLayer/DiceUI/DiceSlots" unique_id=1595983491]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+
+[node name="DiceSlot2" type="TextureRect" parent="CanvasLayer/DiceUI/DiceSlots/Panel2" unique_id=2097885554]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+stretch_mode = 5
+
+[node name="Panel3" type="Panel" parent="CanvasLayer/DiceUI/DiceSlots" unique_id=538114836]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+
+[node name="DiceSlot3" type="TextureRect" parent="CanvasLayer/DiceUI/DiceSlots/Panel3" unique_id=197791340]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+stretch_mode = 5
+
+[node name="Panel4" type="Panel" parent="CanvasLayer/DiceUI/DiceSlots" unique_id=50026812]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+
+[node name="DiceSlot4" type="TextureRect" parent="CanvasLayer/DiceUI/DiceSlots/Panel4" unique_id=1613840777]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+stretch_mode = 5
+
+[node name="Panel5" type="Panel" parent="CanvasLayer/DiceUI/DiceSlots" unique_id=1445357083]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+
+[node name="DiceSlot5" type="TextureRect" parent="CanvasLayer/DiceUI/DiceSlots/Panel5" unique_id=157249847]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+stretch_mode = 5
+
 [connection signal="pressed" from="Button" to="Turn_Manager" method="roll_dice"]
+[connection signal="pressed" from="RerollButton" to="Turn_Manager" method="_on_reroll_button_pressed"]

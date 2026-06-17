@@ -3,6 +3,7 @@ class_name Side
 
 enum SIDE_COLORS {BLUE, GREEN, RED}
 @export var color : SIDE_COLORS = SIDE_COLORS.BLUE	
+@export var value: int
 
 func _ready() -> void:
 	texture = get_side_texture(color)
@@ -12,9 +13,9 @@ func _ready() -> void:
 func get_side_texture(color : SIDE_COLORS)->Texture2D:
 	match color:
 		SIDE_COLORS.RED:
-			return load("res://Dice Scenes/Dice_Symbols/Red.tres")
+			return load("res://Dice Scenes/Dice_Symbols/dice_damage_plus_v2.png")
 		SIDE_COLORS.BLUE:
-			return load("res://Dice Scenes/Dice_Symbols/Blue.tres")
+			return load("res://Dice Scenes/Dice_Symbols/dice_base_damage.png")
 		SIDE_COLORS.GREEN:
-			return load("res://Dice Scenes/Dice_Symbols/Green.tres")
+			return load("res://Dice Scenes/Dice_Symbols/dice_base_health.png")
 	return load("res://Dice Scenes/Dice_Symbols/Blue.tres")
