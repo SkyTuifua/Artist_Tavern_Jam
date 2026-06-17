@@ -3,115 +3,52 @@
 [ext_resource type="PackedScene" uid="uid://b420blbgvd808" path="res://Dice Scenes/dice.tscn" id="1_ig7tw"]
 [ext_resource type="Script" uid="uid://dwh07yfpekvse" path="res://turn_manager.gd" id="2_0xm2m"]
 
+[sub_resource type="Environment" id="Environment_0xm2m"]
+
+[sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_h2yge"]
+
 [sub_resource type="BoxShape3D" id="BoxShape3D_7dm0k"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_ig7tw"]
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0xm2m"]
+albedo_color = Color(1, 0.7019608, 1, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_h2yge"]
+albedo_color = Color(0.75686276, 1, 1, 1)
+
 [node name="Main" type="Node3D" unique_id=758350102]
 
-[node name="StaticBody3D" type="StaticBody3D" parent="." unique_id=103566737]
-transform = Transform3D(9.992861, 0, 0, 0, 0.38862318, 0, 0, 0, 10.147858, 0, 0, 0)
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=42047929]
+environment = SubResource("Environment_0xm2m")
+camera_attributes = SubResource("CameraAttributesPractical_h2yge")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" unique_id=962270577]
-shape = SubResource("BoxShape3D_7dm0k")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D" unique_id=1174746302]
-mesh = SubResource("BoxMesh_ig7tw")
-
-[node name="StaticBody3D7" type="StaticBody3D" parent="." unique_id=104180218]
-transform = Transform3D(9.992861, 0, 0, 0, 0.38862318, 0, 0, 0, 10.147858, 0, 5.3256855, 0)
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D7" unique_id=893927756]
-shape = SubResource("BoxShape3D_7dm0k")
-
-[node name="StaticBody3D2" type="StaticBody3D" parent="." unique_id=206781897]
-transform = Transform3D(-4.3680183e-07, 0.38862318, 0, -9.99286, -1.6987258e-08, 0, 0, 0, 10.147858, -4.92479, 0, 0)
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D2" unique_id=1986751666]
-shape = SubResource("BoxShape3D_7dm0k")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D2" unique_id=1021736621]
-mesh = SubResource("BoxMesh_ig7tw")
-
-[node name="StaticBody3D3" type="StaticBody3D" parent="." unique_id=1082630347]
-transform = Transform3D(-4.3680183e-07, 0.38862318, 0, -9.99286, -1.6987258e-08, 0, 0, 0, 10.147858, 4.899657, 0, 0)
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D3" unique_id=2014356680]
-shape = SubResource("BoxShape3D_7dm0k")
-
-[node name="StaticBody3D4" type="StaticBody3D" parent="." unique_id=496318438]
-transform = Transform3D(-4.3680183e-07, 0.38862318, 0, -9.99286, -1.6987258e-08, 0, 0, 0, 10.147858, 4.899657, 0, 0)
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D4" unique_id=1204609552]
-shape = SubResource("BoxShape3D_7dm0k")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D4" unique_id=78142033]
-mesh = SubResource("BoxMesh_ig7tw")
-
-[node name="StaticBody3D5" type="StaticBody3D" parent="." unique_id=774684239]
-transform = Transform3D(5.4594987e-14, -1.698726e-08, -10.147859, -9.99286, -1.6987258e-08, 0, -4.3680188e-07, 0.38862324, -4.43577e-07, -0.11252928, 0, -5.2014937)
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D5" unique_id=115909559]
-shape = SubResource("BoxShape3D_7dm0k")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D5" unique_id=1840658154]
-mesh = SubResource("BoxMesh_ig7tw")
-
-[node name="StaticBody3D6" type="StaticBody3D" parent="." unique_id=349093844]
-transform = Transform3D(5.4594987e-14, -1.698726e-08, -10.147859, -9.99286, -1.6987258e-08, 0, -4.3680188e-07, 0.38862324, -4.43577e-07, -0.08998966, 0, 5.232292)
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D6" unique_id=22387838]
-shape = SubResource("BoxShape3D_7dm0k")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D6" unique_id=1908967398]
-mesh = SubResource("BoxMesh_ig7tw")
-
-[node name="Dice" parent="." unique_id=384043266 instance=ExtResource("1_ig7tw")]
-transform = Transform3D(-0.99401283, -0.105050296, 0.030048797, -0.10718778, 0.9908794, -0.08166525, -0.021195618, -0.08439701, -0.99620706, -0.8349266, 2.4850783, 1.2234824)
-
-[node name="Dice2" parent="." unique_id=1794140019 instance=ExtResource("1_ig7tw")]
-transform = Transform3D(-0.99401283, -0.105050296, 0.030048797, -0.10718778, 0.9908794, -0.08166525, -0.021195618, -0.08439701, -0.99620706, -0.8349266, 2.4850783, -2.6137342)
-
-[node name="Dice3" parent="." unique_id=783705218 instance=ExtResource("1_ig7tw")]
-transform = Transform3D(-0.99401283, -0.105050296, 0.030048797, -0.10718778, 0.9908794, -0.08166525, -0.021195618, -0.08439701, -0.99620706, 0.5797763, 2.4850783, -0.7536304)
-
-[node name="Dice4" parent="." unique_id=189956864 instance=ExtResource("1_ig7tw")]
-transform = Transform3D(-0.99401283, -0.105050296, 0.030048793, -0.107187785, 0.9908794, -0.08166524, -0.021195617, -0.084397, -0.99620706, -2.3044746, 2.4850783, -0.7536304)
-
-[node name="Dice5" parent="." unique_id=258340121 instance=ExtResource("1_ig7tw")]
-transform = Transform3D(-0.99401283, -0.105050296, 0.030048797, -0.10718778, 0.9908794, -0.08166525, -0.021195618, -0.08439701, -0.99620706, -0.8349266, 2.4850783, -0.7536304)
-
-[node name="Camera3D" type="Camera3D" parent="." unique_id=840999897]
-transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 9.40819, 0.12898612)
-fov = 91.01124
-size = 10.512434
-
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=606966081]
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="WorldEnvironment" unique_id=606966081]
 transform = Transform3D(0.6475615, 0.6786203, -0.34661022, 0, 0.45486116, 0.89056236, 0.7620132, -0.5766939, 0.29455057, -4.3456926, 6.0710034, 1.9551625)
 
-[node name="Button" type="Button" parent="." unique_id=1195503770]
+[node name="Button" type="Button" parent="WorldEnvironment" unique_id=1195503770]
 offset_right = 183.0
 offset_bottom = 56.0
 
-[node name="TextEdit" type="Label" parent="Button" unique_id=889558423]
+[node name="TextEdit" type="Label" parent="WorldEnvironment/Button" unique_id=889558423]
 layout_mode = 0
 offset_right = 127.0
 offset_bottom = 36.0
 text = "ROLL DICE"
 
-[node name="RerollButton" type="Button" parent="." unique_id=1627265798]
+[node name="RerollButton" type="Button" parent="WorldEnvironment" unique_id=1627265798]
 offset_left = 1.0
 offset_top = 75.0
 offset_right = 184.0
 offset_bottom = 131.0
 
-[node name="TextEdit" type="Label" parent="RerollButton" unique_id=433136394]
+[node name="TextEdit" type="Label" parent="WorldEnvironment/RerollButton" unique_id=433136394]
 layout_mode = 0
 offset_right = 127.0
 offset_bottom = 36.0
 text = "Re-Roll One"
 
-[node name="TextEdit" type="Label" parent="RerollButton/TextEdit" unique_id=130450918]
+[node name="TextEdit" type="Label" parent="WorldEnvironment/RerollButton/TextEdit" unique_id=130450918]
 layout_mode = 0
 offset_left = 1.0
 offset_top = 32.0
@@ -119,16 +56,16 @@ offset_right = 128.0
 offset_bottom = 68.0
 text = "N of N left"
 
-[node name="Turn_Manager" type="Node" parent="." unique_id=1198981518 node_paths=PackedStringArray("dice_array")]
+[node name="Turn_Manager" type="Node" parent="WorldEnvironment" unique_id=1198981518 node_paths=PackedStringArray("dice_array")]
 script = ExtResource("2_0xm2m")
-dice_array = [NodePath("../Dice"), NodePath("../Dice2"), NodePath("../Dice3"), NodePath("../Dice4"), NodePath("../Dice5")]
+dice_array = [NodePath("../SubViewportContainer/SubViewport/Dice"), NodePath("../SubViewportContainer/SubViewport/Dice2"), NodePath("../SubViewportContainer/SubViewport/Dice3"), NodePath("../SubViewportContainer/SubViewport/Dice4"), NodePath("../SubViewportContainer/SubViewport/Dice5")]
 dice_height = null
 random_impulse_strength_min = null
 random_impulse_strength_max = null
 
-[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1113976861]
+[node name="CanvasLayer" type="CanvasLayer" parent="WorldEnvironment" unique_id=1113976861]
 
-[node name="DiceUI" type="Control" parent="CanvasLayer" unique_id=673627030]
+[node name="DiceUI" type="Control" parent="WorldEnvironment/CanvasLayer" unique_id=673627030]
 layout_mode = 3
 anchors_preset = 7
 anchor_left = 0.5
@@ -141,7 +78,7 @@ offset_right = 20.0
 grow_horizontal = 2
 grow_vertical = 0
 
-[node name="DiceSlots" type="HBoxContainer" parent="CanvasLayer/DiceUI" unique_id=170380070]
+[node name="DiceSlots" type="HBoxContainer" parent="WorldEnvironment/CanvasLayer/DiceUI" unique_id=170380070]
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
@@ -156,37 +93,37 @@ grow_vertical = 0
 theme_override_constants/separation = 10
 alignment = 1
 
-[node name="DiceSlot1" type="TextureRect" parent="CanvasLayer/DiceUI/DiceSlots" unique_id=1798213114]
+[node name="DiceSlot1" type="TextureRect" parent="WorldEnvironment/CanvasLayer/DiceUI/DiceSlots" unique_id=1798213114]
 custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
 mouse_filter = 0
 stretch_mode = 5
 
-[node name="DiceSlot2" type="TextureRect" parent="CanvasLayer/DiceUI/DiceSlots" unique_id=2097885554]
+[node name="DiceSlot2" type="TextureRect" parent="WorldEnvironment/CanvasLayer/DiceUI/DiceSlots" unique_id=2097885554]
 custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
 mouse_filter = 0
 stretch_mode = 5
 
-[node name="DiceSlot3" type="TextureRect" parent="CanvasLayer/DiceUI/DiceSlots" unique_id=197791340]
+[node name="DiceSlot3" type="TextureRect" parent="WorldEnvironment/CanvasLayer/DiceUI/DiceSlots" unique_id=197791340]
 custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
 mouse_filter = 0
 stretch_mode = 5
 
-[node name="DiceSlot4" type="TextureRect" parent="CanvasLayer/DiceUI/DiceSlots" unique_id=1613840777]
+[node name="DiceSlot4" type="TextureRect" parent="WorldEnvironment/CanvasLayer/DiceUI/DiceSlots" unique_id=1613840777]
 custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
 mouse_filter = 0
 stretch_mode = 5
 
-[node name="DiceSlot5" type="TextureRect" parent="CanvasLayer/DiceUI/DiceSlots" unique_id=157249847]
+[node name="DiceSlot5" type="TextureRect" parent="WorldEnvironment/CanvasLayer/DiceUI/DiceSlots" unique_id=157249847]
 custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
 mouse_filter = 0
 stretch_mode = 5
 
-[node name="ChooseDiceText" type="RichTextLabel" parent="CanvasLayer/DiceUI" unique_id=1532251658]
+[node name="ChooseDiceText" type="RichTextLabel" parent="WorldEnvironment/CanvasLayer/DiceUI" unique_id=1532251658]
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
@@ -202,5 +139,109 @@ grow_vertical = 0
 text = "choose a dice to roll again"
 horizontal_alignment = 1
 
-[connection signal="pressed" from="Button" to="Turn_Manager" method="roll_dice"]
-[connection signal="pressed" from="RerollButton" to="Turn_Manager" method="_on_reroll_button_pressed"]
+[node name="SubViewportContainer" type="SubViewportContainer" parent="WorldEnvironment" unique_id=395777038]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -100.0
+offset_right = 100.0
+offset_bottom = 200.0
+grow_horizontal = 2
+
+[node name="SubViewport" type="SubViewport" parent="WorldEnvironment/SubViewportContainer" unique_id=1188869464]
+size = Vector2i(200, 200)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="WorldEnvironment/SubViewportContainer/SubViewport" unique_id=103566737]
+transform = Transform3D(9.992861, 0, 0, 0, 0.38862318, 0, 0, 0, 10.147858, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="WorldEnvironment/SubViewportContainer/SubViewport/StaticBody3D" unique_id=962270577]
+shape = SubResource("BoxShape3D_7dm0k")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="WorldEnvironment/SubViewportContainer/SubViewport/StaticBody3D" unique_id=1174746302]
+mesh = SubResource("BoxMesh_ig7tw")
+
+[node name="StaticBody3D7" type="StaticBody3D" parent="WorldEnvironment/SubViewportContainer/SubViewport" unique_id=104180218]
+transform = Transform3D(9.992861, 0, 0, 0, 0.38862318, 0, 0, 0, 10.147858, 0, 5.3256855, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="WorldEnvironment/SubViewportContainer/SubViewport/StaticBody3D7" unique_id=893927756]
+shape = SubResource("BoxShape3D_7dm0k")
+
+[node name="StaticBody3D2" type="StaticBody3D" parent="WorldEnvironment/SubViewportContainer/SubViewport" unique_id=206781897]
+transform = Transform3D(-4.3680183e-07, 0.38862318, 0, -9.99286, -1.6987258e-08, 0, 0, 0, 10.147858, -4.92479, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="WorldEnvironment/SubViewportContainer/SubViewport/StaticBody3D2" unique_id=1986751666]
+shape = SubResource("BoxShape3D_7dm0k")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="WorldEnvironment/SubViewportContainer/SubViewport/StaticBody3D2" unique_id=1021736621]
+mesh = SubResource("BoxMesh_ig7tw")
+
+[node name="StaticBody3D3" type="StaticBody3D" parent="WorldEnvironment/SubViewportContainer/SubViewport" unique_id=1082630347]
+transform = Transform3D(-4.3680183e-07, 0.38862318, 0, -9.99286, -1.6987258e-08, 0, 0, 0, 10.147858, 4.899657, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="WorldEnvironment/SubViewportContainer/SubViewport/StaticBody3D3" unique_id=2014356680]
+shape = SubResource("BoxShape3D_7dm0k")
+
+[node name="StaticBody3D4" type="StaticBody3D" parent="WorldEnvironment/SubViewportContainer/SubViewport" unique_id=496318438]
+transform = Transform3D(-4.3680183e-07, 0.38862318, 0, -9.99286, -1.6987258e-08, 0, 0, 0, 10.147858, 4.899657, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="WorldEnvironment/SubViewportContainer/SubViewport/StaticBody3D4" unique_id=1204609552]
+shape = SubResource("BoxShape3D_7dm0k")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="WorldEnvironment/SubViewportContainer/SubViewport/StaticBody3D4" unique_id=78142033]
+mesh = SubResource("BoxMesh_ig7tw")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="WorldEnvironment/SubViewportContainer/SubViewport/StaticBody3D4/MeshInstance3D" unique_id=385668118]
+transform = Transform3D(0.11874121, -1.8474111e-13, 0, 2.842171e-14, 104.91232, 0, 0, 0, 1.7948012, -0.6699089, -47.424934, -2.4482622)
+material_override = SubResource("StandardMaterial3D_0xm2m")
+mesh = SubResource("BoxMesh_ig7tw")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="WorldEnvironment/SubViewportContainer/SubViewport/StaticBody3D4/MeshInstance3D/MeshInstance3D" unique_id=250220199]
+transform = Transform3D(-15.472679, 2.2737368e-13, 0, -1.8332003e-12, -1.6867962, 0, 0, 0, 1.7948003, -6.85913, 0.07440764, -1.1209259)
+material_override = SubResource("StandardMaterial3D_h2yge")
+mesh = SubResource("BoxMesh_ig7tw")
+
+[node name="StaticBody3D5" type="StaticBody3D" parent="WorldEnvironment/SubViewportContainer/SubViewport" unique_id=774684239]
+transform = Transform3D(5.4594987e-14, -1.698726e-08, -10.147859, -9.99286, -1.6987258e-08, 0, -4.3680188e-07, 0.38862324, -4.43577e-07, -0.11252928, 0, -5.2014937)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="WorldEnvironment/SubViewportContainer/SubViewport/StaticBody3D5" unique_id=115909559]
+shape = SubResource("BoxShape3D_7dm0k")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="WorldEnvironment/SubViewportContainer/SubViewport/StaticBody3D5" unique_id=1840658154]
+mesh = SubResource("BoxMesh_ig7tw")
+
+[node name="StaticBody3D6" type="StaticBody3D" parent="WorldEnvironment/SubViewportContainer/SubViewport" unique_id=349093844]
+transform = Transform3D(5.4594987e-14, -1.698726e-08, -10.147859, -9.99286, -1.6987258e-08, 0, -4.3680188e-07, 0.38862324, -4.43577e-07, -0.08998966, 0, 5.232292)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="WorldEnvironment/SubViewportContainer/SubViewport/StaticBody3D6" unique_id=22387838]
+shape = SubResource("BoxShape3D_7dm0k")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="WorldEnvironment/SubViewportContainer/SubViewport/StaticBody3D6" unique_id=1908967398]
+mesh = SubResource("BoxMesh_ig7tw")
+
+[node name="Dice" parent="WorldEnvironment/SubViewportContainer/SubViewport" unique_id=384043266 instance=ExtResource("1_ig7tw")]
+transform = Transform3D(-0.99401283, -0.105050296, 0.030048797, -0.10718778, 0.9908794, -0.08166525, -0.021195618, -0.08439701, -0.99620706, -0.8349266, 2.4850783, 1.2234824)
+
+[node name="Dice2" parent="WorldEnvironment/SubViewportContainer/SubViewport" unique_id=1794140019 instance=ExtResource("1_ig7tw")]
+transform = Transform3D(-0.99401283, -0.105050296, 0.030048797, -0.10718778, 0.9908794, -0.08166525, -0.021195618, -0.08439701, -0.99620706, -0.8349266, 2.4850783, -2.6137342)
+
+[node name="Dice3" parent="WorldEnvironment/SubViewportContainer/SubViewport" unique_id=783705218 instance=ExtResource("1_ig7tw")]
+transform = Transform3D(-0.99401283, -0.105050296, 0.030048797, -0.10718778, 0.9908794, -0.08166525, -0.021195618, -0.08439701, -0.99620706, 0.5797763, 2.4850783, -0.7536304)
+
+[node name="Dice4" parent="WorldEnvironment/SubViewportContainer/SubViewport" unique_id=189956864 instance=ExtResource("1_ig7tw")]
+transform = Transform3D(-0.99401283, -0.105050296, 0.030048793, -0.107187785, 0.9908794, -0.08166524, -0.021195617, -0.084397, -0.99620706, -2.3044746, 2.4850783, -0.7536304)
+
+[node name="Dice5" parent="WorldEnvironment/SubViewportContainer/SubViewport" unique_id=258340121 instance=ExtResource("1_ig7tw")]
+transform = Transform3D(-0.99401283, -0.105050296, 0.030048797, -0.10718778, 0.9908794, -0.08166525, -0.021195618, -0.08439701, -0.99620706, -0.8349266, 2.4850783, -0.7536304)
+
+[node name="Camera3D" type="Camera3D" parent="WorldEnvironment/SubViewportContainer/SubViewport" unique_id=840999897]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 7.741165, 0.12898612)
+fov = 91.01124
+size = 10.512434
+
+[node name="Camera3D" type="Camera3D" parent="WorldEnvironment" unique_id=768374480]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.695699, 11.00629, -16.03952)
+fov = 91.01124
+size = 10.512434
+
+[connection signal="pressed" from="WorldEnvironment/Button" to="WorldEnvironment/Turn_Manager" method="roll_dice"]
+[connection signal="pressed" from="WorldEnvironment/RerollButton" to="WorldEnvironment/Turn_Manager" method="_on_reroll_button_pressed"]
