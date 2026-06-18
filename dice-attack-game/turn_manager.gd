@@ -16,7 +16,11 @@ var game_started: bool = false
 @onready var animation_player: AnimationPlayer = $"../AnimationPlayer"
 @onready var turn_ui: CanvasLayer = %Turn_UI
 @onready var choose_dice_text: RichTextLabel = $"../Turn_UI/DiceUI/ChooseDiceText"
+
+
 @onready var health_bars: CanvasLayer = %Health_Bars
+@onready var enemy_health: ProgressBar = %"Enemy Health"
+@onready var player_health: ProgressBar = %Player_Health
 
 
 
@@ -163,6 +167,18 @@ func _on_combo_entries_container_entry_chosen(combo: DiceCombo.DICE_COMBOS) -> v
 	health_bars.visible = true
 #does the attack
 func do_attack(anim_name : StringName, combo : DiceCombo.DICE_COMBOS)->void:
+	var dci : DiceCombo.dice_combo_info = DiceCombo.get_dice_combo_info(combo)
+	if dci.damage:
+		enemy_health.value -= dci.damage
+	if dci.health:
+		player_health.value += dci.health
+	if enemy_health.value <= 0 or player_health.value <= 0:
+		end_game()
+		return
+	get_tree().create_timer(2).timeout.connect(enemy_turn)
+
+#choose a random attack for the ai to use based on the probabilities of dice rolls
+func enemy_turn()->void:
 	get_tree().create_timer(2).timeout.connect(return_to_table)
 	
 func return_to_table()->void:
@@ -173,3 +189,7 @@ func attack_finished(anim_name:StringName)->void:
 	turn_ui.visible = true
 	health_bars.visible = false
 ###############################################################################################
+
+#end game logic.
+func end_game()->void:
+	pass
