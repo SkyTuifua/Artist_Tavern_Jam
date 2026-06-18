@@ -44,9 +44,6 @@ func set_can_use_ability(b : bool)->void:
 		use_ability_text.text = "Use Ability"
 	else:
 		use_ability_text.text = "Can't Use"
-	print(use_ability_button.disabled)
-	
-
 
 func _on_use_ability_button_pressed() -> void:
 	entry_chosen.emit(current_dc)

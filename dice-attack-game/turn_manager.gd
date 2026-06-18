@@ -1,13 +1,8 @@
 extends Node
 class_name Turn_Manager
 
-@onready var reroll_button = $"../RerollButton"
-@onready var slots = $"../CanvasLayer/DiceUI/DiceSlots"
-#@onready var dice_textures = {
-	#1: preload("res://Dice Scenes/Dice_Symbols/dice_base_damage.png"),
-	#2: preload("res://Dice Scenes/Dice_Symbols/dice_base_health.png"),
-	#3: preload("res://Dice Scenes/Dice_Symbols/dice_damage_plus_v3.png"),
-#}
+@onready var reroll_button: Button = %RerollButton
+@onready var slots: HBoxContainer = %DiceSlots
 @export var dice_array : Array[Dice]
 @export var dice_height : float = 4.0 ## The height at which the dice start when they are rolled.
 @export var random_impulse_strength_min : float = -1.5
@@ -18,19 +13,19 @@ var reroll_selection_mode: bool = false
 var selected_die_idx: int = -1
 var game_started: bool = false
 @onready var combo_entries_container: VBoxContainer = %"Combo Entries Container"
+@onready var animation_player: AnimationPlayer = $"../AnimationPlayer"
+@onready var turn_ui: CanvasLayer = %Turn_UI
+@onready var choose_dice_text: RichTextLabel = $"../Turn_UI/DiceUI/ChooseDiceText"
+@onready var health_bars: CanvasLayer = %Health_Bars
+
+
 
 signal turn_finished()
-enum RollResult {
-	NONE,
-	DAMAGE_25,
-	DAMAGE_50,
-	HEAL_25,
-	VAMPIRE_BITE
-}
+
 
 func _ready() -> void:
 	reroll_button.visible = false
-	$"../CanvasLayer/DiceUI/ChooseDiceText".visible = false
+	choose_dice_text.visible = false
 	for i in dice_array:
 		if !i.ready:
 			await i.ready
@@ -43,12 +38,6 @@ func _ready() -> void:
 		slot.gui_input.connect(_on_slot_input.bind(i))
 		slot.mouse_filter = Control.MOUSE_FILTER_STOP
 	game_started = false
-	
-	for p in slots.get_children():
-		print(p.name, " global rect: ", p.get_global_rect())
-		
-#func get_face_texture(value: int) -> Texture2D:
-	#return dice_textures[value]
 	
 func roll_dice(target_dice: Array = dice_array)->void:
 	game_started = true
@@ -84,12 +73,11 @@ func check_if_roll_is_done()->void:
 	if roll_done and can_check_if_roll_is_done:
 		can_check_if_roll_is_done = false
 		on_roll_finished()
-			
 		
 func on_roll_finished():
 	calculate_roll()
 	reroll_button.visible = true
-	$"../CanvasLayer/DiceUI".visible = true
+	choose_dice_text.visible = true
 
 	slots.visible = true
 
@@ -116,27 +104,10 @@ func calculate_roll()->void:
 		dice_combo.push_back(dice.current_side.color)
 	dice_combo.sort()
 	
-	#print(DiceCombo.DICE_COMBOS.size())
-	
 	#remove entries before creating a new list of combo entries.
-	for i in combo_entries_container.get_children():
-		i.queue_free()
-		
-	#create combo entries, and check to see if the current roll has the required combination.
-	for i in range(DiceCombo.DICE_COMBOS.size()):
-		var new_entry : Dice_Combo_Entry = preload("res://UI/dice_combo_entry.tscn").instantiate()
-		new_entry.ready.connect(setup_combo_entry.bind(new_entry, i))
-		combo_entries_container.add_child(new_entry)
-		
-func setup_combo_entry(entry : Dice_Combo_Entry, combo : DiceCombo.DICE_COMBOS)->void:
-	entry.apply_info(combo)
-	entry.set_can_use_ability(DiceCombo.has_combo(dice_combo, combo))
+	combo_entries_container.clear_entries()
+	combo_entries_container.create_entries(dice_combo)
 	
-	#sort abilities that player can use to the top.
-	const TOP : int = 0
-	if entry.can_use_ability:
-		entry.get_parent().move_child(entry,TOP)
-	###################################################################### Connect to Entry's signal to let game_mode know that an entry has been chosen.
 func sort_dice(a:Dice, b:Dice)->bool:
 	if a.current_side.color < b.current_side.color :
 		return true
@@ -180,6 +151,25 @@ func finish_reroll_selection():
 func _on_reroll_button_pressed():
 	reroll_selection_mode = true
 	selected_die_idx = -1
-	$"../CanvasLayer/DiceUI/ChooseDiceText".visible = true
+	choose_dice_text.visible = true
 
 	enable_slot_highlight(true)
+
+##Attack Has been chosen, Play animation to attack, and hide UI until Animation is done?
+func _on_combo_entries_container_entry_chosen(combo: DiceCombo.DICE_COMBOS) -> void:
+	animation_player.play("table_to_pov")
+	animation_player.animation_finished.connect(do_attack.bind(combo),CONNECT_ONE_SHOT)
+	turn_ui.visible = false
+	health_bars.visible = true
+#does the attack
+func do_attack(anim_name : StringName, combo : DiceCombo.DICE_COMBOS)->void:
+	get_tree().create_timer(2).timeout.connect(return_to_table)
+	
+func return_to_table()->void:
+	animation_player.play("table_to_pov", -1, -1.0, true)
+	animation_player.animation_finished.connect(attack_finished, CONNECT_ONE_SHOT)
+	
+func attack_finished(anim_name:StringName)->void:
+	turn_ui.visible = true
+	health_bars.visible = false
+###############################################################################################

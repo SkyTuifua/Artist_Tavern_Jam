@@ -2,10 +2,23 @@
 
 [ext_resource type="PackedScene" uid="uid://b420blbgvd808" path="res://Dice Scenes/dice.tscn" id="1_ig7tw"]
 [ext_resource type="Script" uid="uid://dwh07yfpekvse" path="res://turn_manager.gd" id="2_0xm2m"]
+[ext_resource type="Script" uid="uid://cuefilef0hguo" path="res://combo_entries_container.gd" id="3_h2yge"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_7dm0k"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_ig7tw"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lquwl"]
+bg_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7mycd"]
+bg_color = Color(0, 1, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_h2yge"]
+bg_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1bvp3"]
+bg_color = Color(1, 0, 0, 1)
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_0xm2m"]
 
@@ -121,56 +134,74 @@ transform = Transform3D(-0.99401283, -0.105050296, 0.030048797, -0.10718778, 0.9
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=606966081]
 transform = Transform3D(0.6475615, 0.6786203, -0.34661022, 0, 0.45486116, 0.89056236, 0.7620132, -0.5766939, 0.29455057, -4.3456926, 6.0710034, 1.9551625)
 
-[node name="Button" type="Button" parent="." unique_id=1195503770]
-offset_right = 183.0
-offset_bottom = 56.0
-
-[node name="TextEdit" type="Label" parent="Button" unique_id=889558423]
-layout_mode = 0
-offset_right = 127.0
-offset_bottom = 36.0
-text = "ROLL DICE"
-
-[node name="RerollButton" type="Button" parent="." unique_id=1627265798]
-offset_left = 1.0
-offset_top = 75.0
-offset_right = 184.0
-offset_bottom = 131.0
-
-[node name="TextEdit" type="Label" parent="RerollButton" unique_id=433136394]
-layout_mode = 0
-offset_right = 127.0
-offset_bottom = 36.0
-text = "Re-Roll One"
-
-[node name="TextEdit" type="Label" parent="RerollButton/TextEdit" unique_id=130450918]
-layout_mode = 0
-offset_left = 1.0
-offset_top = 32.0
-offset_right = 128.0
-offset_bottom = 68.0
-text = "N of N left"
+[node name="Node" type="Node" parent="." unique_id=617240918]
 
 [node name="Turn_Manager" type="Node" parent="." unique_id=1198981518 node_paths=PackedStringArray("dice_array")]
 script = ExtResource("2_0xm2m")
 dice_array = [NodePath("../Dice"), NodePath("../Dice2"), NodePath("../Dice3"), NodePath("../Dice4"), NodePath("../Dice5")]
 
-[node name="ScrollContainer" type="ScrollContainer" parent="." unique_id=836564199]
-offset_left = 644.0
-offset_top = 2.0
-offset_right = 1152.0
-offset_bottom = 646.0
-
-[node name="Combo Entries Container" type="VBoxContainer" parent="ScrollContainer" unique_id=326587653]
+[node name="Health_Bars" type="CanvasLayer" parent="." unique_id=1710369755]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(500, 250)
-layout_mode = 2
-size_flags_horizontal = 8
-size_flags_vertical = 4
+visible = false
 
-[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1113976861]
+[node name="Control" type="Control" parent="Health_Bars" unique_id=809587554]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -1.0
+offset_top = 1.0
+offset_right = 39.0
+offset_bottom = 41.0
 
-[node name="DiceUI" type="Control" parent="CanvasLayer" unique_id=673627030]
+[node name="Label" type="Label" parent="Health_Bars/Control" unique_id=306421516]
+layout_mode = 0
+offset_left = 201.0
+offset_top = 12.0
+offset_right = 253.0
+offset_bottom = 35.0
+text = "Health"
+
+[node name="Player_Health" type="ProgressBar" parent="Health_Bars/Control" unique_id=1636957897]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 4.0
+offset_top = 38.0
+offset_right = 459.0
+offset_bottom = 70.0
+theme_override_styles/background = SubResource("StyleBoxFlat_lquwl")
+theme_override_styles/fill = SubResource("StyleBoxFlat_7mycd")
+value = 100.0
+
+[node name="Control2" type="Control" parent="Health_Bars" unique_id=1661928240]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 694.0
+offset_top = 1.0
+offset_right = 734.0
+offset_bottom = 41.0
+
+[node name="Label" type="Label" parent="Health_Bars/Control2" unique_id=1869438216]
+layout_mode = 0
+offset_left = 176.0
+offset_top = 12.0
+offset_right = 284.0
+offset_bottom = 35.0
+text = "Enemy Health"
+
+[node name="Enemy Health" type="ProgressBar" parent="Health_Bars/Control2" unique_id=1209679171]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 4.0
+offset_top = 38.0
+offset_right = 459.0
+offset_bottom = 70.0
+theme_override_styles/background = SubResource("StyleBoxFlat_h2yge")
+theme_override_styles/fill = SubResource("StyleBoxFlat_1bvp3")
+value = 100.0
+
+[node name="Turn_UI" type="CanvasLayer" parent="." unique_id=1113976861]
+unique_name_in_owner = true
+
+[node name="DiceUI" type="Control" parent="Turn_UI" unique_id=673627030]
 layout_mode = 3
 anchors_preset = 7
 anchor_left = 0.5
@@ -183,7 +214,8 @@ offset_right = 20.0
 grow_horizontal = 2
 grow_vertical = 0
 
-[node name="DiceSlots" type="HBoxContainer" parent="CanvasLayer/DiceUI" unique_id=170380070]
+[node name="DiceSlots" type="HBoxContainer" parent="Turn_UI/DiceUI" unique_id=170380070]
+unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
@@ -198,37 +230,38 @@ grow_vertical = 0
 theme_override_constants/separation = 10
 alignment = 1
 
-[node name="DiceSlot1" type="TextureRect" parent="CanvasLayer/DiceUI/DiceSlots" unique_id=1798213114]
+[node name="DiceSlot1" type="TextureRect" parent="Turn_UI/DiceUI/DiceSlots" unique_id=1798213114]
 custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
 mouse_filter = 0
 stretch_mode = 5
 
-[node name="DiceSlot2" type="TextureRect" parent="CanvasLayer/DiceUI/DiceSlots" unique_id=2097885554]
+[node name="DiceSlot2" type="TextureRect" parent="Turn_UI/DiceUI/DiceSlots" unique_id=2097885554]
 custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
 mouse_filter = 0
 stretch_mode = 5
 
-[node name="DiceSlot3" type="TextureRect" parent="CanvasLayer/DiceUI/DiceSlots" unique_id=197791340]
+[node name="DiceSlot3" type="TextureRect" parent="Turn_UI/DiceUI/DiceSlots" unique_id=197791340]
 custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
 mouse_filter = 0
 stretch_mode = 5
 
-[node name="DiceSlot4" type="TextureRect" parent="CanvasLayer/DiceUI/DiceSlots" unique_id=1613840777]
+[node name="DiceSlot4" type="TextureRect" parent="Turn_UI/DiceUI/DiceSlots" unique_id=1613840777]
 custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
 mouse_filter = 0
 stretch_mode = 5
 
-[node name="DiceSlot5" type="TextureRect" parent="CanvasLayer/DiceUI/DiceSlots" unique_id=157249847]
+[node name="DiceSlot5" type="TextureRect" parent="Turn_UI/DiceUI/DiceSlots" unique_id=157249847]
 custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
 mouse_filter = 0
 stretch_mode = 5
 
-[node name="ChooseDiceText" type="RichTextLabel" parent="CanvasLayer/DiceUI" unique_id=1532251658]
+[node name="ChooseDiceText" type="RichTextLabel" parent="Turn_UI/DiceUI" unique_id=1532251658]
+visible = false
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
@@ -244,6 +277,52 @@ grow_vertical = 0
 text = "choose a dice to roll again"
 horizontal_alignment = 1
 
+[node name="ScrollContainer" type="ScrollContainer" parent="Turn_UI" unique_id=836564199]
+offset_left = 644.0
+offset_top = 2.0
+offset_right = 1152.0
+offset_bottom = 646.0
+
+[node name="Combo Entries Container" type="VBoxContainer" parent="Turn_UI/ScrollContainer" unique_id=326587653]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(500, 250)
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 4
+script = ExtResource("3_h2yge")
+
+[node name="Button" type="Button" parent="Turn_UI" unique_id=1195503770]
+unique_name_in_owner = true
+offset_right = 183.0
+offset_bottom = 56.0
+
+[node name="TextEdit" type="Label" parent="Turn_UI/Button" unique_id=889558423]
+layout_mode = 0
+offset_right = 127.0
+offset_bottom = 36.0
+text = "ROLL DICE"
+
+[node name="RerollButton" type="Button" parent="Turn_UI" unique_id=1627265798]
+unique_name_in_owner = true
+offset_left = 1.0
+offset_top = 75.0
+offset_right = 184.0
+offset_bottom = 131.0
+
+[node name="TextEdit" type="Label" parent="Turn_UI/RerollButton" unique_id=433136394]
+layout_mode = 0
+offset_right = 127.0
+offset_bottom = 36.0
+text = "Re-Roll One"
+
+[node name="TextEdit" type="Label" parent="Turn_UI/RerollButton/TextEdit" unique_id=130450918]
+layout_mode = 0
+offset_left = 1.0
+offset_top = 32.0
+offset_right = 128.0
+offset_bottom = 68.0
+text = "N of N left"
+
 [node name="Camera3D" type="Camera3D" parent="." unique_id=840999897]
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 9.40819, 0.12898612)
 fov = 91.01124
@@ -256,5 +335,6 @@ mesh = SubResource("CapsuleMesh_0xm2m")
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=167607035]
 libraries/ = SubResource("AnimationLibrary_h2yge")
 
-[connection signal="pressed" from="Button" to="Turn_Manager" method="roll_dice"]
-[connection signal="pressed" from="RerollButton" to="Turn_Manager" method="_on_reroll_button_pressed"]
+[connection signal="entry_chosen" from="Turn_UI/ScrollContainer/Combo Entries Container" to="Turn_Manager" method="_on_combo_entries_container_entry_chosen"]
+[connection signal="pressed" from="Turn_UI/Button" to="Turn_Manager" method="roll_dice"]
+[connection signal="pressed" from="Turn_UI/RerollButton" to="Turn_Manager" method="_on_reroll_button_pressed"]
