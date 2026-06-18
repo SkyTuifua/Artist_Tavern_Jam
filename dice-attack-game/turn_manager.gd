@@ -249,6 +249,8 @@ func _on_reroll_button_pressed():
 ##Attack Has been chosen, Play animation to attack, and hide UI until Animation is done?
 func _on_combo_entries_container_entry_chosen(combo: DiceCombo.DICE_COMBOS) -> void:
 	animation_player.play("table_to_pov")
+	var dci : DiceCombo.dice_combo_info = DiceCombo.get_dice_combo_info(combo)
+	turn_result.text = "You used: " + dci.name
 	animation_player.animation_finished.connect(do_attack.bind(combo),CONNECT_ONE_SHOT)
 	turn_ui.visible = false
 	health_bars.visible = true
