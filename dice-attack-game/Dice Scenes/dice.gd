@@ -1,6 +1,6 @@
 extends RigidBody3D
 class_name Dice
-@export var sides : Array[Node3D]
+@export var sides : Array[Side]
 var current_side : Side = null
 var has_rolled : bool = false
 var dice_moving : bool = false
@@ -9,6 +9,7 @@ var still_time: float = 0.0
 const STILL_THRESHOLD := 0.05
 const REQUIRED_STILL_TIME := 0.5
 var finished: bool = false
+
 
 func _physics_process(delta: float) -> void:
 	var moving := linear_velocity.length() > STILL_THRESHOLD \

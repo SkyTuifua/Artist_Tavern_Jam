@@ -19,3 +19,4 @@ static func get_side_texture(color : SIDE_COLORS)->Texture2D:
 		SIDE_COLORS.BASE_HEALTH:
 			return load("res://Dice Scenes/Dice_Symbols/dice_base_health.png")
 	return load("res://Dice Scenes/Dice_Symbols/Blue.tres")
+	

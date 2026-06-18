@@ -50,6 +50,10 @@ static func has_combo(roll : Array[Side.SIDE_COLORS], combo : DiceCombo.DICE_COM
 		if checker.is_empty():
 			return true
 	return false
+
+static func ai_choose_combo() -> DiceCombo.DICE_COMBOS:
+	return DICE_COMBOS.VAMPIRE_BITE
+	
 static func resolve(damage_count, health_count, damage_plus_count):
 
 	if health_count >= 3:

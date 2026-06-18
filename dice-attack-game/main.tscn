@@ -5,10 +5,17 @@
 [ext_resource type="Script" uid="uid://cuefilef0hguo" path="res://combo_entries_container.gd" id="3_h2yge"]
 [ext_resource type="AudioStream" uid="uid://bn8mcf6sc81xp" path="res://sounds/bigvamp.ogg" id="4_lquwl"]
 [ext_resource type="Script" uid="uid://ohg51op0cdmn" path="res://game_music.gd" id="5_lquwl"]
+[ext_resource type="PackedScene" uid="uid://t5h3jgln2qy7" path="res://Enviroment/premade_houses.tscn" id="6_7mycd"]
+[ext_resource type="PackedScene" uid="uid://cdgxhqd4h04ht" path="res://Enviroment/Tree.tscn" id="7_272bh"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_7dm0k"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_ig7tw"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_lquwl"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lquwl"]
+albedo_color = Color(8.001737e-07, 0.20466769, 2.4065375e-08, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lquwl"]
 bg_color = Color(0, 0, 0, 1)
@@ -33,6 +40,13 @@ tracks/0/path = NodePath("Camera3D")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = PackedFloat32Array(0, 1, 0, 9.40819, 0.12898612)
+tracks/1/type = "rotation_3d"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Camera3D")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = PackedFloat32Array(0, 1, -0.70710677, 0, 0, 0.70710677)
 
 [sub_resource type="Animation" id="Animation_0xm2m"]
 resource_name = "table_to_pov"
@@ -58,6 +72,21 @@ _data = {
 &"RESET": SubResource("Animation_h2yge"),
 &"table_to_pov": SubResource("Animation_0xm2m")
 }
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_272bh"]
+sky_top_color = Color(0.08235294, 0, 0.14509805, 1)
+sky_horizon_color = Color(0, 0, 0, 1)
+sky_curve = 0.73868597
+sky_energy_multiplier = 1.05
+ground_bottom_color = Color(0, 0, 0, 1)
+ground_horizon_color = Color(0, 0, 0, 1)
+
+[sub_resource type="Sky" id="Sky_5vw27"]
+sky_material = SubResource("ProceduralSkyMaterial_272bh")
+
+[sub_resource type="Environment" id="Environment_kek77"]
+background_mode = 2
+sky = SubResource("Sky_5vw27")
 
 [node name="Main" type="Node3D" unique_id=758350102]
 
@@ -136,7 +165,86 @@ transform = Transform3D(-0.99401283, -0.105050296, 0.030048797, -0.10718778, 0.9
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=606966081]
 transform = Transform3D(0.6475615, 0.6786203, -0.34661022, 0, 0.45486116, 0.89056236, 0.7620132, -0.5766939, 0.29455057, -4.3456926, 6.0710034, 1.9551625)
 
-[node name="Node" type="Node" parent="." unique_id=617240918]
+[node name="Enviroment" type="Node" parent="." unique_id=1187436294]
+
+[node name="Grass" type="MeshInstance3D" parent="Enviroment" unique_id=2118365731]
+transform = Transform3D(1997.5677, 0, 0, 0, 1997.5677, 0, 0, 0, 1997.5677, 0, -38.939598, 0)
+mesh = SubResource("PlaneMesh_lquwl")
+surface_material_override/0 = SubResource("StandardMaterial3D_lquwl")
+
+[node name="premade_houses" parent="Enviroment" unique_id=1285506270 instance=ExtResource("6_7mycd")]
+transform = Transform3D(14.405458, 0, -8.34115, 0, 16.64608, 0, 8.34115, 0, 14.405458, 213.36877, -32.88308, -210.56125)
+
+[node name="premade_houses2" parent="Enviroment" unique_id=860717357 instance=ExtResource("6_7mycd")]
+transform = Transform3D(0.7960353, 0, -16.627037, 0, 16.646078, 0, 16.627037, 0, 0.7960353, -696.21625, -32.88308, -703.51215)
+
+[node name="premade_houses4" parent="Enviroment" unique_id=1593645193 instance=ExtResource("6_7mycd")]
+transform = Transform3D(12.46217, 0, 11.035684, 0, 16.646076, 0, -11.035684, 0, 12.46217, -947.639, -32.88308, -365.53625)
+
+[node name="premade_houses3" parent="Enviroment" unique_id=1668386340 instance=ExtResource("6_7mycd")]
+transform = Transform3D(-15.714232, 0, -5.491348, 0, 16.646076, 0, 5.491348, 0, -15.714232, -528.9627, -32.88308, -1272.3188)
+
+[node name="Low_Poly_Tree_0062" parent="Enviroment" unique_id=1230244165 instance=ExtResource("7_272bh")]
+transform = Transform3D(39.05651, 0, 0, 0, 39.05651, 0, 0, 0, 39.05651, -118.161255, -14.364948, -150.65845)
+
+[node name="Low_Poly_Tree_0075" parent="Enviroment" unique_id=1001287775 instance=ExtResource("7_272bh")]
+transform = Transform3D(39.05651, 0, 0, 0, 39.05651, 0, 0, 0, 39.05651, -51.256836, -14.364948, -290.79135)
+
+[node name="Low_Poly_Tree_0076" parent="Enviroment" unique_id=552023097 instance=ExtResource("7_272bh")]
+transform = Transform3D(39.05651, 0, 0, 0, 39.05651, 0, 0, 0, 39.05651, -131.91872, -14.364948, -395.75018)
+
+[node name="Low_Poly_Tree_0078" parent="Enviroment" unique_id=951925005 instance=ExtResource("7_272bh")]
+transform = Transform3D(79.8992, 0, 0, 0, 79.8992, 0, 0, 0, 79.8992, -239.84969, -125.30061, -800.34705)
+
+[node name="Low_Poly_Tree_0077" parent="Enviroment" unique_id=1624079313 instance=ExtResource("7_272bh")]
+transform = Transform3D(78.32377, 0, 0, 0, 95.11591, 0, 0, 0, 59.36743, 57.79062, -14.364948, -591.0879)
+
+[node name="Low_Poly_Tree_0063" parent="Enviroment" unique_id=1275345570 instance=ExtResource("7_272bh")]
+transform = Transform3D(39.05651, 0, 0, 0, 39.05651, 0, 0, 0, 39.05651, -9.191315, -14.364948, -500.86542)
+
+[node name="Low_Poly_Tree_0064" parent="Enviroment" unique_id=1588349740 instance=ExtResource("7_272bh")]
+transform = Transform3D(80.36892, 0, 0, 0, 80.36892, 0, 0, 0, 80.36892, -359.66293, -14.364948, -500.86542)
+
+[node name="Low_Poly_Tree_0067" parent="Enviroment" unique_id=1565175389 instance=ExtResource("7_272bh")]
+transform = Transform3D(39.05651, 0, 0, 0, 39.05651, 0, 0, 0, 39.05651, -859.6741, -14.364948, -565.40063)
+
+[node name="Low_Poly_Tree_0065" parent="Enviroment" unique_id=568715065 instance=ExtResource("7_272bh")]
+transform = Transform3D(39.05651, 0, 0, 0, 39.05651, 0, 0, 0, 39.05651, -447.87607, -14.364948, -175.56647)
+
+[node name="Low_Poly_Tree_0074" parent="Enviroment" unique_id=4326129 instance=ExtResource("7_272bh")]
+transform = Transform3D(39.05651, 0, 0, 0, 39.05651, 0, 0, 0, 39.05651, -327.6792, -14.364948, -249.77802)
+
+[node name="Low_Poly_Tree_0073" parent="Enviroment" unique_id=1281457411 instance=ExtResource("7_272bh")]
+transform = Transform3D(39.05651, 0, 0, 0, 39.05651, 0, 0, 0, 39.05651, -175.27798, -14.364948, -33.860023)
+
+[node name="Low_Poly_Tree_0071" parent="Enviroment" unique_id=728720181 instance=ExtResource("7_272bh")]
+transform = Transform3D(39.05651, 0, 0, 0, 39.05651, 0, 0, 0, 39.05651, -702.44806, -14.364948, -114.09822)
+
+[node name="Low_Poly_Tree_0072" parent="Enviroment" unique_id=205591758 instance=ExtResource("7_272bh")]
+transform = Transform3D(39.05651, 0, 0, 0, 39.05651, 0, 0, 0, 39.05651, -702.44806, -14.364948, -303.86053)
+
+[node name="Low_Poly_Tree_0068" parent="Enviroment" unique_id=2076396449 instance=ExtResource("7_272bh")]
+transform = Transform3D(39.05651, 0, 0, 0, 39.05651, 0, 0, 0, 39.05651, -930.66113, -14.364948, -528.74744)
+
+[node name="Low_Poly_Tree_0069" parent="Enviroment" unique_id=940987730 instance=ExtResource("7_272bh")]
+transform = Transform3D(39.05651, 0, 0, 0, 39.05651, 0, 0, 0, 39.05651, -1213.2112, -14.364948, -679.2148)
+
+[node name="Low_Poly_Tree_0066" parent="Enviroment" unique_id=1954480243 instance=ExtResource("7_272bh")]
+transform = Transform3D(39.05651, 0, 0, 0, 39.05651, 0, 0, 0, 39.05651, -1074.4375, -14.364948, -1181.4534)
+
+[node name="Low_Poly_Tree_0079" parent="Enviroment" unique_id=362790468 instance=ExtResource("7_272bh")]
+transform = Transform3D(91.142105, 0, 0, 0, 91.142105, 0, 0, 0, 91.142105, -958.3114, -110.60887, -1644.4628)
+
+[node name="Low_Poly_Tree_0070" parent="Enviroment" unique_id=1370770383 instance=ExtResource("7_272bh")]
+transform = Transform3D(39.05651, 0, 0, 0, 39.05651, 0, 0, 0, 39.05651, -1135.3584, -14.364948, -855.4476)
+
+[node name="SpotLight3D" type="SpotLight3D" parent="Enviroment" unique_id=72474496]
+transform = Transform3D(-0.9997179, -0.0017490473, -0.023687314, -0.023751799, 0.07361775, 0.9970037, 0, 0.997285, -0.07363853, 166.18307, 127.90341, -100.767685)
+light_color = Color(1, 1, 0, 1)
+light_energy = 16.0
+spot_range = 354.0728
+spot_attenuation = 0.21
+spot_angle = 61.29717
 
 [node name="Turn_Manager" type="Node" parent="." unique_id=1198981518 node_paths=PackedStringArray("dice_array")]
 script = ExtResource("2_0xm2m")
@@ -280,10 +388,10 @@ text = "choose a dice to roll again"
 horizontal_alignment = 1
 
 [node name="ScrollContainer" type="ScrollContainer" parent="Turn_UI" unique_id=836564199]
-offset_left = 644.0
+offset_left = 646.0
 offset_top = 2.0
 offset_right = 1152.0
-offset_bottom = 646.0
+offset_bottom = 461.0
 
 [node name="Combo Entries Container" type="VBoxContainer" parent="Turn_UI/ScrollContainer" unique_id=326587653]
 unique_name_in_owner = true
@@ -341,6 +449,9 @@ libraries/ = SubResource("AnimationLibrary_h2yge")
 stream = ExtResource("4_lquwl")
 autoplay = true
 script = ExtResource("5_lquwl")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1804815817]
+environment = SubResource("Environment_kek77")
 
 [connection signal="entry_chosen" from="Turn_UI/ScrollContainer/Combo Entries Container" to="Turn_Manager" method="_on_combo_entries_container_entry_chosen"]
 [connection signal="pressed" from="Turn_UI/Button" to="Turn_Manager" method="roll_dice"]
