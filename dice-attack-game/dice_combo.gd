@@ -89,3 +89,15 @@ static func resolve(damage_count, health_count, damage_plus_count):
 		"damage": 0,
 		"heal": 0
 	}
+
+static func get_available_combos(
+	roll: Array[Side.SIDE_COLORS]
+) -> Array[DiceCombo.DICE_COMBOS]:
+
+	var results: Array[DiceCombo.DICE_COMBOS] = []
+
+	for combo in DICE_COMBOS.values():
+		if has_combo(roll, combo):
+			results.append(combo)
+
+	return results

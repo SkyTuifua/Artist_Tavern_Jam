@@ -5,6 +5,7 @@
 [ext_resource type="Script" uid="uid://cuefilef0hguo" path="res://combo_entries_container.gd" id="3_h2yge"]
 [ext_resource type="AudioStream" uid="uid://bn8mcf6sc81xp" path="res://sounds/bigvamp.ogg" id="4_lquwl"]
 [ext_resource type="Script" uid="uid://ohg51op0cdmn" path="res://game_music.gd" id="5_lquwl"]
+[ext_resource type="FontFile" uid="uid://5bwgdiycfgnu" path="res://UI/fonts/Vampires.ttf" id="6_5vw27"]
 [ext_resource type="PackedScene" uid="uid://t5h3jgln2qy7" path="res://Enviroment/premade_houses.tscn" id="6_7mycd"]
 [ext_resource type="PackedScene" uid="uid://cdgxhqd4h04ht" path="res://Enviroment/Tree.tscn" id="7_272bh"]
 
@@ -311,7 +312,74 @@ value = 100.0
 [node name="Turn_UI" type="CanvasLayer" parent="." unique_id=1113976861]
 unique_name_in_owner = true
 
-[node name="DiceUI" type="Control" parent="Turn_UI" unique_id=673627030]
+[node name="ScrollContainer" type="ScrollContainer" parent="Turn_UI" unique_id=836564199]
+unique_name_in_owner = true
+offset_left = 646.0
+offset_top = 2.0
+offset_right = 1152.0
+offset_bottom = 461.0
+
+[node name="Combo Entries Container" type="VBoxContainer" parent="Turn_UI/ScrollContainer" unique_id=326587653]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(500, 250)
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 4
+script = ExtResource("3_h2yge")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Turn_UI" unique_id=989414633]
+offset_left = 20.0
+offset_top = 20.0
+offset_right = 118.0
+offset_bottom = 108.0
+theme_override_constants/separation = 20
+
+[node name="InitialRollBtn" type="Button" parent="Turn_UI/VBoxContainer" unique_id=1195503770]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_fonts/font = ExtResource("6_5vw27")
+theme_override_font_sizes/font_size = 36
+text = "ROLL DICE"
+
+[node name="RerollButton" type="Button" parent="Turn_UI/VBoxContainer" unique_id=1627265798]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_fonts/font = ExtResource("6_5vw27")
+theme_override_font_sizes/font_size = 36
+text = "Re-Roll One"
+
+[node name="TurnDataUI" type="CanvasLayer" parent="." unique_id=1462630903]
+unique_name_in_owner = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TurnDataUI" unique_id=963829642]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -46.5
+offset_top = 20.0
+offset_right = 46.5
+offset_bottom = 102.0
+grow_horizontal = 2
+theme_override_constants/separation = 10
+
+[node name="TurnLabel" type="Label" parent="TurnDataUI/VBoxContainer" unique_id=484308358]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_fonts/font = ExtResource("6_5vw27")
+theme_override_font_sizes/font_size = 34
+text = "Your Turn"
+horizontal_alignment = 1
+
+[node name="TurnResult" type="Label" parent="TurnDataUI/VBoxContainer" unique_id=1268534171]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_fonts/font = ExtResource("6_5vw27")
+theme_override_font_sizes/font_size = 34
+horizontal_alignment = 1
+
+[node name="DiceUI" type="Control" parent="TurnDataUI" unique_id=673627030]
+unique_name_in_owner = true
+visible = false
 layout_mode = 3
 anchors_preset = 7
 anchor_left = 0.5
@@ -324,7 +392,7 @@ offset_right = 20.0
 grow_horizontal = 2
 grow_vertical = 0
 
-[node name="DiceSlots" type="HBoxContainer" parent="Turn_UI/DiceUI" unique_id=170380070]
+[node name="DiceSlots" type="HBoxContainer" parent="TurnDataUI/DiceUI" unique_id=170380070]
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 7
@@ -340,38 +408,37 @@ grow_vertical = 0
 theme_override_constants/separation = 10
 alignment = 1
 
-[node name="DiceSlot1" type="TextureRect" parent="Turn_UI/DiceUI/DiceSlots" unique_id=1798213114]
+[node name="DiceSlot1" type="TextureRect" parent="TurnDataUI/DiceUI/DiceSlots" unique_id=1798213114]
 custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
 mouse_filter = 0
 stretch_mode = 5
 
-[node name="DiceSlot2" type="TextureRect" parent="Turn_UI/DiceUI/DiceSlots" unique_id=2097885554]
+[node name="DiceSlot2" type="TextureRect" parent="TurnDataUI/DiceUI/DiceSlots" unique_id=2097885554]
 custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
 mouse_filter = 0
 stretch_mode = 5
 
-[node name="DiceSlot3" type="TextureRect" parent="Turn_UI/DiceUI/DiceSlots" unique_id=197791340]
+[node name="DiceSlot3" type="TextureRect" parent="TurnDataUI/DiceUI/DiceSlots" unique_id=197791340]
 custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
 mouse_filter = 0
 stretch_mode = 5
 
-[node name="DiceSlot4" type="TextureRect" parent="Turn_UI/DiceUI/DiceSlots" unique_id=1613840777]
+[node name="DiceSlot4" type="TextureRect" parent="TurnDataUI/DiceUI/DiceSlots" unique_id=1613840777]
 custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
 mouse_filter = 0
 stretch_mode = 5
 
-[node name="DiceSlot5" type="TextureRect" parent="Turn_UI/DiceUI/DiceSlots" unique_id=157249847]
+[node name="DiceSlot5" type="TextureRect" parent="TurnDataUI/DiceUI/DiceSlots" unique_id=157249847]
 custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
 mouse_filter = 0
 stretch_mode = 5
 
-[node name="ChooseDiceText" type="RichTextLabel" parent="Turn_UI/DiceUI" unique_id=1532251658]
-visible = false
+[node name="ChooseDiceText" type="RichTextLabel" parent="TurnDataUI/DiceUI" unique_id=1532251658]
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
@@ -384,54 +451,8 @@ offset_right = 156.5
 offset_bottom = -100.0
 grow_horizontal = 2
 grow_vertical = 0
-text = "choose a dice to roll again"
+text = "Your Rolled"
 horizontal_alignment = 1
-
-[node name="ScrollContainer" type="ScrollContainer" parent="Turn_UI" unique_id=836564199]
-offset_left = 646.0
-offset_top = 2.0
-offset_right = 1152.0
-offset_bottom = 461.0
-
-[node name="Combo Entries Container" type="VBoxContainer" parent="Turn_UI/ScrollContainer" unique_id=326587653]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(500, 250)
-layout_mode = 2
-size_flags_horizontal = 8
-size_flags_vertical = 4
-script = ExtResource("3_h2yge")
-
-[node name="Button" type="Button" parent="Turn_UI" unique_id=1195503770]
-unique_name_in_owner = true
-offset_right = 183.0
-offset_bottom = 56.0
-
-[node name="TextEdit" type="Label" parent="Turn_UI/Button" unique_id=889558423]
-layout_mode = 0
-offset_right = 127.0
-offset_bottom = 36.0
-text = "ROLL DICE"
-
-[node name="RerollButton" type="Button" parent="Turn_UI" unique_id=1627265798]
-unique_name_in_owner = true
-offset_left = 1.0
-offset_top = 75.0
-offset_right = 184.0
-offset_bottom = 131.0
-
-[node name="TextEdit" type="Label" parent="Turn_UI/RerollButton" unique_id=433136394]
-layout_mode = 0
-offset_right = 127.0
-offset_bottom = 36.0
-text = "Re-Roll One"
-
-[node name="TextEdit" type="Label" parent="Turn_UI/RerollButton/TextEdit" unique_id=130450918]
-layout_mode = 0
-offset_left = 1.0
-offset_top = 32.0
-offset_right = 128.0
-offset_bottom = 68.0
-text = "N of N left"
 
 [node name="Camera3D" type="Camera3D" parent="." unique_id=840999897]
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 9.40819, 0.12898612)
@@ -454,5 +475,5 @@ script = ExtResource("5_lquwl")
 environment = SubResource("Environment_kek77")
 
 [connection signal="entry_chosen" from="Turn_UI/ScrollContainer/Combo Entries Container" to="Turn_Manager" method="_on_combo_entries_container_entry_chosen"]
-[connection signal="pressed" from="Turn_UI/Button" to="Turn_Manager" method="roll_dice"]
-[connection signal="pressed" from="Turn_UI/RerollButton" to="Turn_Manager" method="_on_reroll_button_pressed"]
+[connection signal="pressed" from="Turn_UI/VBoxContainer/InitialRollBtn" to="Turn_Manager" method="roll_dice"]
+[connection signal="pressed" from="Turn_UI/VBoxContainer/RerollButton" to="Turn_Manager" method="_on_reroll_button_pressed"]

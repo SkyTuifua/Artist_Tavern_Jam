@@ -2,6 +2,7 @@ extends Node
 class_name Turn_Manager
 
 @onready var reroll_button: Button = %RerollButton
+@onready var init_roll_btn: Button = %InitialRollBtn
 @onready var slots: HBoxContainer = %DiceSlots
 @export var dice_array : Array[Dice]
 @export var dice_height : float = 4.0 ## The height at which the dice start when they are rolled.
@@ -15,13 +16,23 @@ var game_started: bool = false
 @onready var combo_entries_container: VBoxContainer = %"Combo Entries Container"
 @onready var animation_player: AnimationPlayer = $"../AnimationPlayer"
 @onready var turn_ui: CanvasLayer = %Turn_UI
-@onready var choose_dice_text: RichTextLabel = $"../Turn_UI/DiceUI/ChooseDiceText"
+@onready var turn_data_ui: CanvasLayer = %TurnDataUI
+@onready var dice_ui: Control = %DiceUI
+@onready var choose_dice_text: RichTextLabel = $"../TurnDataUI/DiceUI/ChooseDiceText"
+@onready var scroll_container: ScrollContainer = $"../Turn_UI/ScrollContainer"
 
 
 @onready var health_bars: CanvasLayer = %Health_Bars
 @onready var enemy_health: ProgressBar = %"Enemy Health"
 @onready var player_health: ProgressBar = %Player_Health
+@onready var turn_label: Label = %TurnLabel
+@onready var turn_result: Label = %TurnResult
 
+enum TurnState {
+	PLAYER,
+	ENEMY
+}
+var current_turn := TurnState.PLAYER
 
 
 signal turn_finished()
@@ -29,7 +40,8 @@ signal turn_finished()
 
 func _ready() -> void:
 	reroll_button.visible = false
-	choose_dice_text.visible = false
+	turn_data_ui.visible = true
+
 	for i in dice_array:
 		if !i.ready:
 			await i.ready
@@ -46,7 +58,7 @@ func _ready() -> void:
 func roll_dice(target_dice: Array = dice_array)->void:
 	game_started = true
 	can_check_if_roll_is_done = true
-	reroll_button.visible = false
+	init_roll_btn.visible = false
 	for dice in target_dice:
 		var new_transform : Transform3D
 		dice.freeze = false
@@ -79,12 +91,19 @@ func check_if_roll_is_done()->void:
 		on_roll_finished()
 		
 func on_roll_finished():
-	calculate_roll()
 	reroll_button.visible = true
-	choose_dice_text.visible = true
+	scroll_container.visible = true
+	calculate_roll()
+	dice_ui.visible = true
+	update_slot_textures()
+	
+	if(current_turn == TurnState.PLAYER):
+		reroll_button.visible = true
+	else:
+		choose_dice_text.text = "Enemy Rolled"
+		resolve_enemy_roll()
 
-	slots.visible = true
-
+func update_slot_textures():
 	var count = min(dice_array.size(), slots.get_child_count())
 
 	for i in range(count):
@@ -98,6 +117,76 @@ func on_roll_finished():
 			texture_rect.texture = null
 		else:
 			texture_rect.texture = Side.get_side_texture(dice.current_side.color)
+			
+func resolve_enemy_roll():
+	var chosen_combo = choose_enemy_combo()
+
+	var dci = DiceCombo.get_dice_combo_info(chosen_combo)
+
+	turn_result.text = "Enemy used: " + dci.name
+
+	await get_tree().create_timer(2).timeout
+
+	do_enemy_attack(chosen_combo)
+
+	await get_tree().create_timer(2).timeout
+	
+	turn_result.text = ""
+	change_turn_data()
+	current_turn = TurnState.PLAYER
+
+	return_to_table()
+
+func choose_enemy_combo():
+
+	var combos = DiceCombo.get_available_combos(dice_combo)
+
+	if combos.is_empty():
+		return null
+
+	# Only one option
+	if combos.size() == 1:
+		return combos[0]
+
+	# Can kill player?
+	for combo in combos:
+		var dci = DiceCombo.get_dice_combo_info(combo)
+
+		if dci.damage >= player_health.value:
+			return combo
+
+	# Vampire Bite always
+	if combos.has(DiceCombo.DICE_COMBOS.VAMPIRE_BITE):
+		return DiceCombo.DICE_COMBOS.VAMPIRE_BITE
+
+	# Heal if low
+	var hp_percent = enemy_health.value / enemy_health.max_value
+
+	if hp_percent <= 0.25:
+		if combos.has(DiceCombo.DICE_COMBOS.HEAL):
+			return DiceCombo.DICE_COMBOS.HEAL
+
+	# Damage if healthy
+	if combos.has(DiceCombo.DICE_COMBOS.DAMAGE_PLUS):
+		return DiceCombo.DICE_COMBOS.DAMAGE_PLUS
+
+	if combos.has(DiceCombo.DICE_COMBOS.DAMAGE):
+		return DiceCombo.DICE_COMBOS.DAMAGE
+
+	return combos[0]
+	
+
+func do_enemy_attack(combo):
+	var dci = DiceCombo.get_dice_combo_info(combo)
+
+	if dci.damage:
+		player_health.value -= dci.damage
+
+	if dci.health:
+		enemy_health.value += dci.health
+
+	if enemy_health.value <= 0 or player_health.value <= 0:
+		end_game()
 	
 func calculate_roll()->void:
 	for i in dice_array:
@@ -155,8 +244,6 @@ func finish_reroll_selection():
 func _on_reroll_button_pressed():
 	reroll_selection_mode = true
 	selected_die_idx = -1
-	choose_dice_text.visible = true
-
 	enable_slot_highlight(true)
 
 ##Attack Has been chosen, Play animation to attack, and hide UI until Animation is done?
@@ -179,12 +266,25 @@ func do_attack(anim_name : StringName, combo : DiceCombo.DICE_COMBOS)->void:
 
 #choose a random attack for the ai to use based on the probabilities of dice rolls
 func enemy_turn()->void:
-	get_tree().create_timer(2).timeout.connect(return_to_table)
+	current_turn = TurnState.ENEMY
+	change_turn_data()
+	roll_dice()
 	
 func return_to_table()->void:
 	animation_player.play("table_to_pov", -1, -1.0, true)
+	change_turn_data()
 	animation_player.animation_finished.connect(attack_finished, CONNECT_ONE_SHOT)
-	
+	dice_ui.visible = false
+
+func change_turn_data():
+	if current_turn == TurnState.PLAYER:
+		turn_label.text = "Your Turn"
+		init_roll_btn.visible = true
+		reroll_button.visible = false
+	else:
+		turn_label.text = "Enemy Turn"
+	dice_ui.visible = false
+	scroll_container.visible = false
 func attack_finished(anim_name:StringName)->void:
 	turn_ui.visible = true
 	health_bars.visible = false
