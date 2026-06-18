@@ -1,0 +1,219 @@
+[gd_scene format=3 uid="uid://brie8jupbdxuj"]
+
+[ext_resource type="Script" uid="uid://101p8roqdg70" path="res://main_menu.gd" id="1_eiy7p"]
+[ext_resource type="Texture2D" uid="uid://2g27b1d5bwjx" path="res://UI/main_menu_background.png" id="2_h7a2f"]
+[ext_resource type="FontFile" uid="uid://5bwgdiycfgnu" path="res://UI/fonts/Vampires.ttf" id="3_iwfq2"]
+[ext_resource type="AudioStream" uid="uid://w4o1tkkgcw4n" path="res://sounds/vampbite.ogg" id="4_7r1g0"]
+[ext_resource type="Script" uid="uid://ch7dbdojx3sk6" path="res://menu_music.gd" id="4_iwfq2"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_iwfq2"]
+bg_color = Color(0.004019165, 0.004019165, 0.004019165, 0.75686276)
+
+[node name="MainMenu" type="Control" unique_id=916739854]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_eiy7p")
+
+[node name="Background" type="TextureRect" parent="." unique_id=1847496408]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_h7a2f")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=767502502]
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_left = 100.0
+offset_top = 50.0
+offset_right = 300.0
+offset_bottom = 50.0
+grow_vertical = 2
+theme_override_constants/separation = 30
+
+[node name="GameTitle" type="Label" parent="VBoxContainer" unique_id=981913330]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_iwfq2")
+theme_override_font_sizes/font_size = 82
+text = "Vamp Bite"
+
+[node name="Play" type="Button" parent="VBoxContainer" unique_id=1569845042]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_iwfq2")
+theme_override_font_sizes/font_size = 34
+text = "Play"
+
+[node name="Rules" type="Button" parent="VBoxContainer" unique_id=3271798]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_iwfq2")
+theme_override_font_sizes/font_size = 34
+text = "How To Play"
+
+[node name="Settings" type="Button" parent="VBoxContainer" unique_id=2030255724]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_iwfq2")
+theme_override_font_sizes/font_size = 34
+text = "Settings
+"
+
+[node name="MenuMusic" type="AudioStreamPlayer2D" parent="." unique_id=1967324302]
+unique_name_in_owner = true
+stream = ExtResource("4_7r1g0")
+autoplay = true
+script = ExtResource("4_iwfq2")
+
+[node name="SettingsContainer" type="VBoxContainer" parent="." unique_id=873900203]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 13
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -176.0
+offset_top = 170.0
+offset_right = 29.99939
+offset_bottom = 170.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 30
+
+[node name="SoundButton" type="Button" parent="SettingsContainer" unique_id=2027341784]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_iwfq2")
+theme_override_font_sizes/font_size = 34
+text = "Sound On"
+
+[node name="VampModeBtn" type="Button" parent="SettingsContainer" unique_id=408142792]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_iwfq2")
+theme_override_font_sizes/font_size = 34
+text = "Vamp Mode Off"
+
+[node name="RulesPanel" type="Panel" parent="." unique_id=481076211]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_iwfq2")
+
+[node name="RulesContainer" type="VBoxContainer" parent="RulesPanel" unique_id=117686390]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 50.0
+offset_bottom = 50.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 10
+
+[node name="Title" type="Label" parent="RulesPanel/RulesContainer" unique_id=25461593]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_iwfq2")
+theme_override_font_sizes/font_size = 24
+text = "How To Play"
+horizontal_alignment = 1
+
+[node name="Section1" type="Label" parent="RulesPanel/RulesContainer" unique_id=1098780910]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_iwfq2")
+text = "This is a turn-based dice battle game where you fight to reduce your opponent’s health to 0."
+horizontal_alignment = 1
+
+[node name="Subtitle" type="Label" parent="RulesPanel/RulesContainer" unique_id=1027690879]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_iwfq2")
+theme_override_font_sizes/font_size = 18
+text = "Starting The Game"
+horizontal_alignment = 1
+
+[node name="Section2" type="Label" parent="RulesPanel/RulesContainer" unique_id=82981914]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_iwfq2")
+text = "Press the Roll Dice button to begin. Each player rolls 5 dice at the start of the game."
+horizontal_alignment = 1
+
+[node name="Subtitle2" type="Label" parent="RulesPanel/RulesContainer" unique_id=1311872990]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_iwfq2")
+theme_override_font_sizes/font_size = 18
+text = "The Dice"
+horizontal_alignment = 1
+
+[node name="Section3" type="Label" parent="RulesPanel/RulesContainer" unique_id=552810188]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_iwfq2")
+text = "Each die is a 6-sided dice, but the sides are split into 3 types:
+
+🩸 Health X 2 - increases your survivability
+✟ Damage X 3 - deals standard damage to the opponent
+☀️ Damage + X 1 - deals higher damage than a normal damage side
+
+Your goal is to build the best combination of dice results each turn to outplay your opponent."
+horizontal_alignment = 1
+
+[node name="Subtitle3" type="Label" parent="RulesPanel/RulesContainer" unique_id=1973803007]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_iwfq2")
+theme_override_font_sizes/font_size = 18
+text = "ReRolls"
+horizontal_alignment = 1
+
+[node name="Section4" type="Label" parent="RulesPanel/RulesContainer" unique_id=1017441285]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_iwfq2")
+text = "Each player gets 3 rerolls per game.
+
+You can use a reroll at any time
+You choose one die to reroll
+The selected die is rolled again for a new result
+
+Use rerolls strategically to improve your combination and gain an advantage."
+horizontal_alignment = 1
+
+[node name="Subtitle4" type="Label" parent="RulesPanel/RulesContainer" unique_id=1013874553]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_iwfq2")
+theme_override_font_sizes/font_size = 18
+text = "Winning The Game"
+horizontal_alignment = 1
+
+[node name="Section5" type="Label" parent="RulesPanel/RulesContainer" unique_id=485950477]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_iwfq2")
+text = "You win by reducing your opponent’s health to 0 before they defeat you."
+horizontal_alignment = 1
+
+[node name="CloseRulesBtn" type="Button" parent="RulesPanel" unique_id=1469477288]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -84.0
+offset_top = 20.0
+offset_right = -20.0
+offset_bottom = 51.0
+grow_horizontal = 0
+theme_override_fonts/font = ExtResource("3_iwfq2")
+theme_override_font_sizes/font_size = 24
+text = "Close X"
+
+[connection signal="pressed" from="VBoxContainer/Play" to="." method="_on_play_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/Rules" to="." method="_on_rules_pressed"]
+[connection signal="pressed" from="VBoxContainer/Settings" to="." method="_on_settings_pressed"]
+[connection signal="pressed" from="SettingsContainer/SoundButton" to="MenuMusic" method="_on_sound_button_pressed"]
+[connection signal="pressed" from="RulesPanel/CloseRulesBtn" to="." method="_on_close_rules_btn_pressed"]

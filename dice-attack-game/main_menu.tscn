@@ -1,0 +1,34 @@
+[gd_scene format=3 uid="uid://dcpwyxeqci00j"]
+
+[ext_resource type="Script" uid="uid://101p8roqdg70" path="res://main_menu.gd" id="1_7vrkn"]
+[ext_resource type="Texture2D" uid="uid://2g27b1d5bwjx" path="res://UI/main_menu_background.png" id="2_fu7sn"]
+
+[node name="MainMenu" type="Control" unique_id=468452407]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_7vrkn")
+
+[node name="Background" type="TextureRect" parent="." unique_id=523382318]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("2_fu7sn")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1505363348]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="GameTitle" type="Label" parent="VBoxContainer" unique_id=922355608]
+layout_mode = 2
+text = "Vamp Bite"
+
+[node name="Play" type="Button" parent="VBoxContainer" unique_id=560529143]
+layout_mode = 2
+text = "Play"
+
+[connection signal="pressed" from="VBoxContainer/Play" to="." method="_on_play_button_pressed"]

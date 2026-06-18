@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Dice-Attack-Game"
-run/main_scene="uid://bopq1ot88w08c"
+run/main_scene="uid://brie8jupbdxuj"
 config/features=PackedStringArray("4.6", "GL Compatibility")
 config/icon="res://icon.svg"
 

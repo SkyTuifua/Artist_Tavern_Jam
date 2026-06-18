@@ -3,6 +3,8 @@
 [ext_resource type="PackedScene" uid="uid://b420blbgvd808" path="res://Dice Scenes/dice.tscn" id="1_ig7tw"]
 [ext_resource type="Script" uid="uid://dwh07yfpekvse" path="res://turn_manager.gd" id="2_0xm2m"]
 [ext_resource type="Script" uid="uid://cuefilef0hguo" path="res://combo_entries_container.gd" id="3_h2yge"]
+[ext_resource type="AudioStream" uid="uid://bn8mcf6sc81xp" path="res://sounds/bigvamp.ogg" id="4_lquwl"]
+[ext_resource type="Script" uid="uid://ohg51op0cdmn" path="res://game_music.gd" id="5_lquwl"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_7dm0k"]
 
@@ -334,6 +336,11 @@ mesh = SubResource("CapsuleMesh_0xm2m")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=167607035]
 libraries/ = SubResource("AnimationLibrary_h2yge")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="." unique_id=476708424]
+stream = ExtResource("4_lquwl")
+autoplay = true
+script = ExtResource("5_lquwl")
 
 [connection signal="entry_chosen" from="Turn_UI/ScrollContainer/Combo Entries Container" to="Turn_Manager" method="_on_combo_entries_container_entry_chosen"]
 [connection signal="pressed" from="Turn_UI/Button" to="Turn_Manager" method="roll_dice"]
