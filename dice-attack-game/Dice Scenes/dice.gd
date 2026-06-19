@@ -10,6 +10,7 @@ const STILL_THRESHOLD := 0.05
 const REQUIRED_STILL_TIME := 0.5
 var finished: bool = false
 
+@onready var collision_sound: AudioStreamPlayer3D = $Collision_Sound
 
 func _physics_process(delta: float) -> void:
 	var moving := linear_velocity.length() > STILL_THRESHOLD \
@@ -41,3 +42,7 @@ func get_top_facing_side(comp_vector: Vector3 = Vector3.UP) -> void:
 
 	current_side = top_facing_side
 	has_rolled = true
+
+
+func _on_body_entered(body: Node) -> void:
+	collision_sound.play()
