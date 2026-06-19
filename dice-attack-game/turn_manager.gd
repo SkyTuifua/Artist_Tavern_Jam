@@ -24,10 +24,15 @@ var game_started: bool = false
 
 @onready var health_bars: CanvasLayer = %Health_Bars
 @onready var enemy_health: ProgressBar = %"Enemy Health"
+@onready var enemy_busy := false
 @onready var player_health: ProgressBar = %Player_Health
 @onready var turn_label: Label = %TurnLabel
 @onready var turn_result: Label = %TurnResult
+<<<<<<< HEAD
 @onready var win_lose_label: Label = %Win_Lose_Label
+=======
+@onready var coin_mult: Node3D = %CoinMultiplier
+>>>>>>> e7ccbdc4b3c1e896cf48df54d65a49ec44033a72
 
 enum TurnState {
 	PLAYER,
@@ -79,6 +84,25 @@ func roll_dice(target_dice: Array = dice_array)->void:
 			randf_range(random_impulse_strength_min, random_impulse_strength_max)
 			))
 
+func should_trigger_coin() -> bool:
+	return randf() <= .90
+
+func get_coin_multiplier() -> float:
+
+	if !should_trigger_coin():
+		return 1.0
+
+	coin_mult.start_coin_flow()
+
+	await coin_mult.coin_finished
+
+	if coin_mult.current_coin_result == coin_mult.CoinResult.HEADS:
+		turn_result.text = "Blood Coin! 2x Ability!"
+		return 2.0
+
+	turn_result.text = "Blood Coin! No Bonus!"
+	return 1.0
+	
 func check_if_roll_is_done()->void:
 	if not game_started:
 		return
@@ -92,17 +116,20 @@ func check_if_roll_is_done()->void:
 		on_roll_finished()
 		
 func on_roll_finished():
+	if game_started == false:
+		return
 	reroll_button.visible = true
 	scroll_container.visible = true
 	calculate_roll()
 	dice_ui.visible = true
 	update_slot_textures()
-	
 	if(current_turn == TurnState.PLAYER):
 		reroll_button.visible = true
 	else:
 		choose_dice_text.text = "Enemy Rolled"
-		resolve_enemy_roll()
+	if current_turn == TurnState.ENEMY:
+		await get_tree().create_timer(0.2).timeout
+		await resolve_enemy_roll()
 
 func update_slot_textures():
 	var count = min(dice_array.size(), slots.get_child_count())
@@ -119,24 +146,23 @@ func update_slot_textures():
 		else:
 			texture_rect.texture = Side.get_side_texture(dice.current_side.color)
 			
-func resolve_enemy_roll():
+func resolve_enemy_roll() -> void:
 	var chosen_combo = choose_enemy_combo()
-
 	var dci = DiceCombo.get_dice_combo_info(chosen_combo)
 
 	turn_result.text = "Enemy used: " + dci.name
 
-	await get_tree().create_timer(2).timeout
+	await get_tree().create_timer(1.0).timeout
+	await do_enemy_attack(chosen_combo)
+	await get_tree().create_timer(1.0).timeout
 
-	do_enemy_attack(chosen_combo)
-
-	await get_tree().create_timer(2).timeout
-	
 	turn_result.text = ""
+	enemy_busy = false
+	current_turn = TurnState.PLAYER	
 	change_turn_data()
-	current_turn = TurnState.PLAYER
+	await get_tree().create_timer(0.5).timeout
+	await return_to_table()
 
-	return_to_table()
 
 func choose_enemy_combo():
 
@@ -177,14 +203,14 @@ func choose_enemy_combo():
 	return combos[0]
 	
 
-func do_enemy_attack(combo):
+func do_enemy_attack(combo) -> void:
 	var dci = DiceCombo.get_dice_combo_info(combo)
-
+	var mult = await get_coin_multiplier()
 	if dci.damage:
-		player_health.value -= dci.damage
+		player_health.value -= dci.damage * mult
 
 	if dci.health:
-		enemy_health.value += dci.health
+		enemy_health.value += dci.health * mult
 
 	if enemy_health.value <= 0 or player_health.value <= 0:
 		end_game()
@@ -250,27 +276,42 @@ func _on_reroll_button_pressed():
 ##Attack Has been chosen, Play animation to attack, and hide UI until Animation is done?
 func _on_combo_entries_container_entry_chosen(combo: DiceCombo.DICE_COMBOS) -> void:
 	animation_player.play("table_to_pov")
-	var dci : DiceCombo.dice_combo_info = DiceCombo.get_dice_combo_info(combo)
-	turn_result.text = "You used: " + dci.name
-	animation_player.animation_finished.connect(do_attack.bind(combo),CONNECT_ONE_SHOT)
+	await animation_player.animation_finished
+
 	turn_ui.visible = false
 	health_bars.visible = true
+
+	await do_attack(combo)
+	await get_tree().create_timer(1.0).timeout
+	current_turn = TurnState.ENEMY
+	change_turn_data()
+	await enemy_turn()
+
+	
 #does the attack
-func do_attack(anim_name : StringName, combo : DiceCombo.DICE_COMBOS)->void:
+func do_attack(combo : DiceCombo.DICE_COMBOS)->void:
 	var dci : DiceCombo.dice_combo_info = DiceCombo.get_dice_combo_info(combo)
+	var multiplier = await get_coin_multiplier()
+	
 	if dci.damage:
-		enemy_health.value -= dci.damage
+		enemy_health.value -= dci.damage * multiplier
 	if dci.health:
-		player_health.value += dci.health
+		player_health.value += dci.health * multiplier
 	if enemy_health.value <= 0 or player_health.value <= 0:
 		end_game()
 		return
-	get_tree().create_timer(2).timeout.connect(enemy_turn)
-
+			
 #choose a random attack for the ai to use based on the probabilities of dice rolls
-func enemy_turn()->void:
+func enemy_turn() -> void:
+	print("TURN")
+	if enemy_busy:
+		return
+	enemy_busy = true
 	current_turn = TurnState.ENEMY
 	change_turn_data()
+	print("should roll here")
+
+	await get_tree().create_timer(0.5).timeout
 	roll_dice()
 	
 func return_to_table()->void:
@@ -278,6 +319,9 @@ func return_to_table()->void:
 	change_turn_data()
 	animation_player.animation_finished.connect(attack_finished, CONNECT_ONE_SHOT)
 	dice_ui.visible = false
+	
+	await animation_player.animation_finished
+	attack_finished("")
 
 func change_turn_data():
 	if current_turn == TurnState.PLAYER:
