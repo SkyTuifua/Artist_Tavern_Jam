@@ -2,18 +2,50 @@
 
 [ext_resource type="PackedScene" uid="uid://b420blbgvd808" path="res://Dice Scenes/dice.tscn" id="1_ig7tw"]
 [ext_resource type="Script" uid="uid://dwh07yfpekvse" path="res://turn_manager.gd" id="2_0xm2m"]
+[ext_resource type="AudioStream" uid="uid://c036aydn7f2cv" path="res://sounds/Voice_Efforts/Hero_Effort_1.wav" id="2_yaehf"]
+[ext_resource type="AudioStream" uid="uid://v2t8a4copkpx" path="res://sounds/Voice_Efforts/Hero_Effort_2.wav" id="3_074og"]
 [ext_resource type="Script" uid="uid://cuefilef0hguo" path="res://combo_entries_container.gd" id="3_h2yge"]
+[ext_resource type="AudioStream" uid="uid://bkiqd8pj3q80n" path="res://sounds/Voice_Efforts/Hero_Effort_3.wav" id="4_cegan"]
 [ext_resource type="AudioStream" uid="uid://bn8mcf6sc81xp" path="res://sounds/bigvamp.ogg" id="4_lquwl"]
+[ext_resource type="AudioStream" uid="uid://thpqswp0ewts" path="res://sounds/Voice_Efforts/Hero_Heal_Effort_1.wav" id="5_82xsv"]
 [ext_resource type="Script" uid="uid://ohg51op0cdmn" path="res://game_music.gd" id="5_lquwl"]
 [ext_resource type="FontFile" uid="uid://5bwgdiycfgnu" path="res://UI/fonts/Vampires.ttf" id="6_5vw27"]
 [ext_resource type="PackedScene" uid="uid://t5h3jgln2qy7" path="res://Enviroment/premade_houses.tscn" id="6_7mycd"]
+[ext_resource type="AudioStream" uid="uid://brvai3mixgv5" path="res://sounds/Voice_Efforts/Hero_Heal_Effort_2.wav" id="6_getpj"]
 [ext_resource type="PackedScene" uid="uid://cdgxhqd4h04ht" path="res://Enviroment/Tree.tscn" id="7_272bh"]
+[ext_resource type="AudioStream" uid="uid://nk4xcsh8kj65" path="res://sounds/Voice_Efforts/Villain_Effort_1.wav" id="7_ryguw"]
+[ext_resource type="AudioStream" uid="uid://ddagwm2xl8jsb" path="res://sounds/Voice_Efforts/Villain_Effort_2.wav" id="8_d13ii"]
+[ext_resource type="AudioStream" uid="uid://braycriym5sw1" path="res://sounds/Voice_Efforts/Villain_Effort_3.wav" id="9_1u8w0"]
 [ext_resource type="Script" uid="uid://c3njf7fesfvjj" path="res://coin_flip.gd" id="9_4c57u"]
 [ext_resource type="PackedScene" uid="uid://c16c1wwvcos2a" path="res://Art/coin.glb" id="9_kek77"]
+[ext_resource type="AudioStream" uid="uid://sjbhtrsubg80" path="res://sounds/Voice_Efforts/Villain_Heal_Effort_1.wav" id="10_0odxb"]
 [ext_resource type="PackedScene" uid="uid://iajobqpmh2j2" path="res://Enviroment/wooden_table.tscn" id="11_efxa6"]
+[ext_resource type="AudioStream" uid="uid://dnvrrmvj4lkvw" path="res://sounds/Voice_Efforts/Villain_Heal_Effort_2.wav" id="11_lswn8"]
 [ext_resource type="PackedScene" uid="uid://ckqei8ic2pq8e" path="res://Enviroment/wooden_box.tscn" id="12_dg77c"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_7dm0k"]
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_ryguw"]
+streams_count = 3
+stream_0/stream = ExtResource("2_yaehf")
+stream_1/stream = ExtResource("3_074og")
+stream_2/stream = ExtResource("4_cegan")
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_d13ii"]
+streams_count = 2
+stream_0/stream = ExtResource("5_82xsv")
+stream_1/stream = ExtResource("6_getpj")
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_a6jrf"]
+streams_count = 3
+stream_0/stream = ExtResource("7_ryguw")
+stream_1/stream = ExtResource("8_d13ii")
+stream_2/stream = ExtResource("9_1u8w0")
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_xuqvo"]
+streams_count = 2
+stream_0/stream = ExtResource("10_0odxb")
+stream_1/stream = ExtResource("11_lswn8")
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_lquwl"]
 
@@ -334,6 +366,24 @@ transform = Transform3D(-0.99401283, -0.105050296, 0.030048797, -0.10718778, 0.9
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=606966081]
 transform = Transform3D(0.6475615, 0.6786203, -0.34661022, 0, 0.45486116, 0.89056236, 0.7620132, -0.5766939, 0.29455057, -4.3456926, 6.0710034, 1.9551625)
 
+[node name="Sounds" type="Node" parent="." unique_id=1535511466]
+
+[node name="Player_Damaged" type="AudioStreamPlayer" parent="Sounds" unique_id=931893372]
+unique_name_in_owner = true
+stream = SubResource("AudioStreamRandomizer_ryguw")
+
+[node name="Player_Healed" type="AudioStreamPlayer" parent="Sounds" unique_id=349515773]
+unique_name_in_owner = true
+stream = SubResource("AudioStreamRandomizer_d13ii")
+
+[node name="Villain_Damaged" type="AudioStreamPlayer" parent="Sounds" unique_id=1304345787]
+unique_name_in_owner = true
+stream = SubResource("AudioStreamRandomizer_a6jrf")
+
+[node name="Villain_Healed" type="AudioStreamPlayer" parent="Sounds" unique_id=875742111]
+unique_name_in_owner = true
+stream = SubResource("AudioStreamRandomizer_xuqvo")
+
 [node name="Enviroment" type="Node" parent="." unique_id=1187436294]
 
 [node name="Grass" type="MeshInstance3D" parent="Enviroment" unique_id=2118365731]
@@ -515,7 +565,7 @@ label_settings = SubResource("LabelSettings_dg77c")
 
 [node name="Blood Effect" type="ColorRect" parent="Health_Bars" unique_id=1488089197]
 unique_name_in_owner = true
-visible = false
+modulate = Color(1, 1, 1, 0)
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
