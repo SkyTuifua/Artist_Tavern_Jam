@@ -28,11 +28,14 @@ var game_started: bool = false
 @onready var player_health: ProgressBar = %Player_Health
 @onready var turn_label: Label = %TurnLabel
 @onready var turn_result: Label = %TurnResult
-<<<<<<< HEAD
+
 @onready var win_lose_label: Label = %Win_Lose_Label
-=======
+
 @onready var coin_mult: Node3D = %CoinMultiplier
->>>>>>> e7ccbdc4b3c1e896cf48df54d65a49ec44033a72
+@onready var blood_effect: ColorRect = %"Blood Effect"
+
+
+
 
 enum TurnState {
 	PLAYER,
@@ -207,8 +210,11 @@ func do_enemy_attack(combo) -> void:
 	var dci = DiceCombo.get_dice_combo_info(combo)
 	var mult = await get_coin_multiplier()
 	if dci.damage:
+		var damage_fx_time : float = .7
 		player_health.value -= dci.damage * mult
-
+		blood_effect.visible = true
+		blood_effect.modulate = Color.WHITE
+		get_tree().create_tween().tween_property(blood_effect,"modulate",Color.TRANSPARENT, damage_fx_time)
 	if dci.health:
 		enemy_health.value += dci.health * mult
 

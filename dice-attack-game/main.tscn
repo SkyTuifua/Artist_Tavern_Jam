@@ -472,6 +472,16 @@ theme_override_fonts/font = ExtResource("6_5vw27")
 text = "You win"
 label_settings = SubResource("LabelSettings_dg77c")
 
+[node name="Blood Effect" type="ColorRect" parent="Health_Bars" unique_id=1488089197]
+unique_name_in_owner = true
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.69245994, 1.8410012e-06, 7.70092e-07, 1)
+
 [node name="Turn_UI" type="CanvasLayer" parent="." unique_id=1113976861]
 unique_name_in_owner = true
 
