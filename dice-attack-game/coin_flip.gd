@@ -31,13 +31,15 @@ func flip_coin() -> void:
 	if randf() < 0.5:
 		current_coin_result = CoinResult.HEADS
 		animation_player.play("coin_heads")
+		await animation_player.animation_finished
+		animation_player.play("coin_heads_disappear")
 	else:
 		current_coin_result = CoinResult.TAILS
 		animation_player.play("coin_tails")
+		await animation_player.animation_finished
+		animation_player.play("coin_tails_disappear")
 
 	# Wait until the flip animation is done
-	await animation_player.animation_finished
-	animation_player.play("coin_disappear")
 	await animation_player.animation_finished
 	animation_player.play("RESET")
 	await animation_player.animation_finished
