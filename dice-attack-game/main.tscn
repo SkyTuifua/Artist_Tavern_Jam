@@ -172,7 +172,7 @@ tracks/2/keys = {
 
 [sub_resource type="Animation" id="Animation_dg77c"]
 resource_name = "coin_heads"
-length = 5.0
+length = 3.0
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -180,7 +180,7 @@ tracks/0/path = NodePath("coin:rotation")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(1, 4),
+"times": PackedFloat32Array(0, 3),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Vector3(0, 0, 0), Vector3(0, 31.415926, 0)]
@@ -188,7 +188,7 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id="Animation_efxa6"]
 resource_name = "coin_rise"
-length = 5.0
+length = 3.0
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -196,7 +196,7 @@ tracks/0/path = NodePath("coin:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 1, 1.5, 2, 2.5, 3, 3.5, 4),
+"times": PackedFloat32Array(0, 1, 1.2666667, 1.6, 1.9333333, 2.3, 2.6666667, 3),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
 "update": 0,
 "values": [Vector3(-11.93, -40.993, -1.429), Vector3(-11.93, 30, -1.429), Vector3(-11.93, 25, -1.429), Vector3(-11.93, 30, -1.429), Vector3(-11.93, 25, -1.429), Vector3(-11.93, 30, -1.429), Vector3(-11.93, 25, -1.429), Vector3(-11.93, 30, -1.429)]
@@ -204,7 +204,7 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id="Animation_ycdy4"]
 resource_name = "coin_tails"
-length = 5.0
+length = 3.0
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -212,7 +212,7 @@ tracks/0/path = NodePath("coin:rotation")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(1, 4.2),
+"times": PackedFloat32Array(0, 3),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Vector3(0, 0, 0), Vector3(0, 34.557518, 0)]
@@ -613,15 +613,16 @@ script = ExtResource("5_lquwl")
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1804815817]
 environment = SubResource("Environment_kek77")
 
-[node name="Node3D" type="Node3D" parent="." unique_id=2055920287]
-transform = Transform3D(1, 0, -1.1125674e-06, 0, 1, 0, 1.1125674e-06, 0, 1, 0, 0, 0)
+[node name="CoinMultiplier" type="Node3D" parent="." unique_id=2055920287]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -15, -5)
 script = ExtResource("9_4c57u")
 
-[node name="CoinAnimation" type="AnimationPlayer" parent="Node3D" unique_id=108082834]
+[node name="CoinAnimation" type="AnimationPlayer" parent="CoinMultiplier" unique_id=108082834]
 unique_name_in_owner = true
 libraries/ = SubResource("AnimationLibrary_dg77c")
 
-[node name="coin" parent="Node3D" unique_id=1224249502 instance=ExtResource("9_kek77")]
+[node name="coin" parent="CoinMultiplier" unique_id=1224249502 instance=ExtResource("9_kek77")]
 transform = Transform3D(0.20000002, 0, -1.11256746e-07, 0, 0.2, 0, 1.11256746e-07, 0, 0.20000002, -11.93, -2.808, -1.429)
 
 [connection signal="entry_chosen" from="Turn_UI/ScrollContainer/Combo Entries Container" to="Turn_Manager" method="_on_combo_entries_container_entry_chosen"]
