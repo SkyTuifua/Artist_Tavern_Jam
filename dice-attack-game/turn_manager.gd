@@ -34,6 +34,11 @@ var game_started: bool = false
 @onready var coin_mult: Node3D = %CoinMultiplier
 @onready var blood_effect: ColorRect = %"Blood Effect"
 
+#Sounds
+@onready var player_damaged: AudioStreamPlayer = %Player_Damaged
+@onready var player_healed: AudioStreamPlayer = %Player_Healed
+@onready var villain_damaged: AudioStreamPlayer = %Villain_Damaged
+@onready var villain_healed: AudioStreamPlayer = %Villain_Healed
 
 
 
@@ -152,7 +157,7 @@ func update_slot_textures():
 func resolve_enemy_roll() -> void:
 	var chosen_combo = choose_enemy_combo()
 	var dci = DiceCombo.get_dice_combo_info(chosen_combo)
-
+	
 	turn_result.text = "Enemy used: " + dci.name
 
 	await get_tree().create_timer(1.0).timeout
@@ -210,13 +215,12 @@ func do_enemy_attack(combo) -> void:
 	var dci = DiceCombo.get_dice_combo_info(combo)
 	var mult = await get_coin_multiplier()
 	if dci.damage:
-		var damage_fx_time : float = .7
 		player_health.value -= dci.damage * mult
-		blood_effect.visible = true
-		blood_effect.modulate = Color.WHITE
-		get_tree().create_tween().tween_property(blood_effect,"modulate",Color.TRANSPARENT, damage_fx_time)
+		play_screen_fx(Color.RED)
+		player_damaged.play()
 	if dci.health:
 		enemy_health.value += dci.health * mult
+		villain_healed.play()
 
 	if enemy_health.value <= 0 or player_health.value <= 0:
 		end_game()
@@ -301,8 +305,12 @@ func do_attack(combo : DiceCombo.DICE_COMBOS)->void:
 	
 	if dci.damage:
 		enemy_health.value -= dci.damage * multiplier
+		villain_damaged.play()
 	if dci.health:
 		player_health.value += dci.health * multiplier
+		play_screen_fx(Color.SEA_GREEN)
+		player_healed.play()
+		
 	if enemy_health.value <= 0 or player_health.value <= 0:
 		end_game()
 		return
@@ -342,7 +350,12 @@ func attack_finished(anim_name:StringName)->void:
 	turn_ui.visible = true
 	health_bars.visible = false
 ###############################################################################################
-
+func play_screen_fx(screen_color : Color = Color.RED, damage_fx_time : float = .7)->void:
+	blood_effect.color = screen_color
+	
+	blood_effect.modulate = Color.WHITE
+	get_tree().create_tween().tween_property(blood_effect,"modulate",Color.TRANSPARENT, damage_fx_time)
+	#tween.finished.connect(func(): blood_effect.visible = false)
 #end game logic.
 func end_game()->void:
 	print(player_health)
