@@ -27,6 +27,7 @@ var game_started: bool = false
 @onready var player_health: ProgressBar = %Player_Health
 @onready var turn_label: Label = %TurnLabel
 @onready var turn_result: Label = %TurnResult
+@onready var win_lose_label: Label = %Win_Lose_Label
 
 enum TurnState {
 	PLAYER,
@@ -294,4 +295,10 @@ func attack_finished(anim_name:StringName)->void:
 
 #end game logic.
 func end_game()->void:
-	pass
+	print(player_health)
+	win_lose_label.visible = true
+	if player_health.value <= 0:
+		win_lose_label.text = "You lose"
+	else:
+		win_lose_label.text = "You Win"
+	get_tree().create_timer(3).timeout.connect(func(): get_tree().change_scene_to_file("res://MainMenu.tscn"))

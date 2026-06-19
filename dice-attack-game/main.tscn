@@ -10,10 +10,10 @@
 [ext_resource type="PackedScene" uid="uid://cdgxhqd4h04ht" path="res://Enviroment/Tree.tscn" id="7_272bh"]
 [ext_resource type="Script" uid="uid://c3njf7fesfvjj" path="res://coin_flip.gd" id="9_4c57u"]
 [ext_resource type="PackedScene" uid="uid://c16c1wwvcos2a" path="res://Art/coin.glb" id="9_kek77"]
+[ext_resource type="PackedScene" uid="uid://iajobqpmh2j2" path="res://Enviroment/wooden_table.tscn" id="11_efxa6"]
+[ext_resource type="PackedScene" uid="uid://ckqei8ic2pq8e" path="res://Enviroment/wooden_box.tscn" id="12_dg77c"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_7dm0k"]
-
-[sub_resource type="BoxMesh" id="BoxMesh_ig7tw"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_lquwl"]
 
@@ -31,6 +31,10 @@ bg_color = Color(0, 0, 0, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1bvp3"]
 bg_color = Color(1, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_dg77c"]
+line_spacing = 5.525
+font_size = 189
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_0xm2m"]
 
@@ -235,9 +239,6 @@ transform = Transform3D(9.992861, 0, 0, 0, 0.38862318, 0, 0, 0, 10.147858, 0, 0,
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" unique_id=962270577]
 shape = SubResource("BoxShape3D_7dm0k")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D" unique_id=1174746302]
-mesh = SubResource("BoxMesh_ig7tw")
-
 [node name="StaticBody3D7" type="StaticBody3D" parent="." unique_id=104180218]
 transform = Transform3D(9.992861, 0, 0, 0, 0.38862318, 0, 0, 0, 10.147858, 0, 5.3256855, 0)
 
@@ -249,9 +250,6 @@ transform = Transform3D(-4.3680183e-07, 0.38862318, 0, -9.99286, -1.6987258e-08,
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D2" unique_id=1986751666]
 shape = SubResource("BoxShape3D_7dm0k")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D2" unique_id=1021736621]
-mesh = SubResource("BoxMesh_ig7tw")
 
 [node name="StaticBody3D3" type="StaticBody3D" parent="." unique_id=1082630347]
 transform = Transform3D(-4.3680183e-07, 0.38862318, 0, -9.99286, -1.6987258e-08, 0, 0, 0, 10.147858, 4.899657, 0, 0)
@@ -265,26 +263,17 @@ transform = Transform3D(-4.3680183e-07, 0.38862318, 0, -9.99286, -1.6987258e-08,
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D4" unique_id=1204609552]
 shape = SubResource("BoxShape3D_7dm0k")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D4" unique_id=78142033]
-mesh = SubResource("BoxMesh_ig7tw")
-
 [node name="StaticBody3D5" type="StaticBody3D" parent="." unique_id=774684239]
 transform = Transform3D(5.4594987e-14, -1.698726e-08, -10.147859, -9.99286, -1.6987258e-08, 0, -4.3680188e-07, 0.38862324, -4.43577e-07, -0.11252928, 0, -5.2014937)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D5" unique_id=115909559]
 shape = SubResource("BoxShape3D_7dm0k")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D5" unique_id=1840658154]
-mesh = SubResource("BoxMesh_ig7tw")
-
 [node name="StaticBody3D6" type="StaticBody3D" parent="." unique_id=349093844]
 transform = Transform3D(5.4594987e-14, -1.698726e-08, -10.147859, -9.99286, -1.6987258e-08, 0, -4.3680188e-07, 0.38862324, -4.43577e-07, -0.08998966, 0, 5.232292)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D6" unique_id=22387838]
 shape = SubResource("BoxShape3D_7dm0k")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D6" unique_id=1908967398]
-mesh = SubResource("BoxMesh_ig7tw")
 
 [node name="Dice" parent="." unique_id=384043266 instance=ExtResource("1_ig7tw")]
 transform = Transform3D(-0.99401283, -0.105050296, 0.030048797, -0.10718778, 0.9908794, -0.08166525, -0.021195618, -0.08439701, -0.99620706, -0.8349266, 2.4850783, 1.2234824)
@@ -385,6 +374,24 @@ spot_range = 354.0728
 spot_attenuation = 0.21
 spot_angle = 61.29717
 
+[node name="Wooden_Table" parent="Enviroment" unique_id=126992268 instance=ExtResource("11_efxa6")]
+transform = Transform3D(158.4551, 0, 0, 0, 158.4551, 0, 0, 0, 158.4551, -4.30156, -34.146767, 0.4996605)
+
+[node name="Wooden_Box" parent="Enviroment" unique_id=791397055 instance=ExtResource("12_dg77c")]
+transform = Transform3D(132.27048, 0, -75.103455, 0, 152.10526, 0, 75.103455, 0, 132.27048, 87.436386, -26.295078, -185.71315)
+
+[node name="Wooden_Box2" parent="Enviroment" unique_id=1807385742 instance=ExtResource("12_dg77c")]
+transform = Transform3D(132.27048, 0, -75.103455, 0, 152.10526, 0, 75.103455, 0, 132.27048, 111.19177, -26.295082, -171.94463)
+
+[node name="Wooden_Box4" parent="Enviroment" unique_id=467404113 instance=ExtResource("12_dg77c")]
+transform = Transform3D(132.27048, 0, -75.103455, 0, 152.10526, 0, 75.103455, 0, 132.27048, 97.47995, -26.295082, -145.33235)
+
+[node name="Wooden_Box5" parent="Enviroment" unique_id=1137034749 instance=ExtResource("12_dg77c")]
+transform = Transform3D(102.796036, 0, -112.111465, 0, 152.10524, 0, 112.111465, 0, 102.796036, 61.356243, -26.295086, -164.3788)
+
+[node name="Wooden_Box3" parent="Enviroment" unique_id=707248089 instance=ExtResource("12_dg77c")]
+transform = Transform3D(105.93774, 0, -109.14761, 0, 152.10524, 0, 109.14761, 0, 105.93774, 111.19177, -0.27409172, -171.94463)
+
 [node name="Turn_Manager" type="Node" parent="." unique_id=1198981518 node_paths=PackedStringArray("dice_array")]
 script = ExtResource("2_0xm2m")
 dice_array = [NodePath("../Dice"), NodePath("../Dice2"), NodePath("../Dice3"), NodePath("../Dice4"), NodePath("../Dice5")]
@@ -447,21 +454,49 @@ theme_override_styles/background = SubResource("StyleBoxFlat_h2yge")
 theme_override_styles/fill = SubResource("StyleBoxFlat_1bvp3")
 value = 100.0
 
+[node name="Win_Lose_Label" type="Label" parent="Health_Bars" unique_id=1648112662]
+unique_name_in_owner = true
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -194.5
+offset_top = -99.0
+offset_right = 194.5
+offset_bottom = 99.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("6_5vw27")
+text = "You win"
+label_settings = SubResource("LabelSettings_dg77c")
+
 [node name="Turn_UI" type="CanvasLayer" parent="." unique_id=1113976861]
 unique_name_in_owner = true
 
 [node name="ScrollContainer" type="ScrollContainer" parent="Turn_UI" unique_id=836564199]
 unique_name_in_owner = true
-offset_left = 646.0
-offset_top = 2.0
-offset_right = 1152.0
-offset_bottom = 461.0
+custom_minimum_size = Vector2(343, 459)
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -400.0
+offset_top = -321.485
+offset_bottom = 137.5152
+grow_horizontal = 0
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+horizontal_scroll_mode = 0
 
 [node name="Combo Entries Container" type="VBoxContainer" parent="Turn_UI/ScrollContainer" unique_id=326587653]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(500, 250)
+custom_minimum_size = Vector2(400, 250)
 layout_mode = 2
-size_flags_horizontal = 8
+size_flags_horizontal = 4
 size_flags_vertical = 4
 script = ExtResource("3_h2yge")
 
@@ -595,7 +630,6 @@ horizontal_alignment = 1
 
 [node name="Camera3D" type="Camera3D" parent="." unique_id=840999897]
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 9.40819, 0.12898612)
-fov = 91.01124
 size = 10.512434
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1676078807]

@@ -9,7 +9,7 @@ var current_dc : DiceCombo.DICE_COMBOS
 var can_use_ability : bool = true
 
 var definitions_size : float = 15.0
-
+var texture_size : float = 50
 signal entry_chosen(dice_combo : DiceCombo.DICE_COMBOS)
 
 func apply_info(dice_combo : DiceCombo.DICE_COMBOS = DiceCombo.DICE_COMBOS.VAMPIRE_BITE)->void:
@@ -26,6 +26,10 @@ func apply_info(dice_combo : DiceCombo.DICE_COMBOS = DiceCombo.DICE_COMBOS.VAMPI
 func create_combo_textures(side_texture : Side.SIDE_COLORS)->void:
 	var new_texture := TextureRect.new()
 	new_texture.texture = Side.get_side_texture(side_texture)
+	new_texture.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+	new_texture.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
+	new_texture.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+	new_texture.custom_minimum_size = Vector2(texture_size,texture_size)
 	combonation_pictures.add_child(new_texture)
 	
 func create_new_combo_definition(def_name : String, def_value)->void:
