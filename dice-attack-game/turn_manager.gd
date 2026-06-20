@@ -15,7 +15,7 @@ var selected_die_idx: int = -1
 var game_started: bool = false
 @onready var combo_entries_container: VBoxContainer = %"Combo Entries Container"
 @onready var animation_player: AnimationPlayer = $"../AnimationPlayer"
-@onready var vamp_anim: AnimationPlayer = $VampAnimation
+@onready var vamp_anim: AnimationPlayer = %"VampAnimation"
 @onready var turn_ui: CanvasLayer = %Turn_UI
 @onready var turn_data_ui: CanvasLayer = %TurnDataUI
 @onready var dice_ui: Control = %DiceUI
@@ -102,7 +102,7 @@ func roll_dice(target_dice: Array = dice_array)->void:
 			))
 
 func should_trigger_coin() -> bool:
-	return randf() <= .90
+	return randf() <= .50
 
 func get_coin_multiplier() -> float:
 
@@ -231,6 +231,7 @@ func do_enemy_attack(combo) -> void:
 	if dci.health:
 		enemy_health.value += dci.health * mult
 		villain_healed.play()
+		vamp_anim.play("health")
 
 	if enemy_health.value <= 0 or player_health.value <= 0:
 		end_game()
@@ -316,7 +317,7 @@ func do_attack(combo : DiceCombo.DICE_COMBOS)->void:
 	if dci.damage:
 		enemy_health.value -= dci.damage * multiplier
 		villain_damaged.play()
-		
+		vamp_anim.play("damage")
 	if dci.health:
 		player_health.value += dci.health * multiplier
 		play_screen_fx(Color.SEA_GREEN)
