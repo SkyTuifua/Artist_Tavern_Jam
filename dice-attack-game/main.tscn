@@ -21,7 +21,10 @@
 [ext_resource type="AudioStream" uid="uid://sjbhtrsubg80" path="res://sounds/Voice_Efforts/Villain_Heal_Effort_1.wav" id="10_0odxb"]
 [ext_resource type="PackedScene" uid="uid://iajobqpmh2j2" path="res://Enviroment/wooden_table.tscn" id="11_efxa6"]
 [ext_resource type="AudioStream" uid="uid://dnvrrmvj4lkvw" path="res://sounds/Voice_Efforts/Villain_Heal_Effort_2.wav" id="11_lswn8"]
+[ext_resource type="AudioStream" uid="uid://cfmkmtnalpkig" path="res://sounds/Voice_Efforts/roll_dice.wav" id="12_1u8w0"]
 [ext_resource type="PackedScene" uid="uid://ckqei8ic2pq8e" path="res://Enviroment/wooden_box.tscn" id="12_dg77c"]
+[ext_resource type="AudioStream" uid="uid://cf00010eihbke" path="res://sounds/Voice_Efforts/suck_blood.wav" id="13_0odxb"]
+[ext_resource type="PackedScene" uid="uid://cttw37gdbiqvn" path="res://characters/vamp_enemy.glb" id="18_0odxb"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_7dm0k"]
 
@@ -51,6 +54,59 @@ stream_1/stream = ExtResource("11_lswn8")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lquwl"]
 albedo_color = Color(8.001737e-07, 0.20466769, 2.4065375e-08, 1)
+
+[sub_resource type="Animation" id="Animation_0odxb"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(-9.267406, -7.376669, -43.70557)]
+}
+
+[sub_resource type="Animation" id="Animation_lswn8"]
+resource_name = "damage"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(-9.267406, -7.376669, -43.70557), Vector3(-6.987, -7.377, -43.706), Vector3(-9.267406, -7.376669, -43.70557), Vector3(-6.987, -7.377, -43.706), Vector3(-9.267406, -7.376669, -43.70557), Vector3(-6.987, -7.377, -43.706), Vector3(-9.267406, -7.376669, -43.70557)]
+}
+
+[sub_resource type="Animation" id="Animation_a6jrf"]
+resource_name = "health"
+length = 1.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1, 1.3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(-9.267406, -7.376669, -43.70557), Vector3(-9.267, 9.648, -43.706), Vector3(-9.267, -7.377, -43.706)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_a6jrf"]
+_data = {
+&"RESET": SubResource("Animation_0odxb"),
+&"damage": SubResource("Animation_lswn8"),
+&"health": SubResource("Animation_a6jrf")
+}
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lquwl"]
 bg_color = Color(0, 0, 0, 1)
@@ -384,6 +440,16 @@ stream = SubResource("AudioStreamRandomizer_a6jrf")
 unique_name_in_owner = true
 stream = SubResource("AudioStreamRandomizer_xuqvo")
 
+[node name="Roll_Dice" type="AudioStreamPlayer" parent="Sounds" unique_id=1613578293]
+unique_name_in_owner = true
+stream = ExtResource("12_1u8w0")
+volume_db = -15.0
+
+[node name="I_Want_Blood" type="AudioStreamPlayer" parent="Sounds" unique_id=457759575]
+unique_name_in_owner = true
+stream = ExtResource("13_0odxb")
+volume_db = -10.0
+
 [node name="Enviroment" type="Node" parent="." unique_id=1187436294]
 
 [node name="Grass" type="MeshInstance3D" parent="Enviroment" unique_id=2118365731]
@@ -482,6 +548,13 @@ transform = Transform3D(102.796036, 0, -112.111465, 0, 152.10524, 0, 112.111465,
 
 [node name="Wooden_Box3" parent="Enviroment" unique_id=707248089 instance=ExtResource("12_dg77c")]
 transform = Transform3D(105.93774, 0, -109.14761, 0, 152.10524, 0, 109.14761, 0, 105.93774, 111.19177, -0.27409172, -171.94463)
+
+[node name="vamp_enemy" parent="Enviroment" unique_id=1718845953 instance=ExtResource("18_0odxb")]
+transform = Transform3D(1.3, 0, 0, 0, 1.3, 0, 0, 0, 1.3, -9.267406, -7.376669, -43.70557)
+
+[node name="VampAnimation" type="AnimationPlayer" parent="Enviroment/vamp_enemy" unique_id=731527716]
+unique_name_in_owner = true
+libraries/ = SubResource("AnimationLibrary_a6jrf")
 
 [node name="Turn_Manager" type="Node" parent="." unique_id=1198981518 node_paths=PackedStringArray("dice_array")]
 script = ExtResource("2_0xm2m")
@@ -735,6 +808,7 @@ size = 10.512434
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1676078807]
 transform = Transform3D(44.3541, 0, 0, 0, 44.3541, 0, 0, 0, 44.3541, -9.113188, 0, -56.94761)
+visible = false
 mesh = SubResource("CapsuleMesh_0xm2m")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=167607035]

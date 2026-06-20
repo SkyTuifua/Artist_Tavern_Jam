@@ -15,6 +15,7 @@ var selected_die_idx: int = -1
 var game_started: bool = false
 @onready var combo_entries_container: VBoxContainer = %"Combo Entries Container"
 @onready var animation_player: AnimationPlayer = $"../AnimationPlayer"
+@onready var vamp_anim: AnimationPlayer = $VampAnimation
 @onready var turn_ui: CanvasLayer = %Turn_UI
 @onready var turn_data_ui: CanvasLayer = %TurnDataUI
 @onready var dice_ui: Control = %DiceUI
@@ -39,7 +40,8 @@ var game_started: bool = false
 @onready var player_healed: AudioStreamPlayer = %Player_Healed
 @onready var villain_damaged: AudioStreamPlayer = %Villain_Damaged
 @onready var villain_healed: AudioStreamPlayer = %Villain_Healed
-
+@onready var roll_dice_sound: AudioStreamPlayer = %Roll_Dice
+@onready var i_want_blood_sound: AudioStreamPlayer = %I_Want_Blood
 
 
 enum TurnState {
@@ -54,6 +56,13 @@ signal turn_finished()
 
 func _ready() -> void:
 	reroll_button.visible = false
+	init_roll_btn.visible = false
+	animation_player.play("table_to_pov")
+	await animation_player.animation_finished
+	await get_tree().create_timer(1.0).timeout
+	roll_dice_sound.play()
+	return_to_table()
+	await get_tree().create_timer(1.0).timeout
 	turn_data_ui.visible = true
 
 	for i in dice_array:
@@ -99,7 +108,8 @@ func get_coin_multiplier() -> float:
 
 	if !should_trigger_coin():
 		return 1.0
-
+		
+	i_want_blood_sound.play()
 	coin_mult.start_coin_flow()
 
 	await coin_mult.coin_finished
@@ -306,6 +316,7 @@ func do_attack(combo : DiceCombo.DICE_COMBOS)->void:
 	if dci.damage:
 		enemy_health.value -= dci.damage * multiplier
 		villain_damaged.play()
+		
 	if dci.health:
 		player_health.value += dci.health * multiplier
 		play_screen_fx(Color.SEA_GREEN)
