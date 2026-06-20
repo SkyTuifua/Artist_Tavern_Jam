@@ -11,6 +11,9 @@ const REQUIRED_STILL_TIME := 0.5
 var finished: bool = false
 
 @onready var collision_sound: AudioStreamPlayer3D = $Collision_Sound
+@onready var hover_hint: Sprite3D = %Hover_Hint
+@onready var selected_hint: Sprite3D = %Selected_Hint
+
 
 func _physics_process(delta: float) -> void:
 	var moving := linear_velocity.length() > STILL_THRESHOLD \

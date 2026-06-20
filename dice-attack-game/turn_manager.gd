@@ -3,13 +3,14 @@ class_name Turn_Manager
 
 @onready var reroll_button: Button = %RerollButton
 @onready var init_roll_btn: Button = %InitialRollBtn
-@onready var slots: HBoxContainer = %DiceSlots
+@onready var slots: VBoxContainer = %DiceSlots
 @export var dice_array : Array[Dice]
 @export var dice_height : float = 4.0 ## The height at which the dice start when they are rolled.
 @export var random_impulse_strength_min : float = -1.5
 @export var random_impulse_strength_max : float = 1.5
+var dice_to_reroll : Array[Dice]
 var dice_combo : Array[Side.SIDE_COLORS] ##What the player rolled
-var can_check_if_roll_is_done : bool = true
+var rolling : bool = false #if dice pool is currently being rolled
 var reroll_selection_mode: bool = false
 var selected_die_idx: int = -1
 var game_started: bool = false
@@ -19,7 +20,7 @@ var game_started: bool = false
 @onready var turn_ui: CanvasLayer = %Turn_UI
 @onready var turn_data_ui: CanvasLayer = %TurnDataUI
 @onready var dice_ui: Control = %DiceUI
-@onready var choose_dice_text: RichTextLabel = $"../TurnDataUI/DiceUI/ChooseDiceText"
+@onready var choose_dice_text: Label = %ChooseDiceText
 @onready var scroll_container: ScrollContainer = $"../Turn_UI/ScrollContainer"
 
 
@@ -29,7 +30,9 @@ var game_started: bool = false
 @onready var player_health: ProgressBar = %Player_Health
 @onready var turn_label: Label = %TurnLabel
 @onready var turn_result: Label = %TurnResult
-
+@onready var reroll_count_label: Label = %Reroll_Count
+var max_reroll_count : int = 3
+@onready var current_reroll_count : int = max_reroll_count
 @onready var win_lose_label: Label = %Win_Lose_Label
 
 @onready var coin_mult: Node3D = %CoinMultiplier
@@ -68,19 +71,22 @@ func _ready() -> void:
 	for i in dice_array:
 		if !i.ready:
 			await i.ready
+		i.input_event.connect(handle_dice_clicked.bind(i))
+		i.mouse_entered.connect(handle_dice_hovered.bind(i))
+		i.mouse_exited.connect(handle_dice_exited.bind(i))
 		i.freeze = true
 		i.visible = false
 		i.stopped.connect(check_if_roll_is_done)
 		
-	for i in range(slots.get_child_count()):
-		var slot = slots.get_child(i)
-		slot.gui_input.connect(_on_slot_input.bind(i))
-		slot.mouse_filter = Control.MOUSE_FILTER_STOP
+	#for i in range(slots.get_child_count()):
+		#var slot = slots.get_child(i)
+		#slot.gui_input.connect(_on_slot_input.bind(i))
+		#slot.mouse_filter = Control.MOUSE_FILTER_STOP
 	game_started = false
 	
 func roll_dice(target_dice: Array = dice_array)->void:
 	game_started = true
-	can_check_if_roll_is_done = true
+	rolling = true
 	init_roll_btn.visible = false
 	for dice in target_dice:
 		var new_transform : Transform3D
@@ -100,7 +106,27 @@ func roll_dice(target_dice: Array = dice_array)->void:
 			randf_range(random_impulse_strength_min, random_impulse_strength_max), 
 			randf_range(random_impulse_strength_min, random_impulse_strength_max)
 			))
-
+func handle_dice_clicked(camera : Node, event : InputEvent, event_position : Vector3, normal : Vector3, shape_idx: int, dice : Dice)->void:
+	if current_turn != TurnState.PLAYER or rolling or init_roll_btn.visible or current_reroll_count <= 0:
+		return
+	if Input.is_action_just_pressed("mouse_click"):
+		if dice_to_reroll.has(dice):
+			dice_to_reroll.erase(dice)
+			dice.selected_hint.visible = false
+			if dice_to_reroll.is_empty(): reroll_button.disabled = true
+			return
+		dice_to_reroll.push_back(dice)
+		dice.selected_hint.visible = true
+		reroll_button.disabled = false
+func handle_dice_hovered(dice : Dice)->void:
+	if current_turn != TurnState.PLAYER or rolling or init_roll_btn.visible or current_reroll_count <= 0:
+		return
+	dice.hover_hint.visible = true
+	
+func handle_dice_exited(dice : Dice)->void:
+	if current_turn != TurnState.PLAYER:
+		return
+	dice.hover_hint.visible = false
 func should_trigger_coin() -> bool:
 	return randf() <= .50
 
@@ -129,40 +155,27 @@ func check_if_roll_is_done()->void:
 		if i.dice_moving:
 			roll_done = false
 
-	if roll_done and can_check_if_roll_is_done:
-		can_check_if_roll_is_done = false
+	if roll_done and rolling:
 		on_roll_finished()
 		
 func on_roll_finished():
+	reroll_button.disabled = true
 	if game_started == false:
 		return
+	rolling = false
 	reroll_button.visible = true
 	scroll_container.visible = true
 	calculate_roll()
 	dice_ui.visible = true
-	update_slot_textures()
 	if(current_turn == TurnState.PLAYER):
 		reroll_button.visible = true
+		choose_dice_text.text = "You Rolled"
 	else:
 		choose_dice_text.text = "Enemy Rolled"
 	if current_turn == TurnState.ENEMY:
 		await get_tree().create_timer(0.2).timeout
 		await resolve_enemy_roll()
 
-func update_slot_textures():
-	var count = min(dice_array.size(), slots.get_child_count())
-
-	for i in range(count):
-		var dice = dice_array[i]
-		var texture_rect = slots.get_child(i) as TextureRect
-
-		if texture_rect == null:
-			continue
-
-		if dice.current_side == null:
-			texture_rect.texture = null
-		else:
-			texture_rect.texture = Side.get_side_texture(dice.current_side.color)
 			
 func resolve_enemy_roll() -> void:
 	var chosen_combo = choose_enemy_combo()
@@ -237,15 +250,26 @@ func do_enemy_attack(combo) -> void:
 		end_game()
 	
 func calculate_roll()->void:
-	for i in dice_array:
-		i.get_top_facing_side()
-		i.freeze = true
 	dice_combo.clear()
 	for dice in dice_array:
+		dice.freeze = true
+		dice.get_top_facing_side()
 		dice_combo.push_back(dice.current_side.color)
 	dice_combo.sort()
-	
-	#remove entries before creating a new list of combo entries.
+	var texture_size : float = 65
+	for i in slots.get_children():
+		i.queue_free()
+	for i in dice_array:
+		var new_texture := TextureRect.new()
+		new_texture.texture = Side.get_side_texture(i.current_side.color)
+		new_texture.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+		new_texture.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
+		new_texture.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+		new_texture.custom_minimum_size = Vector2(texture_size,texture_size)
+		slots.add_child(new_texture)
+		#remove entries before creating a new list of combo entries.
+	for i in slots.get_children():
+		print(i)
 	combo_entries_container.clear_entries()
 	combo_entries_container.create_entries(dice_combo)
 	
@@ -254,46 +278,49 @@ func sort_dice(a:Dice, b:Dice)->bool:
 		return true
 	return false
 	
-func enable_slot_highlight(enable: bool):
-	for slot in slots.get_children():
-		if enable:
-			slot.modulate = Color(1, 1, 1)
-		else:
-			slot.modulate = Color(1, 1, 1)	
+#func enable_slot_highlight(enable: bool):
+	#for slot in slots.get_children():
+		#if enable:
+			#slot.modulate = Color(1, 1, 1)
+		#else:
+			#slot.modulate = Color(1, 1, 1)	
 
-func _on_slot_input(event: InputEvent, index: int):		
-	if not reroll_selection_mode:
-		return
-
-	if event is InputEventMouseButton and event.pressed:
-		select_die_for_reroll(index)
-		
-func select_die_for_reroll(index: int):
-	selected_die_idx = index
-
-	for i in range(slots.get_child_count()):
-		var slot = slots.get_child(i)
-		slot.modulate = Color(1, 1, 1)
-		slot.scale = Vector2.ONE
-
-	var selected_slot = slots.get_child(index)
-	selected_slot.modulate = Color(1, 0.6, 0.6)
-	selected_slot.scale = Vector2(1.15, 1.15)
-
-	# reroll ONLY that die
-	var dice = dice_array[index]
-	roll_dice([dice])
-	
-func finish_reroll_selection():
-	reroll_selection_mode = false
-	selected_die_idx = -1
-	enable_slot_highlight(true)
+#func _on_slot_input(event: InputEvent, index: int):		
+	#if not reroll_selection_mode:
+		#return
+#
+	#if event is InputEventMouseButton and event.pressed:
+		#select_die_for_reroll(index)
+		#
+#func select_die_for_reroll(index: int):
+	#selected_die_idx = index
+#
+	#for i in range(slots.get_child_count()):
+		#var slot = slots.get_child(i)
+		#slot.modulate = Color(1, 1, 1)
+		#slot.scale = Vector2.ONE
+#
+	#var selected_slot = slots.get_child(index)
+	#selected_slot.modulate = Color(1, 0.6, 0.6)
+	#selected_slot.scale = Vector2(1.15, 1.15)
+#
+	## reroll ONLY that die
+	#var dice = dice_array[index]
+	#roll_dice([dice])
+	#
+#func finish_reroll_selection():
+	#reroll_selection_mode = false
+	#selected_die_idx = -1
+	#enable_slot_highlight(true)
 
 func _on_reroll_button_pressed():
-	reroll_selection_mode = true
-	selected_die_idx = -1
-	enable_slot_highlight(true)
-
+	current_reroll_count -= 1
+	reroll_count_label.text = "Rerolls left: " + str(current_reroll_count)
+	roll_dice(dice_to_reroll)
+	reroll_button.disabled = true
+	for i in dice_to_reroll:
+		i.selected_hint.visible = false
+	dice_to_reroll.clear()
 ##Attack Has been chosen, Play animation to attack, and hide UI until Animation is done?
 func _on_combo_entries_container_entry_chosen(combo: DiceCombo.DICE_COMBOS) -> void:
 	animation_player.play("table_to_pov")
@@ -354,6 +381,8 @@ func change_turn_data():
 		turn_label.text = "Your Turn"
 		init_roll_btn.visible = true
 		reroll_button.visible = false
+		current_reroll_count = max_reroll_count
+		reroll_count_label.text = "Rerolls left: " + str(current_reroll_count)
 	else:
 		turn_label.text = "Enemy Turn"
 	dice_ui.visible = false

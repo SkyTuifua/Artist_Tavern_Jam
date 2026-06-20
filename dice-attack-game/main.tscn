@@ -367,42 +367,49 @@ _data = {
 
 [node name="StaticBody3D" type="StaticBody3D" parent="." unique_id=103566737]
 transform = Transform3D(9.992861, 0, 0, 0, 0.38862318, 0, 0, 0, 10.147858, 0, 0, 0)
+input_ray_pickable = false
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" unique_id=962270577]
 shape = SubResource("BoxShape3D_7dm0k")
 
 [node name="StaticBody3D7" type="StaticBody3D" parent="." unique_id=104180218]
 transform = Transform3D(9.992861, 0, 0, 0, 0.38862318, 0, 0, 0, 10.147858, 0, 5.3256855, 0)
+input_ray_pickable = false
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D7" unique_id=893927756]
 shape = SubResource("BoxShape3D_7dm0k")
 
 [node name="StaticBody3D2" type="StaticBody3D" parent="." unique_id=206781897]
 transform = Transform3D(-4.3680183e-07, 0.38862318, 0, -9.99286, -1.6987258e-08, 0, 0, 0, 10.147858, -4.92479, 0, 0)
+input_ray_pickable = false
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D2" unique_id=1986751666]
 shape = SubResource("BoxShape3D_7dm0k")
 
 [node name="StaticBody3D3" type="StaticBody3D" parent="." unique_id=1082630347]
 transform = Transform3D(-4.3680183e-07, 0.38862318, 0, -9.99286, -1.6987258e-08, 0, 0, 0, 10.147858, 4.899657, 0, 0)
+input_ray_pickable = false
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D3" unique_id=2014356680]
 shape = SubResource("BoxShape3D_7dm0k")
 
 [node name="StaticBody3D4" type="StaticBody3D" parent="." unique_id=496318438]
 transform = Transform3D(-4.3680183e-07, 0.38862318, 0, -9.99286, -1.6987258e-08, 0, 0, 0, 10.147858, 4.899657, 0, 0)
+input_ray_pickable = false
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D4" unique_id=1204609552]
 shape = SubResource("BoxShape3D_7dm0k")
 
 [node name="StaticBody3D5" type="StaticBody3D" parent="." unique_id=774684239]
 transform = Transform3D(5.4594987e-14, -1.698726e-08, -10.147859, -9.99286, -1.6987258e-08, 0, -4.3680188e-07, 0.38862324, -4.43577e-07, -0.11252928, 0, -5.2014937)
+input_ray_pickable = false
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D5" unique_id=115909559]
 shape = SubResource("BoxShape3D_7dm0k")
 
 [node name="StaticBody3D6" type="StaticBody3D" parent="." unique_id=349093844]
 transform = Transform3D(5.4594987e-14, -1.698726e-08, -10.147859, -9.99286, -1.6987258e-08, 0, -4.3680188e-07, 0.38862324, -4.43577e-07, -0.08998966, 0, 5.232292)
+input_ray_pickable = false
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D6" unique_id=22387838]
 shape = SubResource("BoxShape3D_7dm0k")
@@ -644,6 +651,7 @@ color = Color(0.69245994, 1.8410012e-06, 7.70092e-07, 1)
 
 [node name="Turn_UI" type="CanvasLayer" parent="." unique_id=1113976861]
 unique_name_in_owner = true
+visible = false
 
 [node name="ScrollContainer" type="ScrollContainer" parent="Turn_UI" unique_id=836564199]
 unique_name_in_owner = true
@@ -670,28 +678,67 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 script = ExtResource("3_h2yge")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Turn_UI" unique_id=989414633]
-offset_left = 20.0
-offset_top = 20.0
-offset_right = 118.0
-offset_bottom = 108.0
-theme_override_constants/separation = 20
-
-[node name="InitialRollBtn" type="Button" parent="Turn_UI/VBoxContainer" unique_id=1195503770]
+[node name="InitialRollBtn" type="Button" parent="Turn_UI" unique_id=1195503770]
 unique_name_in_owner = true
-layout_mode = 2
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -159.0
+offset_top = 131.0
+offset_right = 151.6222
+offset_bottom = 251.5
+grow_horizontal = 2
+grow_vertical = 2
 theme_override_fonts/font = ExtResource("6_5vw27")
 theme_override_font_sizes/font_size = 42
 theme_override_styles/normal = SubResource("StyleBoxFlat_0odxb")
 theme_override_styles/hover = SubResource("StyleBoxEmpty_lswn8")
 text = "ROLL DICE"
 
-[node name="RerollButton" type="Button" parent="Turn_UI/VBoxContainer" unique_id=1627265798]
+[node name="VBoxContainer2" type="VBoxContainer" parent="Turn_UI" unique_id=748349221]
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -58.0
+offset_right = 176.0
+offset_bottom = 58.0
+grow_vertical = 2
+
+[node name="ChooseDiceText" type="Label" parent="Turn_UI/VBoxContainer2" unique_id=1658070633]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_fonts/font = ExtResource("6_5vw27")
+theme_override_font_sizes/font_size = 58
+text = "Your Rolled"
+horizontal_alignment = 1
+
+[node name="DiceSlots" type="VBoxContainer" parent="Turn_UI/VBoxContainer2" unique_id=135152253]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="RerollButton" type="Button" parent="Turn_UI/VBoxContainer2" unique_id=1627265798]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(250, 75)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_fonts/font = ExtResource("6_5vw27")
 theme_override_font_sizes/font_size = 36
-text = "Re-Roll One"
+disabled = true
+text = "Reroll Selected Dice"
+
+[node name="Reroll_Count" type="Label" parent="Turn_UI/VBoxContainer2" unique_id=1378310283]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_fonts/font = ExtResource("6_5vw27")
+theme_override_font_sizes/font_size = 43
+text = "Rerolls Left: 3"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="TurnDataUI" type="CanvasLayer" parent="." unique_id=1462630903]
 unique_name_in_owner = true
@@ -724,7 +771,6 @@ horizontal_alignment = 1
 
 [node name="DiceUI" type="Control" parent="TurnDataUI" unique_id=673627030]
 unique_name_in_owner = true
-visible = false
 layout_mode = 3
 anchors_preset = 7
 anchor_left = 0.5
@@ -736,69 +782,6 @@ offset_top = -40.0
 offset_right = 20.0
 grow_horizontal = 2
 grow_vertical = 0
-
-[node name="DiceSlots" type="HBoxContainer" parent="TurnDataUI/DiceUI" unique_id=170380070]
-unique_name_in_owner = true
-layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -270.0
-offset_top = -100.0
-offset_right = 270.0
-grow_horizontal = 2
-grow_vertical = 0
-theme_override_constants/separation = 10
-alignment = 1
-
-[node name="DiceSlot1" type="TextureRect" parent="TurnDataUI/DiceUI/DiceSlots" unique_id=1798213114]
-custom_minimum_size = Vector2(100, 100)
-layout_mode = 2
-mouse_filter = 0
-stretch_mode = 5
-
-[node name="DiceSlot2" type="TextureRect" parent="TurnDataUI/DiceUI/DiceSlots" unique_id=2097885554]
-custom_minimum_size = Vector2(100, 100)
-layout_mode = 2
-mouse_filter = 0
-stretch_mode = 5
-
-[node name="DiceSlot3" type="TextureRect" parent="TurnDataUI/DiceUI/DiceSlots" unique_id=197791340]
-custom_minimum_size = Vector2(100, 100)
-layout_mode = 2
-mouse_filter = 0
-stretch_mode = 5
-
-[node name="DiceSlot4" type="TextureRect" parent="TurnDataUI/DiceUI/DiceSlots" unique_id=1613840777]
-custom_minimum_size = Vector2(100, 100)
-layout_mode = 2
-mouse_filter = 0
-stretch_mode = 5
-
-[node name="DiceSlot5" type="TextureRect" parent="TurnDataUI/DiceUI/DiceSlots" unique_id=157249847]
-custom_minimum_size = Vector2(100, 100)
-layout_mode = 2
-mouse_filter = 0
-stretch_mode = 5
-
-[node name="ChooseDiceText" type="RichTextLabel" parent="TurnDataUI/DiceUI" unique_id=1532251658]
-layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -156.5
-offset_top = -140.0
-offset_right = 156.5
-offset_bottom = -100.0
-grow_horizontal = 2
-grow_vertical = 0
-theme_override_fonts/normal_font = ExtResource("6_5vw27")
-text = "Your Rolled"
-horizontal_alignment = 1
 
 [node name="Camera3D" type="Camera3D" parent="." unique_id=840999897]
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 9.40819, 0.12898612)
@@ -840,5 +823,5 @@ unique_name_in_owner = true
 libraries/ = SubResource("AnimationLibrary_a6jrf")
 
 [connection signal="entry_chosen" from="Turn_UI/ScrollContainer/Combo Entries Container" to="Turn_Manager" method="_on_combo_entries_container_entry_chosen"]
-[connection signal="pressed" from="Turn_UI/VBoxContainer/InitialRollBtn" to="Turn_Manager" method="roll_dice"]
-[connection signal="pressed" from="Turn_UI/VBoxContainer/RerollButton" to="Turn_Manager" method="_on_reroll_button_pressed"]
+[connection signal="pressed" from="Turn_UI/InitialRollBtn" to="Turn_Manager" method="roll_dice"]
+[connection signal="pressed" from="Turn_UI/VBoxContainer2/RerollButton" to="Turn_Manager" method="_on_reroll_button_pressed"]

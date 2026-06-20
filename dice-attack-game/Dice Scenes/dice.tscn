@@ -5,6 +5,8 @@
 [ext_resource type="Texture2D" uid="uid://c2eod2bf18ltb" path="res://Dice Scenes/Dice_Symbols/Green.tres" id="2_7n0s1"]
 [ext_resource type="Texture2D" uid="uid://b8sj284u3fu5r" path="res://Dice Scenes/Dice_Symbols/Red.tres" id="2_31vcw"]
 [ext_resource type="Script" uid="uid://cr5dvokmcjew7" path="res://Dice Scenes/side.gd" id="3_x4vdn"]
+[ext_resource type="Texture2D" uid="uid://dobvn4vnstqfk" path="res://Dice Scenes/Dice_Symbols/Bullet Hole_emmisive.png" id="6_8xeha"]
+[ext_resource type="Texture2D" uid="uid://cpfdd8n6asrsi" path="res://Dice Scenes/Dice_Symbols/Plasma_rifle_Crosshair.png" id="7_omxda"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ifeiu"]
 
@@ -70,6 +72,23 @@ value = 3
 [node name="Collision_Sound" type="AudioStreamPlayer3D" parent="." unique_id=1889193865]
 stream = SubResource("AudioStreamRandomizer_8xeha")
 pitch_scale = 0.66
+
+[node name="Selected_Hint" type="Sprite3D" parent="." unique_id=326826342]
+unique_name_in_owner = true
+transform = Transform3D(0.54220754, 0, 0, 0, 0.54220754, 0, 0, 0, 0.54220754, 0, 0, 0)
+visible = false
+modulate = Color(0, 0, 0, 1)
+billboard = 1
+texture = ExtResource("7_omxda")
+
+[node name="Hover_Hint" type="Sprite3D" parent="." unique_id=1003294944]
+unique_name_in_owner = true
+transform = Transform3D(0.37535793, 0, 0, 0, 0.37535793, 0, 0, 0, 0.37535793, 0, 0, 0)
+visible = false
+modulate = Color(0, 0.84, 0, 0.80784315)
+billboard = 1
+shaded = true
+texture = ExtResource("6_8xeha")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="sleeping_state_changed" from="." to="." method="_on_sleeping_state_changed"]

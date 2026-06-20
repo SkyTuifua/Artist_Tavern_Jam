@@ -1,6 +1,6 @@
 class_name DiceCombo
 
-enum DICE_COMBOS {HEAL, DAMAGE_PLUS, VAMPIRE_BITE, DAMAGE, CLAW, LACERATE, MAUL, SUN_BITE, SUN_BEAM}
+enum DICE_COMBOS {HEAL, DAMAGE_PLUS, VAMPIRE_BITE, DAMAGE, CLAW, LACERATE, MAUL, SUN_BITE, SUN_BEAM, BATHE_IN_BLOOD}
 
 class dice_combo_info: ##struct for dice combos information and what it does.
 	var name : String
@@ -19,12 +19,12 @@ static func get_dice_combo_info(combo : DICE_COMBOS)->dice_combo_info:
 		DICE_COMBOS.HEAL:
 			dci.name = "Replenish"
 			dci.damage = 0
-			dci.health = 25
+			dci.health = 35
 			dci.combination = [Side.SIDE_COLORS.BASE_HEALTH,Side.SIDE_COLORS.BASE_HEALTH,Side.SIDE_COLORS.BASE_HEALTH]
 			return dci
 		DICE_COMBOS.DAMAGE_PLUS:
 			dci.name = "Sun Dry"
-			dci.damage = 50
+			dci.damage = 60
 			dci.health = 0
 			dci.combination = [Side.SIDE_COLORS.DAMAGE_PLUS,Side.SIDE_COLORS.DAMAGE_PLUS,Side.SIDE_COLORS.DAMAGE_PLUS]
 			return dci
@@ -60,11 +60,19 @@ static func get_dice_combo_info(combo : DICE_COMBOS)->dice_combo_info:
 			dci.name = "Sun Bite"
 			dci.damage = 50
 			dci.health = 50
-			dci.combination = [Side.SIDE_COLORS.BASE_HEALTH, Side.SIDE_COLORS.BASE_HEALTH, Side.SIDE_COLORS.DAMAGE_PLUS,Side.SIDE_COLORS.DAMAGE_PLUS]
+			dci.combination = [Side.SIDE_COLORS.BASE_HEALTH, Side.SIDE_COLORS.BASE_HEALTH, Side.SIDE_COLORS.BASE_HEALTH, Side.SIDE_COLORS.DAMAGE_PLUS,Side.SIDE_COLORS.DAMAGE_PLUS]
+			return dci
 		DICE_COMBOS.SUN_BEAM:
 			dci.name = "Sun Beam"
 			dci.damage = 95
 			dci.combination =[Side.SIDE_COLORS.DAMAGE_PLUS, Side.SIDE_COLORS.DAMAGE_PLUS,Side.SIDE_COLORS.DAMAGE_PLUS, Side.SIDE_COLORS.DAMAGE_PLUS,Side.SIDE_COLORS.DAMAGE_PLUS]
+			return dci
+		DICE_COMBOS.BATHE_IN_BLOOD:
+			dci.name = "Bathe In Blood"
+			dci.damage = 0
+			dci.health = 65
+			dci.combination = [Side.SIDE_COLORS.BASE_HEALTH, Side.SIDE_COLORS.BASE_HEALTH,Side.SIDE_COLORS.BASE_HEALTH,Side.SIDE_COLORS.BASE_HEALTH,Side.SIDE_COLORS.BASE_HEALTH]
+			return dci	
 	return dci
 
 static func has_combo(roll : Array[Side.SIDE_COLORS], combo : DiceCombo.DICE_COMBOS):
