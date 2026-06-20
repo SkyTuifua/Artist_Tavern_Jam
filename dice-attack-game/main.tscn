@@ -71,6 +71,11 @@ bg_color = Color(1, 0, 0, 1)
 line_spacing = 5.525
 font_size = 189
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0odxb"]
+bg_color = Color(0.5159044, 0.014135989, 0.14898872, 1)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_lswn8"]
+
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_0xm2m"]
 
 [sub_resource type="Animation" id="Animation_h2yge"]
@@ -676,7 +681,9 @@ theme_override_constants/separation = 20
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_fonts/font = ExtResource("6_5vw27")
-theme_override_font_sizes/font_size = 36
+theme_override_font_sizes/font_size = 42
+theme_override_styles/normal = SubResource("StyleBoxFlat_0odxb")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_lswn8")
 text = "ROLL DICE"
 
 [node name="RerollButton" type="Button" parent="Turn_UI/VBoxContainer" unique_id=1627265798]
