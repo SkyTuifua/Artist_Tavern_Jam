@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://bhv2ie6il4nvu"]
+
+[ext_resource type="PackedScene" uid="uid://bbde0i2bgowlc" path="res://UI/dice_combo_entry.tscn" id="1_chqpa"]
+
+[node name="HBoxContainer" type="HBoxContainer" unique_id=1679964815]
+offset_right = 608.0
+offset_bottom = 250.0
+
+[node name="VBoxContainer" type="HBoxContainer" parent="." unique_id=864151896]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="Dice_Combo_Entry3" parent="VBoxContainer" unique_id=808819337 instance=ExtResource("1_chqpa")]
+layout_mode = 2
+
+[node name="Dice_Combo_Entry" parent="VBoxContainer" unique_id=1829127702 instance=ExtResource("1_chqpa")]
+layout_mode = 2
+
+[node name="Dice_Combo_Entry2" parent="VBoxContainer" unique_id=1377243916 instance=ExtResource("1_chqpa")]
+layout_mode = 2

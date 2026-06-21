@@ -25,6 +25,7 @@
 [ext_resource type="PackedScene" uid="uid://ckqei8ic2pq8e" path="res://Enviroment/wooden_box.tscn" id="12_dg77c"]
 [ext_resource type="AudioStream" uid="uid://cf00010eihbke" path="res://sounds/Voice_Efforts/suck_blood.wav" id="13_0odxb"]
 [ext_resource type="PackedScene" uid="uid://cttw37gdbiqvn" path="res://characters/vamp_enemy.glb" id="18_0odxb"]
+[ext_resource type="Theme" uid="uid://d12q8maddupqj" path="res://vamp_1_theme.tres" id="20_lswn8"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_7dm0k"]
 
@@ -59,22 +60,42 @@ albedo_color = Color(8.001737e-07, 0.20466769, 2.4065375e-08, 1)
 bg_color = Color(0, 0, 0, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7mycd"]
-bg_color = Color(0, 1, 0, 1)
+bg_color = Color(0.19667867, 0.4015258, 0.2232722, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.056659125, 0.14479801, 0.064710714, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_h2yge"]
 bg_color = Color(0, 0, 0, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1bvp3"]
-bg_color = Color(1, 0, 0, 1)
+bg_color = Color(0.54901963, 0.007843138, 0.09019608, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.25882354, 0, 0.023529412, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
 
 [sub_resource type="LabelSettings" id="LabelSettings_dg77c"]
 line_spacing = 5.525
 font_size = 189
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0odxb"]
-bg_color = Color(0.5159044, 0.014135989, 0.14898872, 1)
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_lswn8"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lswn8"]
+bg_color = Color(0.25490198, 0.011764706, 0.011764706, 0.68235296)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_0xm2m"]
 
@@ -377,6 +398,7 @@ transform = Transform3D(9.992861, 0, 0, 0, 0.38862318, 0, 0, 0, 10.147858, 0, 5.
 input_ray_pickable = false
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D7" unique_id=893927756]
+transform = Transform3D(1, 0, 0, 0, 0.9999998, 0, 0, 0, 1, 0, 0, 0)
 shape = SubResource("BoxShape3D_7dm0k")
 
 [node name="StaticBody3D2" type="StaticBody3D" parent="." unique_id=206781897]
@@ -565,58 +587,68 @@ dice_array = [NodePath("../Dice"), NodePath("../Dice2"), NodePath("../Dice3"), N
 
 [node name="Health_Bars" type="CanvasLayer" parent="." unique_id=1710369755]
 unique_name_in_owner = true
-visible = false
 
 [node name="Control" type="Control" parent="Health_Bars" unique_id=809587554]
 layout_mode = 3
-anchors_preset = 0
-offset_left = -1.0
-offset_top = 1.0
-offset_right = 39.0
-offset_bottom = 41.0
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 25.0
+offset_top = -98.650024
+offset_right = 25.0
+offset_bottom = -98.650024
+grow_vertical = 0
+theme = ExtResource("20_lswn8")
 
-[node name="Label" type="Label" parent="Health_Bars/Control" unique_id=306421516]
+[node name="VBoxContainer" type="VBoxContainer" parent="Health_Bars/Control" unique_id=629252699]
 layout_mode = 0
-offset_left = 201.0
-offset_top = 12.0
-offset_right = 253.0
-offset_bottom = 35.0
-text = "Health"
+offset_right = 200.0
+offset_bottom = 63.0
 
-[node name="Player_Health" type="ProgressBar" parent="Health_Bars/Control" unique_id=1636957897]
+[node name="Label" type="Label" parent="Health_Bars/Control/VBoxContainer" unique_id=306421516]
+layout_mode = 2
+text = "You"
+horizontal_alignment = 1
+
+[node name="Player_Health" type="ProgressBar" parent="Health_Bars/Control/VBoxContainer" unique_id=1636957897]
 unique_name_in_owner = true
-layout_mode = 0
-offset_left = 4.0
-offset_top = 38.0
-offset_right = 459.0
-offset_bottom = 70.0
+layout_mode = 2
+theme = ExtResource("20_lswn8")
+theme_override_font_sizes/font_size = 35
 theme_override_styles/background = SubResource("StyleBoxFlat_lquwl")
 theme_override_styles/fill = SubResource("StyleBoxFlat_7mycd")
 value = 100.0
 
 [node name="Control2" type="Control" parent="Health_Bars" unique_id=1661928240]
 layout_mode = 3
-anchors_preset = 0
-offset_left = 694.0
-offset_top = 1.0
-offset_right = 734.0
-offset_bottom = 41.0
+anchors_preset = 10
+anchor_right = 1.0
+grow_horizontal = 2
+theme = ExtResource("20_lswn8")
 
-[node name="Label" type="Label" parent="Health_Bars/Control2" unique_id=1869438216]
-layout_mode = 0
-offset_left = 176.0
-offset_top = 12.0
-offset_right = 284.0
-offset_bottom = 35.0
-text = "Enemy Health"
+[node name="VBoxContainer" type="VBoxContainer" parent="Health_Bars/Control2" unique_id=1393412721]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -227.0
+offset_top = 25.0
+offset_right = -27.000488
+offset_bottom = 75.0
+grow_horizontal = 0
+grow_vertical = 2
 
-[node name="Enemy Health" type="ProgressBar" parent="Health_Bars/Control2" unique_id=1209679171]
+[node name="Label" type="Label" parent="Health_Bars/Control2/VBoxContainer" unique_id=1869438216]
+layout_mode = 2
+text = "Dr. Vamp"
+horizontal_alignment = 1
+
+[node name="Enemy Health" type="ProgressBar" parent="Health_Bars/Control2/VBoxContainer" unique_id=1209679171]
 unique_name_in_owner = true
-layout_mode = 0
-offset_left = 4.0
-offset_top = 38.0
-offset_right = 459.0
-offset_bottom = 70.0
+layout_mode = 2
+theme_override_font_sizes/font_size = 35
 theme_override_styles/background = SubResource("StyleBoxFlat_h2yge")
 theme_override_styles/fill = SubResource("StyleBoxFlat_1bvp3")
 value = 100.0
@@ -651,32 +683,44 @@ color = Color(0.69245994, 1.8410012e-06, 7.70092e-07, 1)
 
 [node name="Turn_UI" type="CanvasLayer" parent="." unique_id=1113976861]
 unique_name_in_owner = true
-visible = false
 
-[node name="ScrollContainer" type="ScrollContainer" parent="Turn_UI" unique_id=836564199]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(343, 459)
-anchors_preset = 6
-anchor_left = 1.0
-anchor_top = 0.5
+[node name="CenterContainer" type="CenterContainer" parent="Turn_UI" unique_id=254386021]
+anchors_preset = 15
 anchor_right = 1.0
-anchor_bottom = 0.5
-offset_left = -400.0
-offset_top = -321.485
-offset_bottom = 137.5152
-grow_horizontal = 0
+anchor_bottom = 1.0
+grow_horizontal = 2
 grow_vertical = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-horizontal_scroll_mode = 0
+theme = ExtResource("20_lswn8")
 
-[node name="Combo Entries Container" type="VBoxContainer" parent="Turn_UI/ScrollContainer" unique_id=326587653]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(400, 250)
+[node name="HBoxContainer" type="HBoxContainer" parent="Turn_UI/CenterContainer" unique_id=713470130]
 layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-script = ExtResource("3_h2yge")
+theme = ExtResource("20_lswn8")
+
+[node name="Panel" type="PanelContainer" parent="Turn_UI" unique_id=1202213181]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -143.0
+offset_top = -148.0
+offset_right = 143.0
+offset_bottom = -43.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_lswn8")
+
+[node name="MarginContainer" type="MarginContainer" parent="Turn_UI/Panel" unique_id=850798262]
+layout_mode = 2
+
+[node name="roll_help_text" type="Label" parent="Turn_UI/Panel/MarginContainer" unique_id=1401273918]
+unique_name_in_owner = true
+layout_mode = 2
+theme = ExtResource("20_lswn8")
+theme_override_font_sizes/font_size = 20
+text = "Use an ability 
+or Select any dice to reroll"
+horizontal_alignment = 1
 
 [node name="InitialRollBtn" type="Button" parent="Turn_UI" unique_id=1195503770]
 unique_name_in_owner = true
@@ -685,19 +729,46 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -159.0
-offset_top = 131.0
-offset_right = 151.6222
-offset_bottom = 251.5
+offset_left = -155.0
+offset_top = 169.0
+offset_right = 155.6222
+offset_bottom = 289.5
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_fonts/font = ExtResource("6_5vw27")
+theme = ExtResource("20_lswn8")
 theme_override_font_sizes/font_size = 42
-theme_override_styles/normal = SubResource("StyleBoxFlat_0odxb")
-theme_override_styles/hover = SubResource("StyleBoxEmpty_lswn8")
 text = "ROLL DICE"
 
+[node name="RerollBtn" type="Button" parent="Turn_UI" unique_id=57015969]
+unique_name_in_owner = true
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -155.0
+offset_top = 169.0
+offset_right = 155.6222
+offset_bottom = 289.5
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("20_lswn8")
+theme_override_font_sizes/font_size = 42
+text = "REROLL DICE"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Turn_UI/RerollBtn" unique_id=1924535809]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Main_text" type="Label" parent="Turn_UI/RerollBtn/VBoxContainer" unique_id=779889069]
+layout_mode = 2
+
+[node name="Sub_text" type="Label" parent="Turn_UI/RerollBtn/VBoxContainer" unique_id=1328782962]
+layout_mode = 2
+
 [node name="VBoxContainer2" type="VBoxContainer" parent="Turn_UI" unique_id=748349221]
+visible = false
 anchors_preset = 4
 anchor_top = 0.5
 anchor_bottom = 0.5
@@ -705,11 +776,11 @@ offset_top = -58.0
 offset_right = 176.0
 offset_bottom = 58.0
 grow_vertical = 2
+theme = ExtResource("20_lswn8")
 
 [node name="ChooseDiceText" type="Label" parent="Turn_UI/VBoxContainer2" unique_id=1658070633]
 unique_name_in_owner = true
 layout_mode = 2
-theme_override_fonts/font = ExtResource("6_5vw27")
 theme_override_font_sizes/font_size = 58
 text = "Your Rolled"
 horizontal_alignment = 1
@@ -726,7 +797,6 @@ custom_minimum_size = Vector2(250, 75)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-theme_override_fonts/font = ExtResource("6_5vw27")
 theme_override_font_sizes/font_size = 36
 disabled = true
 text = "Reroll Selected Dice"
@@ -734,11 +804,40 @@ text = "Reroll Selected Dice"
 [node name="Reroll_Count" type="Label" parent="Turn_UI/VBoxContainer2" unique_id=1378310283]
 unique_name_in_owner = true
 layout_mode = 2
-theme_override_fonts/font = ExtResource("6_5vw27")
 theme_override_font_sizes/font_size = 43
 text = "Rerolls Left: 3"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="ScrollContainerContainer" type="VBoxContainer" parent="Turn_UI" unique_id=1881041151]
+unique_name_in_owner = true
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -400.0
+offset_top = 120.0
+offset_bottom = 565.0
+grow_horizontal = 0
+theme = ExtResource("20_lswn8")
+
+[node name="AblilitiesTitle" type="Label" parent="Turn_UI/ScrollContainerContainer" unique_id=1696442734]
+visible = false
+layout_mode = 2
+text = "Choose Ability"
+horizontal_alignment = 1
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Turn_UI/ScrollContainerContainer" unique_id=836564199]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 490)
+layout_mode = 2
+theme = ExtResource("20_lswn8")
+horizontal_scroll_mode = 0
+
+[node name="Combo Entries Container" type="VBoxContainer" parent="Turn_UI/ScrollContainerContainer/ScrollContainer" unique_id=326587653]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(400, 250)
+layout_mode = 2
+script = ExtResource("3_h2yge")
 
 [node name="TurnDataUI" type="CanvasLayer" parent="." unique_id=1462630903]
 unique_name_in_owner = true
@@ -752,12 +851,12 @@ offset_top = 20.0
 offset_right = 46.5
 offset_bottom = 102.0
 grow_horizontal = 2
+theme = ExtResource("20_lswn8")
 theme_override_constants/separation = 10
 
 [node name="TurnLabel" type="Label" parent="TurnDataUI/VBoxContainer" unique_id=484308358]
 unique_name_in_owner = true
 layout_mode = 2
-theme_override_fonts/font = ExtResource("6_5vw27")
 theme_override_font_sizes/font_size = 34
 text = "Your Turn"
 horizontal_alignment = 1
@@ -765,7 +864,6 @@ horizontal_alignment = 1
 [node name="TurnResult" type="Label" parent="TurnDataUI/VBoxContainer" unique_id=1268534171]
 unique_name_in_owner = true
 layout_mode = 2
-theme_override_fonts/font = ExtResource("6_5vw27")
 theme_override_font_sizes/font_size = 34
 horizontal_alignment = 1
 
@@ -822,6 +920,7 @@ transform = Transform3D(1.3, 0, 0, 0, 1.3, 0, 0, 0, 1.3, -9.267406, -7.376669, -
 unique_name_in_owner = true
 libraries/ = SubResource("AnimationLibrary_a6jrf")
 
-[connection signal="entry_chosen" from="Turn_UI/ScrollContainer/Combo Entries Container" to="Turn_Manager" method="_on_combo_entries_container_entry_chosen"]
 [connection signal="pressed" from="Turn_UI/InitialRollBtn" to="Turn_Manager" method="roll_dice"]
+[connection signal="pressed" from="Turn_UI/RerollBtn" to="Turn_Manager" method="_on_reroll_button_pressed"]
 [connection signal="pressed" from="Turn_UI/VBoxContainer2/RerollButton" to="Turn_Manager" method="_on_reroll_button_pressed"]
+[connection signal="entry_chosen" from="Turn_UI/ScrollContainerContainer/ScrollContainer/Combo Entries Container" to="Turn_Manager" method="_on_combo_entries_container_entry_chosen"]

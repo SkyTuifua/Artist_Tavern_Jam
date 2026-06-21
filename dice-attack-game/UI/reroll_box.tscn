@@ -1,7 +1,7 @@
-[gd_scene format=3 uid="uid://bbde0i2bgowlc"]
+[gd_scene format=3 uid="uid://g0groldi70dm"]
 
-[ext_resource type="Theme" uid="uid://d12q8maddupqj" path="res://vamp_1_theme.tres" id="1_3us2x"]
-[ext_resource type="Script" uid="uid://b8nictkovxvea" path="res://UI/dice_combo_entry.gd" id="1_438t4"]
+[ext_resource type="Theme" uid="uid://d12q8maddupqj" path="res://vamp_1_theme.tres" id="1_uk2jx"]
+[ext_resource type="Script" uid="uid://b8nictkovxvea" path="res://UI/dice_combo_entry.gd" id="2_fbfro"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_s6y3g"]
 bg_color = Color(0.54901963, 0.007843138, 0.09019608, 1)
@@ -30,8 +30,8 @@ offset_right = 300.0
 offset_bottom = 175.0
 grow_horizontal = 2
 grow_vertical = 2
-theme = ExtResource("1_3us2x")
-script = ExtResource("1_438t4")
+theme = ExtResource("1_uk2jx")
+script = ExtResource("2_fbfro")
 
 [node name="ColorRect" type="ColorRect" parent="." unique_id=163038066]
 visible = false
@@ -40,7 +40,7 @@ mouse_filter = 2
 color = Color(1, 1, 1, 0)
 
 [node name="Panel" type="Panel" parent="." unique_id=312447938]
-custom_minimum_size = Vector2(300, 250)
+custom_minimum_size = Vector2(200, 250)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_s6y3g")
 
@@ -77,15 +77,9 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_plq0g")
 
 [node name="CenterContainer" type="CenterContainer" parent="Panel/MarginContainer/Panel" unique_id=328313556]
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -100.0
-offset_top = -41.5
-offset_right = 100.0
-offset_bottom = 41.5
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -115,7 +109,7 @@ offset_right = 41.0
 offset_bottom = 11.5
 grow_horizontal = 2
 grow_vertical = 2
-text = "Use Ability"
+text = "Select Dice To Reroll"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -131,6 +125,5 @@ alignment = 1
 [node name="Definitions" type="VBoxContainer" parent="Panel/MarginContainer/Panel/CenterContainer/VSplitContainer/HSplitContainer" unique_id=2041771864]
 unique_name_in_owner = true
 layout_mode = 2
-alignment = 1
 
 [connection signal="pressed" from="Panel/MarginContainer/Panel/CenterContainer/VSplitContainer/Use_Ability_Button" to="." method="_on_use_ability_button_pressed"]

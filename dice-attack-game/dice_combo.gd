@@ -1,11 +1,12 @@
 class_name DiceCombo
 
 enum DICE_COMBOS {HEAL, DAMAGE_PLUS, VAMPIRE_BITE, DAMAGE, CLAW, LACERATE, MAUL, SUN_BITE, SUN_BEAM, BATHE_IN_BLOOD}
-
+enum ABILITY_TYPE {HEAL, DAMAGE, COMBINATION}
 class dice_combo_info: ##struct for dice combos information and what it does.
 	var name : String
 	var damage : float
 	var health : float
+	var ability_type: ABILITY_TYPE
 	var combination : Array[Side.SIDE_COLORS]
 ##What combos the player has with their current set.
 static func translate_dice_combo(dice_combo : Array[Side.SIDE_COLORS])->void:
@@ -13,7 +14,6 @@ static func translate_dice_combo(dice_combo : Array[Side.SIDE_COLORS])->void:
 
 ##Returns info about what a dice_combo does. Use this to make new dice combos or balance old ones.
 static func get_dice_combo_info(combo : DICE_COMBOS)->dice_combo_info:
-	print(combo)
 	var dci := dice_combo_info.new()
 	match combo:
 		DICE_COMBOS.HEAL:
@@ -21,56 +21,67 @@ static func get_dice_combo_info(combo : DICE_COMBOS)->dice_combo_info:
 			dci.damage = 0
 			dci.health = 35
 			dci.combination = [Side.SIDE_COLORS.BASE_HEALTH,Side.SIDE_COLORS.BASE_HEALTH,Side.SIDE_COLORS.BASE_HEALTH]
+			dci.ability_type = ABILITY_TYPE.HEAL
 			return dci
 		DICE_COMBOS.DAMAGE_PLUS:
 			dci.name = "Sun Dry"
 			dci.damage = 60
 			dci.health = 0
 			dci.combination = [Side.SIDE_COLORS.DAMAGE_PLUS,Side.SIDE_COLORS.DAMAGE_PLUS,Side.SIDE_COLORS.DAMAGE_PLUS]
+			dci.ability_type = ABILITY_TYPE.DAMAGE
 			return dci
 		DICE_COMBOS.VAMPIRE_BITE:
 			dci.name = "Vampire Bite"
 			dci.damage = 25
 			dci.health = 25
 			dci.combination = [Side.SIDE_COLORS.BASE_DAMAGE, Side.SIDE_COLORS.BASE_DAMAGE, Side.SIDE_COLORS.BASE_HEALTH, Side.SIDE_COLORS.BASE_HEALTH]
+			dci.ability_type = ABILITY_TYPE.COMBINATION
 			return dci
 		DICE_COMBOS.DAMAGE:
 			dci.name = "Scratch"
 			dci.damage = 15
 			dci.health = 0
 			dci.combination = [Side.SIDE_COLORS.BASE_DAMAGE,Side.SIDE_COLORS.BASE_DAMAGE]
+			dci.ability_type = ABILITY_TYPE.DAMAGE
 			return dci
 		DICE_COMBOS.CLAW:
 			dci.name  = "Claw"
 			dci.damage = 25
 			dci.health = 0
 			dci.combination = [Side.SIDE_COLORS.BASE_DAMAGE,Side.SIDE_COLORS.BASE_DAMAGE,Side.SIDE_COLORS.BASE_DAMAGE]
+			dci.ability_type = ABILITY_TYPE.DAMAGE
 		DICE_COMBOS.LACERATE:
 			dci.name  = "Lacerate"
 			dci.damage = 35
 			dci.health = 0
 			dci.combination = [Side.SIDE_COLORS.BASE_DAMAGE,Side.SIDE_COLORS.BASE_DAMAGE,Side.SIDE_COLORS.BASE_DAMAGE,Side.SIDE_COLORS.BASE_DAMAGE]
+			dci.ability_type = ABILITY_TYPE.DAMAGE
 		DICE_COMBOS.MAUL:
 			dci.name  = "Maul"
 			dci.damage = 45
 			dci.health = 0
 			dci.combination = [Side.SIDE_COLORS.BASE_DAMAGE,Side.SIDE_COLORS.BASE_DAMAGE,Side.SIDE_COLORS.BASE_DAMAGE,Side.SIDE_COLORS.BASE_DAMAGE,Side.SIDE_COLORS.BASE_DAMAGE]
+			dci.ability_type = ABILITY_TYPE.DAMAGE
 			return dci
 		DICE_COMBOS.SUN_BITE:
 			dci.name = "Sun Bite"
 			dci.damage = 50
 			dci.health = 50
 			dci.combination = [Side.SIDE_COLORS.BASE_HEALTH, Side.SIDE_COLORS.BASE_HEALTH, Side.SIDE_COLORS.BASE_HEALTH, Side.SIDE_COLORS.DAMAGE_PLUS,Side.SIDE_COLORS.DAMAGE_PLUS]
+			dci.ability_type = ABILITY_TYPE.COMBINATION
 			return dci
 		DICE_COMBOS.SUN_BEAM:
 			dci.name = "Sun Beam"
 			dci.damage = 95
+			dci.health = 0
 			dci.combination =[Side.SIDE_COLORS.DAMAGE_PLUS, Side.SIDE_COLORS.DAMAGE_PLUS,Side.SIDE_COLORS.DAMAGE_PLUS, Side.SIDE_COLORS.DAMAGE_PLUS,Side.SIDE_COLORS.DAMAGE_PLUS]
+			dci.ability_type = ABILITY_TYPE.DAMAGE
 			return dci
 		DICE_COMBOS.BATHE_IN_BLOOD:
 			dci.name = "Bathe In Blood"
 			dci.damage = 0
 			dci.health = 65
+			dci.ability_type = ABILITY_TYPE.HEAL
 			dci.combination = [Side.SIDE_COLORS.BASE_HEALTH, Side.SIDE_COLORS.BASE_HEALTH,Side.SIDE_COLORS.BASE_HEALTH,Side.SIDE_COLORS.BASE_HEALTH,Side.SIDE_COLORS.BASE_HEALTH]
 			return dci	
 	return dci
@@ -132,5 +143,4 @@ static func get_available_combos(
 	for combo in DICE_COMBOS.values():
 		if has_combo(roll, combo):
 			results.append(combo)
-
 	return results

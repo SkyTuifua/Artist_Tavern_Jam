@@ -1,5 +1,6 @@
 [gd_scene format=3 uid="uid://brie8jupbdxuj"]
 
+[ext_resource type="Theme" uid="uid://d12q8maddupqj" path="res://vamp_1_theme.tres" id="1_7r1g0"]
 [ext_resource type="Script" uid="uid://101p8roqdg70" path="res://main_menu.gd" id="1_eiy7p"]
 [ext_resource type="Texture2D" uid="uid://2g27b1d5bwjx" path="res://UI/main_menu_background.png" id="2_h7a2f"]
 [ext_resource type="FontFile" uid="uid://5bwgdiycfgnu" path="res://UI/fonts/Vampires.ttf" id="3_iwfq2"]
@@ -16,6 +17,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("1_7r1g0")
 script = ExtResource("1_eiy7p")
 
 [node name="Background" type="TextureRect" parent="." unique_id=1847496408]
@@ -42,26 +44,22 @@ theme_override_constants/separation = 30
 
 [node name="GameTitle" type="Label" parent="VBoxContainer" unique_id=981913330]
 layout_mode = 2
-theme_override_fonts/font = ExtResource("3_iwfq2")
-theme_override_font_sizes/font_size = 82
+theme_override_font_sizes/font_size = 72
 text = "Vamp Bite"
 
 [node name="Play" type="Button" parent="VBoxContainer" unique_id=1569845042]
 layout_mode = 2
-theme_override_fonts/font = ExtResource("3_iwfq2")
-theme_override_font_sizes/font_size = 34
+theme_override_font_sizes/font_size = 42
 text = "Play"
 
 [node name="Rules" type="Button" parent="VBoxContainer" unique_id=3271798]
 layout_mode = 2
-theme_override_fonts/font = ExtResource("3_iwfq2")
-theme_override_font_sizes/font_size = 34
+theme_override_font_sizes/font_size = 42
 text = "How To Play"
 
 [node name="Settings" type="Button" parent="VBoxContainer" unique_id=2030255724]
 layout_mode = 2
-theme_override_fonts/font = ExtResource("3_iwfq2")
-theme_override_font_sizes/font_size = 34
+theme_override_font_sizes/font_size = 42
 text = "Settings
 "
 
@@ -89,14 +87,12 @@ theme_override_constants/separation = 30
 [node name="SoundButton" type="Button" parent="SettingsContainer" unique_id=2027341784]
 unique_name_in_owner = true
 layout_mode = 2
-theme_override_fonts/font = ExtResource("3_iwfq2")
-theme_override_font_sizes/font_size = 34
+theme_override_font_sizes/font_size = 42
 text = "Sound On"
 
 [node name="VampModeBtn" type="Button" parent="SettingsContainer" unique_id=408142792]
 layout_mode = 2
-theme_override_fonts/font = ExtResource("3_iwfq2")
-theme_override_font_sizes/font_size = 34
+theme_override_font_sizes/font_size = 42
 text = "Vamp Mode Off"
 
 [node name="RulesPanel" type="Panel" parent="." unique_id=481076211]
@@ -131,14 +127,8 @@ offset_bottom = 8.0
 [node name="RulesContainer" type="VBoxContainer" parent="RulesPanel/VScrollBar" unique_id=117686390]
 unique_name_in_owner = true
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_top = 50.0
-offset_right = 398.0
-offset_bottom = 595.0
-grow_horizontal = 2
-grow_vertical = 2
+offset_right = 406.0
+offset_bottom = 553.0
 theme_override_constants/separation = 10
 
 [node name="Title" type="Label" parent="RulesPanel/VScrollBar/RulesContainer" unique_id=25461593]

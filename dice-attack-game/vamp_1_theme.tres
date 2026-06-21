@@ -1,0 +1,33 @@
+[gd_resource type="Theme" format=3 uid="uid://d12q8maddupqj"]
+
+[ext_resource type="FontFile" uid="uid://bjchrr5mp4u1t" path="res://UI/fonts/ScaryBenko.ttf" id="1_klyxv"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_klyxv"]
+bg_color = Color(0.54901963, 0.007843138, 0.09019608, 0.7294118)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+shadow_size = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dpor8"]
+bg_color = Color(0.5481562, 0.0077002826, 0.09068305, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.26026484, 0, 0.025292758, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[resource]
+default_font = ExtResource("1_klyxv")
+default_font_size = 16
+Button/colors/font_color = Color(1, 1, 1, 1)
+Button/styles/disabled = null
+Button/styles/hover = SubResource("StyleBoxFlat_klyxv")
+Button/styles/normal = SubResource("StyleBoxFlat_dpor8")
+Label/colors/font_color = Color(1, 1, 1, 1)
+Label/colors/font_outline_color = Color(1, 1, 1, 1)

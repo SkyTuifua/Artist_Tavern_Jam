@@ -1,7 +1,8 @@
 extends Node
 class_name Turn_Manager
 
-@onready var reroll_button: Button = %RerollButton
+@onready var reroll_button: Button = %RerollBtn
+@onready var roll_help_text: Label = %roll_help_text
 @onready var init_roll_btn: Button = %InitialRollBtn
 @onready var slots: VBoxContainer = %DiceSlots
 @export var dice_array : Array[Dice]
@@ -21,7 +22,7 @@ var game_started: bool = false
 @onready var turn_data_ui: CanvasLayer = %TurnDataUI
 @onready var dice_ui: Control = %DiceUI
 @onready var choose_dice_text: Label = %ChooseDiceText
-@onready var scroll_container: ScrollContainer = $"../Turn_UI/ScrollContainer"
+@onready var scroll_container: VBoxContainer = $"../Turn_UI/ScrollContainerContainer"
 
 
 @onready var health_bars: CanvasLayer = %Health_Bars
@@ -53,12 +54,11 @@ enum TurnState {
 }
 var current_turn := TurnState.PLAYER
 
-
 signal turn_finished()
-
 
 func _ready() -> void:
 	reroll_button.visible = false
+	roll_help_text.visible = false
 	init_roll_btn.visible = false
 	animation_player.play("table_to_pov")
 	await animation_player.animation_finished
@@ -113,11 +113,16 @@ func handle_dice_clicked(camera : Node, event : InputEvent, event_position : Vec
 		if dice_to_reroll.has(dice):
 			dice_to_reroll.erase(dice)
 			dice.selected_hint.visible = false
-			if dice_to_reroll.is_empty(): reroll_button.disabled = true
-			return
+			if dice_to_reroll.is_empty():
+				reroll_button.visible = false
+				roll_help_text.visible = true
+				return
+			
 		dice_to_reroll.push_back(dice)
 		dice.selected_hint.visible = true
-		reroll_button.disabled = false
+		reroll_button.visible = true
+		roll_help_text.visible = false
+		
 func handle_dice_hovered(dice : Dice)->void:
 	if current_turn != TurnState.PLAYER or rolling or init_roll_btn.visible or current_reroll_count <= 0:
 		return
@@ -128,12 +133,14 @@ func handle_dice_exited(dice : Dice)->void:
 		return
 	dice.hover_hint.visible = false
 func should_trigger_coin() -> bool:
-	return randf() <= .50
+	return randf() <= .2
 
 func get_coin_multiplier() -> float:
 
 	if !should_trigger_coin():
 		return 1.0
+		
+	turn_result.text = "Blood Coin Bonus! 1.5x Ability Chance!"
 		
 	i_want_blood_sound.play()
 	coin_mult.start_coin_flow()
@@ -141,8 +148,8 @@ func get_coin_multiplier() -> float:
 	await coin_mult.coin_finished
 
 	if coin_mult.current_coin_result == coin_mult.CoinResult.HEADS:
-		turn_result.text = "Blood Coin! 2x Ability!"
-		return 2.0
+		turn_result.text = "1.5x Ability Awarded!"
+		return 1.5
 
 	turn_result.text = "Blood Coin! No Bonus!"
 	return 1.0
@@ -159,16 +166,17 @@ func check_if_roll_is_done()->void:
 		on_roll_finished()
 		
 func on_roll_finished():
-	reroll_button.disabled = true
+	reroll_button.visible = false
+	roll_help_text.visible = true
 	if game_started == false:
 		return
 	rolling = false
-	reroll_button.visible = true
+	roll_help_text.visible = true
 	scroll_container.visible = true
 	calculate_roll()
 	dice_ui.visible = true
 	if(current_turn == TurnState.PLAYER):
-		reroll_button.visible = true
+		roll_help_text.visible = true
 		choose_dice_text.text = "You Rolled"
 	else:
 		choose_dice_text.text = "Enemy Rolled"
@@ -317,7 +325,7 @@ func _on_reroll_button_pressed():
 	current_reroll_count -= 1
 	reroll_count_label.text = "Rerolls left: " + str(current_reroll_count)
 	roll_dice(dice_to_reroll)
-	reroll_button.disabled = true
+	reroll_button.visible = false
 	for i in dice_to_reroll:
 		i.selected_hint.visible = false
 	dice_to_reroll.clear()
@@ -327,7 +335,7 @@ func _on_combo_entries_container_entry_chosen(combo: DiceCombo.DICE_COMBOS) -> v
 	await animation_player.animation_finished
 
 	turn_ui.visible = false
-	health_bars.visible = true
+	#health_bars.visible = true
 
 	await do_attack(combo)
 	await get_tree().create_timer(1.0).timeout
@@ -369,11 +377,11 @@ func enemy_turn() -> void:
 	
 func return_to_table()->void:
 	animation_player.play("table_to_pov", -1, -1.0, true)
-	change_turn_data()
 	animation_player.animation_finished.connect(attack_finished, CONNECT_ONE_SHOT)
 	dice_ui.visible = false
-	
+
 	await animation_player.animation_finished
+	change_turn_data()
 	attack_finished("")
 
 func change_turn_data():
@@ -389,7 +397,7 @@ func change_turn_data():
 	scroll_container.visible = false
 func attack_finished(anim_name:StringName)->void:
 	turn_ui.visible = true
-	health_bars.visible = false
+	#health_bars.visible = false
 ###############################################################################################
 func play_screen_fx(screen_color : Color = Color.RED, damage_fx_time : float = .7)->void:
 	blood_effect.color = screen_color

@@ -4,12 +4,10 @@
 
 [node name="ScrollContainer" type="ScrollContainer" unique_id=269156458]
 clip_contents = false
-offset_top = 462.0
-offset_right = 203.0
-offset_bottom = 462.0
 
-[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1473990453]
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1785715319]
 layout_mode = 2
+theme_override_constants/separation = 4
 
 [node name="Dice_Combo_Entry3" parent="VBoxContainer" unique_id=1720401973 instance=ExtResource("1_fu5yu")]
 layout_mode = 2

@@ -1,10 +1,10 @@
 extends MarginContainer
 class_name Dice_Combo_Entry
-@onready var combo_name: Label = $VSplitContainer/HSplitContainer/Combo_Name
-@onready var definitions: VBoxContainer = $VSplitContainer/HSplitContainer/Definitions
-@onready var combonation_pictures: HBoxContainer = $VSplitContainer/Combonation_Pictures
-@onready var use_ability_button: Button = $VSplitContainer/Use_Ability_Button
-@onready var use_ability_text: Label = $VSplitContainer/Use_Ability_Button/Use_Ability_text
+@onready var combo_name: Label = %Combo_Name
+@onready var definitions: VBoxContainer = %Definitions
+@onready var combonation_pictures: HBoxContainer = %Combonation_Pictures
+@onready var use_ability_button: Button = %Use_Ability_Button
+@onready var use_ability_text: Label = %Use_Ability_text
 var current_dc : DiceCombo.DICE_COMBOS
 var can_use_ability : bool = true
 
@@ -22,6 +22,10 @@ func apply_info(dice_combo : DiceCombo.DICE_COMBOS = DiceCombo.DICE_COMBOS.VAMPI
 		create_new_combo_definition("Damage", dci.damage)
 	for i in dci.combination:
 		create_combo_textures(i)
+
+func get_combo_info(dice_combo : DiceCombo.DICE_COMBOS = DiceCombo.DICE_COMBOS.VAMPIRE_BITE)->DiceCombo.dice_combo_info:
+	var dci : DiceCombo.dice_combo_info = DiceCombo.get_dice_combo_info(dice_combo)
+	return dci
 	
 func create_combo_textures(side_texture : Side.SIDE_COLORS)->void:
 	var new_texture := TextureRect.new()
