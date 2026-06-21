@@ -2,7 +2,7 @@ extends Node
 class_name Turn_Manager
 
 @onready var reroll_button: Button = %RerollBtn
-@onready var roll_help_text: Label = %roll_help_text
+@onready var help_panel: PanelContainer = %help_panel
 @onready var init_roll_btn: Button = %InitialRollBtn
 @onready var slots: VBoxContainer = %DiceSlots
 @export var dice_array : Array[Dice]
@@ -58,7 +58,7 @@ signal turn_finished()
 
 func _ready() -> void:
 	reroll_button.visible = false
-	roll_help_text.visible = false
+	help_panel.visible = false
 	init_roll_btn.visible = false
 	animation_player.play("table_to_pov")
 	await animation_player.animation_finished
@@ -115,13 +115,13 @@ func handle_dice_clicked(camera : Node, event : InputEvent, event_position : Vec
 			dice.selected_hint.visible = false
 			if dice_to_reroll.is_empty():
 				reroll_button.visible = false
-				roll_help_text.visible = true
+				help_panel.visible = true
 				return
 			
 		dice_to_reroll.push_back(dice)
 		dice.selected_hint.visible = true
 		reroll_button.visible = true
-		roll_help_text.visible = false
+		help_panel.visible = false
 		
 func handle_dice_hovered(dice : Dice)->void:
 	if current_turn != TurnState.PLAYER or rolling or init_roll_btn.visible or current_reroll_count <= 0:
@@ -167,16 +167,16 @@ func check_if_roll_is_done()->void:
 		
 func on_roll_finished():
 	reroll_button.visible = false
-	roll_help_text.visible = true
+	help_panel.visible = true
 	if game_started == false:
 		return
 	rolling = false
-	roll_help_text.visible = true
+	help_panel.visible = true
 	scroll_container.visible = true
 	calculate_roll()
 	dice_ui.visible = true
 	if(current_turn == TurnState.PLAYER):
-		roll_help_text.visible = true
+		help_panel.visible = true
 		choose_dice_text.text = "You Rolled"
 	else:
 		choose_dice_text.text = "Enemy Rolled"

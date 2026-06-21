@@ -6,6 +6,9 @@ signal entry_chosen(combo : DiceCombo.DICE_COMBOS)
 func create_entries(player_roll : Array[Side.SIDE_COLORS]) -> void:
 
 	for combo in DiceCombo.DICE_COMBOS.values():
+		var typed_combo := combo as DiceCombo.DICE_COMBOS
+		if typed_combo == null:
+			continue
 		var entry : Dice_Combo_Entry = preload("res://UI/dice_combo_entry.tscn").instantiate()
 		add_child(entry)
 		setup_combo_entry(entry, combo, player_roll)

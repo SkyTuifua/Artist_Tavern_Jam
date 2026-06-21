@@ -607,6 +607,7 @@ offset_bottom = 63.0
 
 [node name="Label" type="Label" parent="Health_Bars/Control/VBoxContainer" unique_id=306421516]
 layout_mode = 2
+theme_override_font_sizes/font_size = 24
 text = "You"
 horizontal_alignment = 1
 
@@ -642,6 +643,7 @@ grow_vertical = 2
 
 [node name="Label" type="Label" parent="Health_Bars/Control2/VBoxContainer" unique_id=1869438216]
 layout_mode = 2
+theme_override_font_sizes/font_size = 24
 text = "Dr. Vamp"
 horizontal_alignment = 1
 
@@ -696,7 +698,8 @@ theme = ExtResource("20_lswn8")
 layout_mode = 2
 theme = ExtResource("20_lswn8")
 
-[node name="Panel" type="PanelContainer" parent="Turn_UI" unique_id=1202213181]
+[node name="help_panel" type="PanelContainer" parent="Turn_UI" unique_id=1202213181]
+unique_name_in_owner = true
 anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0
@@ -710,10 +713,10 @@ grow_horizontal = 2
 grow_vertical = 0
 theme_override_styles/panel = SubResource("StyleBoxFlat_lswn8")
 
-[node name="MarginContainer" type="MarginContainer" parent="Turn_UI/Panel" unique_id=850798262]
+[node name="MarginContainer" type="MarginContainer" parent="Turn_UI/help_panel" unique_id=850798262]
 layout_mode = 2
 
-[node name="roll_help_text" type="Label" parent="Turn_UI/Panel/MarginContainer" unique_id=1401273918]
+[node name="roll_help_text" type="Label" parent="Turn_UI/help_panel/MarginContainer" unique_id=1401273918]
 unique_name_in_owner = true
 layout_mode = 2
 theme = ExtResource("20_lswn8")
