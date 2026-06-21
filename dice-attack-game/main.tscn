@@ -26,6 +26,8 @@
 [ext_resource type="AudioStream" uid="uid://cf00010eihbke" path="res://sounds/Voice_Efforts/suck_blood.wav" id="13_0odxb"]
 [ext_resource type="PackedScene" uid="uid://cttw37gdbiqvn" path="res://characters/vamp_enemy.glb" id="18_0odxb"]
 [ext_resource type="Theme" uid="uid://d12q8maddupqj" path="res://vamp_1_theme.tres" id="20_lswn8"]
+[ext_resource type="Texture2D" uid="uid://b6r3285m68uva" path="res://Art/settings.png" id="21_a6jrf"]
+[ext_resource type="Texture2D" uid="uid://b68oxk81h5ktu" path="res://Art/settings_press.png" id="28_xuqvo"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_7dm0k"]
 
@@ -96,6 +98,9 @@ corner_radius_top_left = 8
 corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xuqvo"]
+bg_color = Color(0, 0, 0, 0)
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_0xm2m"]
 
@@ -899,6 +904,48 @@ offset_right = 20.0
 grow_horizontal = 2
 grow_vertical = 0
 
+[node name="Settings_UI" type="CanvasLayer" parent="." unique_id=755035226]
+
+[node name="Control" type="Control" parent="Settings_UI" unique_id=111166754]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="Settings_UI/Control" unique_id=165847296]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_xuqvo")
+
+[node name="settings_btn" type="TextureButton" parent="Settings_UI/Control/PanelContainer" unique_id=954255792]
+unique_name_in_owner = true
+layout_mode = 2
+texture_normal = ExtResource("21_a6jrf")
+texture_pressed = ExtResource("28_xuqvo")
+texture_hover = ExtResource("21_a6jrf")
+
+[node name="SettingsContainer" type="VBoxContainer" parent="Settings_UI/Control/PanelContainer" unique_id=1028386560]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/separation = 30
+
+[node name="SoundButton" type="Button" parent="Settings_UI/Control/PanelContainer/SettingsContainer" unique_id=571711113]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 42
+text = "Music On"
+
+[node name="VampModeBtn" type="Button" parent="Settings_UI/Control/PanelContainer/SettingsContainer" unique_id=1597865327]
+layout_mode = 2
+theme_override_font_sizes/font_size = 42
+text = "Vamp Mode Off"
+
 [node name="Camera3D" type="Camera3D" parent="." unique_id=840999897]
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 9.40819, 0.12898612)
 size = 10.512434
@@ -942,3 +989,4 @@ libraries/ = SubResource("AnimationLibrary_a6jrf")
 [connection signal="pressed" from="Turn_UI/RerollBtn" to="Turn_Manager" method="_on_reroll_button_pressed"]
 [connection signal="pressed" from="Turn_UI/VBoxContainer2/RerollButton" to="Turn_Manager" method="_on_reroll_button_pressed"]
 [connection signal="entry_chosen" from="Turn_UI/ScrollContainerContainer/ScrollContainer/Combo Entries Container" to="Turn_Manager" method="_on_combo_entries_container_entry_chosen"]
+[connection signal="pressed" from="Settings_UI/Control/PanelContainer/settings_btn" to="Turn_Manager" method="_on_settings_btn_pressed"]

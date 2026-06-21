@@ -50,12 +50,14 @@ static func get_dice_combo_info(combo : DICE_COMBOS)->dice_combo_info:
 			dci.health = 0
 			dci.combination = [Side.SIDE_COLORS.BASE_DAMAGE,Side.SIDE_COLORS.BASE_DAMAGE,Side.SIDE_COLORS.BASE_DAMAGE]
 			dci.ability_type = ABILITY_TYPE.DAMAGE
+			return dci
 		DICE_COMBOS.LACERATE:
 			dci.name  = "Lacerate"
 			dci.damage = 35
 			dci.health = 0
 			dci.combination = [Side.SIDE_COLORS.BASE_DAMAGE,Side.SIDE_COLORS.BASE_DAMAGE,Side.SIDE_COLORS.BASE_DAMAGE,Side.SIDE_COLORS.BASE_DAMAGE]
 			dci.ability_type = ABILITY_TYPE.DAMAGE
+			return dci
 		DICE_COMBOS.MAUL:
 			dci.name  = "Maul"
 			dci.damage = 45

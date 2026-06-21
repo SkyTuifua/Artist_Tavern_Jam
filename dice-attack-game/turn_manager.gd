@@ -23,6 +23,9 @@ var game_started: bool = false
 @onready var dice_ui: Control = %DiceUI
 @onready var choose_dice_text: Label = %ChooseDiceText
 @onready var scroll_container: VBoxContainer = $"../Turn_UI/ScrollContainerContainer"
+@onready var settings_container: VBoxContainer = %SettingsContainer
+@onready var settings_btn: TextureButton = %settings_btn
+
 
 
 @onready var health_bars: CanvasLayer = %Health_Bars
@@ -187,6 +190,8 @@ func on_roll_finished():
 			
 func resolve_enemy_roll() -> void:
 	var chosen_combo = choose_enemy_combo()
+	print("Resolve Enemy Roll")
+	print(chosen_combo)
 	var dci = DiceCombo.get_dice_combo_info(chosen_combo)
 	
 	turn_result.text = "Enemy used: " + dci.name
@@ -204,7 +209,8 @@ func resolve_enemy_roll() -> void:
 
 
 func choose_enemy_combo():
-
+	print("=== CHOOSE ENEMY COMBO ===")
+	print("dice_combo:", dice_combo)
 	var combos = DiceCombo.get_available_combos(dice_combo)
 
 	if combos.is_empty():
@@ -216,6 +222,11 @@ func choose_enemy_combo():
 
 	# Can kill player?
 	for combo in combos:
+		print("Choose enemy Combo")
+		print(combo)
+		if combo == null:
+			push_error("NULL COMBO FOUND!")
+			continue
 		var dci = DiceCombo.get_dice_combo_info(combo)
 
 		if dci.damage >= player_health.value:
@@ -346,6 +357,8 @@ func _on_combo_entries_container_entry_chosen(combo: DiceCombo.DICE_COMBOS) -> v
 	
 #does the attack
 func do_attack(combo : DiceCombo.DICE_COMBOS)->void:
+	print("Do ATTACK")
+	print(combo)
 	var dci : DiceCombo.dice_combo_info = DiceCombo.get_dice_combo_info(combo)
 	var multiplier = await get_coin_multiplier()
 	
@@ -414,3 +427,7 @@ func end_game()->void:
 	else:
 		win_lose_label.text = "You Win"
 	get_tree().create_timer(3).timeout.connect(func(): get_tree().change_scene_to_file("res://MainMenu.tscn"))
+
+
+func _on_settings_btn_pressed() -> void:
+	settings_container.visible = true
