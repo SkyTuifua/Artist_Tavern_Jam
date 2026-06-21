@@ -727,6 +727,7 @@ horizontal_alignment = 1
 
 [node name="InitialRollBtn" type="Button" parent="Turn_UI" unique_id=1195503770]
 unique_name_in_owner = true
+visible = false
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -757,18 +758,32 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("20_lswn8")
 theme_override_font_sizes/font_size = 42
-text = "REROLL DICE"
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Turn_UI/RerollBtn" unique_id=1924535809]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -41.0
+offset_top = -20.0
+offset_right = 41.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="Main_text" type="Label" parent="Turn_UI/RerollBtn/VBoxContainer" unique_id=779889069]
 layout_mode = 2
+theme_override_font_sizes/font_size = 36
+text = "REROLL DICE"
+horizontal_alignment = 1
 
-[node name="Sub_text" type="Label" parent="Turn_UI/RerollBtn/VBoxContainer" unique_id=1328782962]
+[node name="reroll_sub_text" type="Label" parent="Turn_UI/RerollBtn/VBoxContainer" unique_id=1328782962]
+unique_name_in_owner = true
 layout_mode = 2
+text = "2 left on this turn"
+horizontal_alignment = 1
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="Turn_UI" unique_id=748349221]
 visible = false
