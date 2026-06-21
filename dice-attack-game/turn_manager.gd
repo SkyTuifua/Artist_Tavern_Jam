@@ -32,7 +32,7 @@ var game_started: bool = false
 @onready var turn_label: Label = %TurnLabel
 @onready var turn_result: Label = %TurnResult
 @onready var reroll_count_label: Label = %reroll_sub_text
-var max_reroll_count : int = 3
+var max_reroll_count : int = 2
 @onready var current_reroll_count : int = max_reroll_count
 @onready var win_lose_label: Label = %Win_Lose_Label
 
