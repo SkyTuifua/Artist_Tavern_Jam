@@ -92,6 +92,7 @@ theme_override_font_sizes/font_size = 42
 text = "Music On"
 
 [node name="VampModeBtn" type="Button" parent="SettingsContainer" unique_id=408142792]
+visible = false
 layout_mode = 2
 theme_override_font_sizes/font_size = 42
 text = "Vamp Mode Off"
