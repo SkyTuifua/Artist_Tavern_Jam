@@ -47,6 +47,7 @@ var max_reroll_count : int = 2
 @onready var villain_healed: AudioStreamPlayer = %Villain_Healed
 @onready var roll_dice_sound: AudioStreamPlayer = %Roll_Dice
 @onready var i_want_blood_sound: AudioStreamPlayer = %I_Want_Blood
+@onready var coin_start: AudioStreamPlayer2D = %coin_start
 
 
 enum TurnState {
@@ -62,10 +63,14 @@ func _ready() -> void:
 	reroll_button.visible = false
 	help_panel.visible = false
 	init_roll_btn.visible = false
+	if randf() < 0.5:
+		roll_dice_sound.play()
+	else:
+		i_want_blood_sound.play()
 	animation_player.play("table_to_pov")
 	await animation_player.animation_finished
 	await get_tree().create_timer(1.0).timeout
-	roll_dice_sound.play()
+
 	return_to_table()
 	await get_tree().create_timer(1.0).timeout
 	turn_data_ui.visible = true
@@ -130,7 +135,7 @@ func handle_dice_exited(dice : Dice)->void:
 		return
 	dice.hover_hint.visible = false
 func should_trigger_coin() -> bool:
-	return randf() <= .2
+	return randf() <= 0.2
 
 func get_coin_multiplier() -> float:
 
@@ -139,7 +144,7 @@ func get_coin_multiplier() -> float:
 		
 	turn_result.text = "Blood Coin Bonus! 1.5x Ability Chance!"
 		
-	i_want_blood_sound.play()
+	coin_start.play()
 	coin_mult.start_coin_flow()
 
 	await coin_mult.coin_finished

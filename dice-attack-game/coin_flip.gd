@@ -12,6 +12,8 @@ signal coin_finished
 signal coin_result(result)
 
 @onready var animation_player: AnimationPlayer = $CoinAnimation
+@onready var coin_accepted: AudioStreamPlayer2D = %coin_accept
+@onready var coin_rejected: AudioStreamPlayer2D = %coin_reject
 
 func _ready():
 	start_position = position
@@ -32,11 +34,13 @@ func flip_coin() -> void:
 		current_coin_result = CoinResult.HEADS
 		animation_player.play("coin_heads")
 		await animation_player.animation_finished
+		coin_accepted.play()
 		animation_player.play("coin_heads_disappear")
 	else:
 		current_coin_result = CoinResult.TAILS
 		animation_player.play("coin_tails")
 		await animation_player.animation_finished
+		coin_rejected.play()
 		animation_player.play("coin_tails_disappear")
 
 	# Wait until the flip animation is done

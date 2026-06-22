@@ -28,7 +28,10 @@
 [ext_resource type="Texture2D" uid="uid://b6r3285m68uva" path="res://Art/settings.png" id="21_a6jrf"]
 [ext_resource type="FontFile" uid="uid://bjchrr5mp4u1t" path="res://UI/fonts/ScaryBenko.ttf" id="21_qsp4k"]
 [ext_resource type="Texture2D" uid="uid://b68oxk81h5ktu" path="res://Art/settings_press.png" id="28_xuqvo"]
+[ext_resource type="AudioStream" uid="uid://cjitykytpao8h" path="res://sounds/coin_rejected.wav" id="29_seu75"]
+[ext_resource type="AudioStream" uid="uid://b6korcwom2x6v" path="res://sounds/coin_accepted.wav" id="30_htxhm"]
 [ext_resource type="Script" uid="uid://cywrxo7mq3fo4" path="res://characters/vamp_enemy.gd" id="30_kq58d"]
+[ext_resource type="AudioStream" uid="uid://dmv7uv3vilu8g" path="res://sounds/coin_start.wav" id="31_htxhm"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_7dm0k"]
 
@@ -934,6 +937,19 @@ libraries/ = SubResource("AnimationLibrary_dg77c")
 
 [node name="coin" parent="CoinMultiplier" unique_id=1224249502 instance=ExtResource("9_kek77")]
 transform = Transform3D(0.20000002, 0, -1.11256746e-07, 0, 0.2, 0, 1.11256746e-07, 0, 0.20000002, -11.93, -2.808, -1.429)
+
+[node name="coin_reject" type="AudioStreamPlayer2D" parent="CoinMultiplier" unique_id=1029074273]
+unique_name_in_owner = true
+stream = ExtResource("29_seu75")
+volume_db = 6.0
+
+[node name="coin_accept" type="AudioStreamPlayer2D" parent="CoinMultiplier" unique_id=1280839323]
+unique_name_in_owner = true
+stream = ExtResource("30_htxhm")
+
+[node name="coin_start" type="AudioStreamPlayer2D" parent="CoinMultiplier" unique_id=276873598]
+unique_name_in_owner = true
+stream = ExtResource("31_htxhm")
 
 [node name="vamp_enemy" type="Node3D" parent="." unique_id=640142674]
 transform = Transform3D(1.3, 0, 0, 0, 1.3, 0, 0, 0, 1.3, -9.267406, -7.376669, -43.70557)
