@@ -4,7 +4,6 @@ class_name Turn_Manager
 @onready var reroll_button: Button = %RerollBtn
 @onready var help_panel: PanelContainer = %help_panel
 @onready var init_roll_btn: Button = %InitialRollBtn
-@onready var slots: VBoxContainer = %DiceSlots
 @export var dice_array : Array[Dice]
 @export var dice_height : float = 4.0 ## The height at which the dice start when they are rolled.
 @export var random_impulse_strength_min : float = -1.5
@@ -20,9 +19,8 @@ var game_started: bool = false
 @onready var vamp_anim: AnimationPlayer = %"VampAnimation"
 @onready var turn_ui: CanvasLayer = %Turn_UI
 @onready var turn_data_ui: CanvasLayer = %TurnDataUI
-@onready var dice_ui: Control = %DiceUI
 @onready var choose_dice_text: Label = %ChooseDiceText
-@onready var scroll_container: VBoxContainer = $"../Turn_UI/ScrollContainerContainer"
+@onready var current_abilities: VBoxContainer = %"Current Abilities"
 @onready var settings_container: VBoxContainer = %SettingsContainer
 @onready var settings_btn: TextureButton = %settings_btn
 
@@ -60,6 +58,7 @@ var current_turn := TurnState.PLAYER
 signal turn_finished()
 
 func _ready() -> void:
+	turn_ui.visible = false
 	reroll_button.visible = false
 	help_panel.visible = false
 	init_roll_btn.visible = false
@@ -81,10 +80,6 @@ func _ready() -> void:
 		i.visible = false
 		i.stopped.connect(check_if_roll_is_done)
 		
-	#for i in range(slots.get_child_count()):
-		#var slot = slots.get_child(i)
-		#slot.gui_input.connect(_on_slot_input.bind(i))
-		#slot.mouse_filter = Control.MOUSE_FILTER_STOP
 	game_started = false
 	
 func roll_dice(target_dice: Array = dice_array)->void:
@@ -119,8 +114,7 @@ func handle_dice_clicked(camera : Node, event : InputEvent, event_position : Vec
 			if dice_to_reroll.is_empty():
 				reroll_button.visible = false
 				help_panel.visible = true
-				return
-			
+			return
 		dice_to_reroll.push_back(dice)
 		dice.selected_hint.visible = true
 		reroll_button.visible = true
@@ -175,14 +169,10 @@ func on_roll_finished():
 		return
 	rolling = false
 	help_panel.visible = true
-	scroll_container.visible = true
+	current_abilities.visible = true
 	calculate_roll()
-	dice_ui.visible = true
 	if(current_turn == TurnState.PLAYER):
 		help_panel.visible = true
-		choose_dice_text.text = "You Rolled"
-	else:
-		choose_dice_text.text = "Enemy Rolled"
 	if current_turn == TurnState.ENEMY:
 		await get_tree().create_timer(0.2).timeout
 		await resolve_enemy_roll()
@@ -214,7 +204,7 @@ func choose_enemy_combo():
 	var combos = DiceCombo.get_available_combos(dice_combo)
 
 	if combos.is_empty():
-		return null
+		return DiceCombo.DICE_COMBOS.DAMAGE
 
 	# Only one option
 	if combos.size() == 1:
@@ -276,19 +266,7 @@ func calculate_roll()->void:
 		dice_combo.push_back(dice.current_side.color)
 	dice_combo.sort()
 	var texture_size : float = 65
-	for i in slots.get_children():
-		i.queue_free()
-	for i in dice_array:
-		var new_texture := TextureRect.new()
-		new_texture.texture = Side.get_side_texture(i.current_side.color)
-		new_texture.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
-		new_texture.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
-		new_texture.size_flags_vertical = Control.SIZE_SHRINK_CENTER
-		new_texture.custom_minimum_size = Vector2(texture_size,texture_size)
-		slots.add_child(new_texture)
-		#remove entries before creating a new list of combo entries.
-	for i in slots.get_children():
-		print(i)
+	
 	combo_entries_container.clear_entries()
 	combo_entries_container.create_entries(dice_combo)
 	
@@ -296,41 +274,6 @@ func sort_dice(a:Dice, b:Dice)->bool:
 	if a.current_side.color < b.current_side.color :
 		return true
 	return false
-	
-#func enable_slot_highlight(enable: bool):
-	#for slot in slots.get_children():
-		#if enable:
-			#slot.modulate = Color(1, 1, 1)
-		#else:
-			#slot.modulate = Color(1, 1, 1)	
-
-#func _on_slot_input(event: InputEvent, index: int):		
-	#if not reroll_selection_mode:
-		#return
-#
-	#if event is InputEventMouseButton and event.pressed:
-		#select_die_for_reroll(index)
-		#
-#func select_die_for_reroll(index: int):
-	#selected_die_idx = index
-#
-	#for i in range(slots.get_child_count()):
-		#var slot = slots.get_child(i)
-		#slot.modulate = Color(1, 1, 1)
-		#slot.scale = Vector2.ONE
-#
-	#var selected_slot = slots.get_child(index)
-	#selected_slot.modulate = Color(1, 0.6, 0.6)
-	#selected_slot.scale = Vector2(1.15, 1.15)
-#
-	## reroll ONLY that die
-	#var dice = dice_array[index]
-	#roll_dice([dice])
-	#
-#func finish_reroll_selection():
-	#reroll_selection_mode = false
-	#selected_die_idx = -1
-	#enable_slot_highlight(true)
 
 func _on_reroll_button_pressed():
 	current_reroll_count -= 1
@@ -343,11 +286,18 @@ func _on_reroll_button_pressed():
 ##Attack Has been chosen, Play animation to attack, and hide UI until Animation is done?
 func _on_combo_entries_container_entry_chosen(combo: DiceCombo.DICE_COMBOS) -> void:
 	animation_player.play("table_to_pov")
+	for i in dice_to_reroll:
+		i.hover_hint.visible = false
+		i.selected_hint.visible = false
+	dice_to_reroll.clear()
+	turn_ui.visible = false
+	
 	await animation_player.animation_finished
 
-	turn_ui.visible = false
+	
 	#health_bars.visible = true
-
+	
+	
 	await do_attack(combo)
 	await get_tree().create_timer(1.0).timeout
 	current_turn = TurnState.ENEMY
@@ -383,34 +333,29 @@ func enemy_turn() -> void:
 	enemy_busy = true
 	current_turn = TurnState.ENEMY
 	change_turn_data()
-	print("should roll here")
 
 	await get_tree().create_timer(0.5).timeout
 	roll_dice()
 	
 func return_to_table()->void:
 	animation_player.play("table_to_pov", -1, -1.0, true)
-	animation_player.animation_finished.connect(attack_finished, CONNECT_ONE_SHOT)
-	dice_ui.visible = false
+	
 
 	await animation_player.animation_finished
+	init_roll_btn.visible = true
 	change_turn_data()
-	attack_finished("")
 
 func change_turn_data():
 	if current_turn == TurnState.PLAYER:
+		turn_ui.visible = true
 		turn_label.text = "Your Turn"
-		init_roll_btn.visible = true
 		reroll_button.visible = false
 		current_reroll_count = max_reroll_count
 		reroll_count_label.text = "Rerolls left: " + str(current_reroll_count)
 	else:
 		turn_label.text = "Enemy Turn"
-	dice_ui.visible = false
-	scroll_container.visible = false
-func attack_finished(anim_name:StringName)->void:
-	turn_ui.visible = true
-	#health_bars.visible = false
+	current_abilities.visible = false
+
 ###############################################################################################
 func play_screen_fx(screen_color : Color = Color.RED, damage_fx_time : float = .7)->void:
 	blood_effect.color = screen_color

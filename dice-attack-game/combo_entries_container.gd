@@ -13,7 +13,7 @@ func create_entries(player_roll : Array[Side.SIDE_COLORS]) -> void:
 		add_child(entry)
 		setup_combo_entry(entry, combo, player_roll)
 
-	filter_weaker_combos()
+	#filter_weaker_combos()
 		
 func clear_entries()->void:
 	for i in get_children():
@@ -26,13 +26,14 @@ func handle_entry_button_pressed(combo : DiceCombo.DICE_COMBOS)->void:
 func setup_combo_entry(entry : Dice_Combo_Entry, combo : DiceCombo.DICE_COMBOS, player_roll : Array[Side.SIDE_COLORS])->void:
 	entry.apply_info(combo)
 	entry.set_can_use_ability(DiceCombo.has_combo(player_roll, combo))
-	entry.entry_chosen.connect(handle_entry_button_pressed)
+	entry.entry_chosen.connect(handle_entry_button_pressed, CONNECT_ONE_SHOT)
 	#sort abilities that player can use to the top.
 	const TOP : int = 0
 	if entry.can_use_ability:
 		entry.get_parent().move_child(entry,TOP)
 	else:
-		entry.visible = false
+		entry.use_ability_button.disabled = true
+		entry.use_ability_text.text = "Can't Use"
 
 func filter_weaker_combos() -> void:
 	var strongest := {}

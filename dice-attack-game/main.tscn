@@ -27,6 +27,7 @@
 [ext_resource type="PackedScene" uid="uid://cttw37gdbiqvn" path="res://characters/vamp_enemy.glb" id="18_0odxb"]
 [ext_resource type="Theme" uid="uid://d12q8maddupqj" path="res://vamp_1_theme.tres" id="20_lswn8"]
 [ext_resource type="Texture2D" uid="uid://b6r3285m68uva" path="res://Art/settings.png" id="21_a6jrf"]
+[ext_resource type="FontFile" uid="uid://bjchrr5mp4u1t" path="res://UI/fonts/ScaryBenko.ttf" id="21_qsp4k"]
 [ext_resource type="Texture2D" uid="uid://b68oxk81h5ktu" path="res://Art/settings_press.png" id="28_xuqvo"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_7dm0k"]
@@ -112,7 +113,7 @@ tracks/0/enabled = true
 tracks/0/path = NodePath("Camera3D")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
-tracks/0/keys = PackedFloat32Array(0, 1, 0, 9.40819, 0.12898612)
+tracks/0/keys = PackedFloat32Array(0, 1, 2.0029233, 8.737028, 0.21291327)
 tracks/1/type = "rotation_3d"
 tracks/1/imported = false
 tracks/1/enabled = true
@@ -131,7 +132,7 @@ tracks/0/enabled = true
 tracks/0/path = NodePath("Camera3D")
 tracks/0/interp = 2
 tracks/0/loop_wrap = true
-tracks/0/keys = PackedFloat32Array(0, 1, 0, 9.40819, 0.12898612, 1.2333333, 1, -8.905323, 9.40819, 9.606871)
+tracks/0/keys = PackedFloat32Array(0, 1, 2.0029233, 8.737028, 1.9888446, 1.2333333, 1, -8.905323, 9.40819, 9.606871)
 tracks/1/type = "rotation_3d"
 tracks/1/imported = false
 tracks/1/enabled = true
@@ -428,7 +429,7 @@ input_ray_pickable = false
 shape = SubResource("BoxShape3D_7dm0k")
 
 [node name="StaticBody3D5" type="StaticBody3D" parent="." unique_id=774684239]
-transform = Transform3D(5.4594987e-14, -1.698726e-08, -10.147859, -9.99286, -1.6987258e-08, 0, -4.3680188e-07, 0.38862324, -4.43577e-07, -0.11252928, 0, -5.2014937)
+transform = Transform3D(5.4594987e-14, -1.698726e-08, -10.147859, -9.99286, -1.6987258e-08, 0, -4.3680188e-07, 0.38862324, -4.43577e-07, -0.11252928, 0, -2.183997)
 input_ray_pickable = false
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D5" unique_id=115909559]
@@ -442,19 +443,19 @@ input_ray_pickable = false
 shape = SubResource("BoxShape3D_7dm0k")
 
 [node name="Dice" parent="." unique_id=384043266 instance=ExtResource("1_ig7tw")]
-transform = Transform3D(-0.99401283, -0.105050296, 0.030048797, -0.10718778, 0.9908794, -0.08166525, -0.021195618, -0.08439701, -0.99620706, -0.8349266, 2.4850783, 1.2234824)
+transform = Transform3D(-0.99401283, -0.105050296, 0.030048797, -0.10718778, 0.9908794, -0.08166525, -0.021195618, -0.08439701, -0.99620706, -0.8349266, 2.4850783, 2.7247863)
 
 [node name="Dice2" parent="." unique_id=1794140019 instance=ExtResource("1_ig7tw")]
-transform = Transform3D(-0.99401283, -0.105050296, 0.030048797, -0.10718778, 0.9908794, -0.08166525, -0.021195618, -0.08439701, -0.99620706, -0.8349266, 2.4850783, -2.6137342)
+transform = Transform3D(-0.99401283, -0.105050296, 0.030048797, -0.10718778, 0.9908794, -0.08166525, -0.021195618, -0.08439701, -0.99620706, -0.8349266, 2.4850783, -1.1124302)
 
 [node name="Dice3" parent="." unique_id=783705218 instance=ExtResource("1_ig7tw")]
-transform = Transform3D(-0.99401283, -0.105050296, 0.030048797, -0.10718778, 0.9908794, -0.08166525, -0.021195618, -0.08439701, -0.99620706, 0.5797763, 2.4850783, -0.7536304)
+transform = Transform3D(-0.99401283, -0.105050296, 0.030048797, -0.10718778, 0.9908794, -0.08166525, -0.021195618, -0.08439701, -0.99620706, 0.5797763, 2.4850783, 0.74767363)
 
 [node name="Dice4" parent="." unique_id=189956864 instance=ExtResource("1_ig7tw")]
-transform = Transform3D(-0.99401283, -0.105050296, 0.030048793, -0.107187785, 0.9908794, -0.08166524, -0.021195617, -0.084397, -0.99620706, -2.3044746, 2.4850783, -0.7536304)
+transform = Transform3D(-0.99401283, -0.105050296, 0.030048793, -0.107187785, 0.9908794, -0.08166524, -0.021195617, -0.084397, -0.99620706, -2.3044746, 2.4850783, 0.74767363)
 
 [node name="Dice5" parent="." unique_id=258340121 instance=ExtResource("1_ig7tw")]
-transform = Transform3D(-0.99401283, -0.105050296, 0.030048797, -0.10718778, 0.9908794, -0.08166525, -0.021195618, -0.08439701, -0.99620706, -0.8349266, 2.4850783, -0.7536304)
+transform = Transform3D(-0.99401283, -0.105050296, 0.030048797, -0.10718778, 0.9908794, -0.08166525, -0.021195618, -0.08439701, -0.99620706, -0.8349266, 2.4850783, 0.74767363)
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=606966081]
 transform = Transform3D(0.6475615, 0.6786203, -0.34661022, 0, 0.45486116, 0.89056236, 0.7620132, -0.5766939, 0.29455057, -4.3456926, 6.0710034, 1.9551625)
@@ -755,10 +756,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -155.0
-offset_top = 169.0
-offset_right = 155.6222
-offset_bottom = 289.5
+offset_left = -158.0
+offset_top = 172.0
+offset_right = 152.6222
+offset_bottom = 292.5
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("20_lswn8")
@@ -784,83 +785,48 @@ theme_override_font_sizes/font_size = 36
 text = "REROLL DICE"
 horizontal_alignment = 1
 
-[node name="reroll_sub_text" type="Label" parent="Turn_UI/RerollBtn/VBoxContainer" unique_id=1328782962]
+[node name="Current Abilities" type="VBoxContainer" parent="Turn_UI" unique_id=1881041151]
 unique_name_in_owner = true
-layout_mode = 2
-text = "2 left on this turn"
-horizontal_alignment = 1
-
-[node name="VBoxContainer2" type="VBoxContainer" parent="Turn_UI" unique_id=748349221]
-visible = false
-anchors_preset = 4
+anchors_preset = 6
+anchor_left = 1.0
 anchor_top = 0.5
+anchor_right = 1.0
 anchor_bottom = 0.5
-offset_top = -58.0
-offset_right = 176.0
-offset_bottom = 58.0
+offset_left = -400.0
+offset_top = -245.0
+offset_bottom = 245.0
+grow_horizontal = 0
 grow_vertical = 2
 theme = ExtResource("20_lswn8")
 
-[node name="ChooseDiceText" type="Label" parent="Turn_UI/VBoxContainer2" unique_id=1658070633]
-unique_name_in_owner = true
-layout_mode = 2
-theme_override_font_sizes/font_size = 58
-text = "Your Rolled"
-horizontal_alignment = 1
-
-[node name="DiceSlots" type="VBoxContainer" parent="Turn_UI/VBoxContainer2" unique_id=135152253]
-unique_name_in_owner = true
-layout_mode = 2
-theme_override_constants/separation = 10
-alignment = 1
-
-[node name="RerollButton" type="Button" parent="Turn_UI/VBoxContainer2" unique_id=1627265798]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(250, 75)
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-theme_override_font_sizes/font_size = 36
-disabled = true
-text = "Reroll Selected Dice"
-
-[node name="Reroll_Count" type="Label" parent="Turn_UI/VBoxContainer2" unique_id=1378310283]
-unique_name_in_owner = true
-layout_mode = 2
-theme_override_font_sizes/font_size = 43
-text = "Rerolls Left: 3"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="ScrollContainerContainer" type="VBoxContainer" parent="Turn_UI" unique_id=1881041151]
-unique_name_in_owner = true
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -400.0
-offset_top = 120.0
-offset_bottom = 565.0
-grow_horizontal = 0
-theme = ExtResource("20_lswn8")
-
-[node name="AblilitiesTitle" type="Label" parent="Turn_UI/ScrollContainerContainer" unique_id=1696442734]
+[node name="AblilitiesTitle" type="Label" parent="Turn_UI/Current Abilities" unique_id=1696442734]
 visible = false
 layout_mode = 2
 text = "Choose Ability"
 horizontal_alignment = 1
 
-[node name="ScrollContainer" type="ScrollContainer" parent="Turn_UI/ScrollContainerContainer" unique_id=836564199]
+[node name="ScrollContainer" type="ScrollContainer" parent="Turn_UI/Current Abilities" unique_id=836564199]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 490)
 layout_mode = 2
 theme = ExtResource("20_lswn8")
 horizontal_scroll_mode = 0
 
-[node name="Combo Entries Container" type="VBoxContainer" parent="Turn_UI/ScrollContainerContainer/ScrollContainer" unique_id=326587653]
+[node name="Combo Entries Container" type="VBoxContainer" parent="Turn_UI/Current Abilities/ScrollContainer" unique_id=326587653]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(400, 250)
 layout_mode = 2
 script = ExtResource("3_h2yge")
+
+[node name="reroll_sub_text" type="Label" parent="Turn_UI" unique_id=1328782962]
+unique_name_in_owner = true
+offset_left = 481.0
+offset_top = 475.0
+offset_right = 663.0
+offset_bottom = 495.185
+theme_override_fonts/font = ExtResource("21_qsp4k")
+text = "Rerolls Left: 2"
+horizontal_alignment = 1
 
 [node name="TurnDataUI" type="CanvasLayer" parent="." unique_id=1462630903]
 unique_name_in_owner = true
@@ -890,20 +856,6 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 34
 horizontal_alignment = 1
 
-[node name="DiceUI" type="Control" parent="TurnDataUI" unique_id=673627030]
-unique_name_in_owner = true
-layout_mode = 3
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -20.0
-offset_top = -40.0
-offset_right = 20.0
-grow_horizontal = 2
-grow_vertical = 0
-
 [node name="Settings_UI" type="CanvasLayer" parent="." unique_id=755035226]
 
 [node name="Control" type="Control" parent="Settings_UI" unique_id=111166754]
@@ -911,8 +863,11 @@ layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = -2000.0
+offset_right = -2000.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 1
 
 [node name="PanelContainer" type="PanelContainer" parent="Settings_UI/Control" unique_id=165847296]
 layout_mode = 1
@@ -921,6 +876,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 1
 theme_override_styles/panel = SubResource("StyleBoxFlat_xuqvo")
 
 [node name="settings_btn" type="TextureButton" parent="Settings_UI/Control/PanelContainer" unique_id=954255792]
@@ -947,7 +903,7 @@ theme_override_font_sizes/font_size = 42
 text = "Vamp Mode Off"
 
 [node name="Camera3D" type="Camera3D" parent="." unique_id=840999897]
-transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 9.40819, 0.12898612)
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 2.0029233, 8.737028, 0.21291327)
 size = 10.512434
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1676078807]
@@ -987,6 +943,5 @@ libraries/ = SubResource("AnimationLibrary_a6jrf")
 
 [connection signal="pressed" from="Turn_UI/InitialRollBtn" to="Turn_Manager" method="roll_dice"]
 [connection signal="pressed" from="Turn_UI/RerollBtn" to="Turn_Manager" method="_on_reroll_button_pressed"]
-[connection signal="pressed" from="Turn_UI/VBoxContainer2/RerollButton" to="Turn_Manager" method="_on_reroll_button_pressed"]
-[connection signal="entry_chosen" from="Turn_UI/ScrollContainerContainer/ScrollContainer/Combo Entries Container" to="Turn_Manager" method="_on_combo_entries_container_entry_chosen"]
+[connection signal="entry_chosen" from="Turn_UI/Current Abilities/ScrollContainer/Combo Entries Container" to="Turn_Manager" method="_on_combo_entries_container_entry_chosen"]
 [connection signal="pressed" from="Settings_UI/Control/PanelContainer/settings_btn" to="Turn_Manager" method="_on_settings_btn_pressed"]

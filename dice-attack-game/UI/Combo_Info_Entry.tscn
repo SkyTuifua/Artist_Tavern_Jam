@@ -1,0 +1,115 @@
+[gd_scene format=3 uid="uid://d0stn6g61dkc2"]
+
+[ext_resource type="Script" uid="uid://k0k8wdgtyrwq" path="res://UI/combo_info_entry.gd" id="1_johet"]
+[ext_resource type="StyleBox" uid="uid://ciplw3mtb5qt7" path="res://Theme/Styles/Button_Disabled.tres" id="1_mmwsg"]
+[ext_resource type="StyleBox" uid="uid://iy0iwqgkcf1y" path="res://Theme/Styles/Button_Govered.tres" id="2_johet"]
+[ext_resource type="FontFile" uid="uid://bjchrr5mp4u1t" path="res://UI/fonts/ScaryBenko.ttf" id="3_2yscy"]
+[ext_resource type="Theme" uid="uid://d12q8maddupqj" path="res://vamp_1_theme.tres" id="5_2yscy"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_c6erx"]
+bg_color = Color(0.54901963, 0.007843138, 0.09019608, 1)
+
+[sub_resource type="Theme" id="Theme_x0dr1"]
+default_font = ExtResource("3_2yscy")
+/colors/Background = Color(0.54901963, 0.007843138, 0.09019608, 1)
+/colors/Foreground = Color(0.25882354, 0, 0.023529412, 1)
+Button/colors/icon_focus_color = Color(0.25882354, 0, 0.023529412, 1)
+Button/colors/icon_normal_color = Color(0.54901963, 0.007843138, 0.09019608, 1)
+Button/styles/disabled = ExtResource("1_mmwsg")
+Button/styles/hover = ExtResource("2_johet")
+Button/styles/normal = SubResource("StyleBoxFlat_c6erx")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2yscy"]
+bg_color = Color(0.54901963, 0.007843138, 0.09019608, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_x0dr1"]
+bg_color = Color(0.25882354, 0, 0.023529412, 1)
+
+[node name="Combo_Info_Entry" type="Control" unique_id=1184588042]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_johet")
+
+[node name="Panel" type="Panel" parent="." unique_id=1599362561]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(200, 50)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -150.0
+offset_top = -58.0
+offset_right = 150.0
+offset_bottom = 58.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+theme = SubResource("Theme_x0dr1")
+theme_override_styles/panel = SubResource("StyleBoxFlat_2yscy")
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="Panel" unique_id=1647448293]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -125.0
+offset_top = -35.5
+offset_right = 125.0
+offset_bottom = 35.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Ability Name" type="Label" parent="Panel/VBoxContainer2" unique_id=1962164643]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 1
+text = "Hello World"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/VBoxContainer2" unique_id=393024533]
+layout_mode = 2
+
+[node name="Panel2" type="Panel" parent="Panel/VBoxContainer2/VBoxContainer" unique_id=1412948951]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(250, 50)
+layout_mode = 2
+mouse_filter = 1
+theme = SubResource("Theme_x0dr1")
+theme_override_styles/panel = SubResource("StyleBoxFlat_x0dr1")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/VBoxContainer2/VBoxContainer/Panel2" unique_id=1901784697]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.5
+offset_top = -20.0
+offset_right = 20.5
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Description" type="HBoxContainer" parent="Panel/VBoxContainer2/VBoxContainer/Panel2/VBoxContainer" unique_id=1521591750]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 4
+theme = ExtResource("5_2yscy")
+
+[node name="Combination_Pictures" type="HBoxContainer" parent="Panel/VBoxContainer2/VBoxContainer/Panel2/VBoxContainer" unique_id=255091381]
+unique_name_in_owner = true
+layout_mode = 2
